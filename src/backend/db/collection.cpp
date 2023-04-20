@@ -6,14 +6,13 @@ Collection::Collection() {
     this->name = "default collection";
     this->id = 9999;
 }
-Collection::Collection(int id, string name) {
+Collection::Collection(int d, string name) {
     this->name = name;
-    this->id = id;
 }
-// bool Collection::create_document(int id) {
-//     documents.insert({id, Document(id)});
-//     return 1;
-// }
+bool Collection::create_document(int id) {
+    documents.insert({id, Document(id)});
+    return 1;
+}
 Document& Collection::get_document(int id) {
     return documents[id];
 }
