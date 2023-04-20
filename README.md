@@ -1,2 +1,6 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10831999&assignment_repo_type=AssignmentRepo)
 # Project-CS180
+
+## Interface Documentation
+
+    RestDB+ is a document data storing webapp that LiterallyAnything developed. This software consists of all basic CRUD functions along with a query to view different files that have been uploaded previously. To use the interface, you first have to upload files into the database to use the other features of the database. To do this, you would click on the "Create Database" button to be transported to the page where you can upload all the documents you need to store. From there you can move back to the main page and click "View Database" to view the query of where you can select an existing document you previously uploaded. When clicking on a file, you will find new buttons to appear such as the "save changes" and "remove document" buttons. The page will allow you to edit the information in the file and then save the changes with the button. If you don't want the file and its content to exist anymore, you can click the "remove document" button to delete the file from the database.
