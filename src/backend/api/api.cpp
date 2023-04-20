@@ -16,13 +16,13 @@ int main()
     crow::SimpleApp app;
     crow::mustache::set_base(".");
 
+    DBEngine DB_engine("../data");
+
     CROW_ROUTE(app, "/")
     ([] {
         crow::mustache::context ctx;
         return crow::mustache::load("jsonfield.html").render();
     });
-
-    
 
     CROW_ROUTE(app, "/createDB/<string>")
         ([](const crow::request& req, string name){
@@ -83,8 +83,6 @@ int main()
             os << x;
             return DB_engine.update_document(database_id, collection_id, document_id, os.str())
         });
-
-
 
 
     app.port(4000)
