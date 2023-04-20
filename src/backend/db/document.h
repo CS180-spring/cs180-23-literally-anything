@@ -6,6 +6,7 @@
 
 class Document {
    public:
+    Document();
     Document(int id);
     int get_id();
     std::string get_content();
