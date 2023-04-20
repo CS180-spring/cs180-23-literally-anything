@@ -1,29 +1,23 @@
 import Header from '../Components/Header'
+import React, { useRef } from "react";
 
 export default function CreateDataBase() {
-    this.state = {fileUploadState:""}
-    fileUploadButton = () => {
-        document.getElementById('fileButton').click();
-        document.getElementById('fileButton').onchange = () =>{      
-        this.setState({
-            fileUploadState:document.getElementById('fileButton').value
-                });
-            }
-        }
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const handleUpload = () => {
+      inputRef.current?.click();
+    };
     return (
         <>
             <Header />
             <h2> Create Database Page </h2>
-            <div>
-                <input id="fileButton" type="file" hidden />
-                <button onClick={this.fileUploadButton}>
-                    Image Upload
+            <div className="m-3">
+                <label className="mx-3">Choose file: </label>
+                <input useRef={inputRef} className="d-none" type="file" />
+                <button onClick={handleUpload} className="btn btn-outline-primary">
+                    Upload
                 </button>
-                {this.state.fileUploadState}
-                
-                </div>
-            
+            </div>
         </>
     )
 }
-
