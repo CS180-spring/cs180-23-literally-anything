@@ -1,6 +1,6 @@
-#include "database.h"
-#include "collection.h"
-#include "document.h"
+#include "../src/backend/db/database.h"
+#include "../src/backend/db/collection.h"
+#include "../src/backend/db/document.h"
 #include <iostream>
 
 using namespace std;
