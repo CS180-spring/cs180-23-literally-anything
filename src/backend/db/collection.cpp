@@ -11,8 +11,9 @@ Collection::Collection(int id, string name) {
     this->id = id;
 }
 // bool Collection::create_document(int id) {
-//     documents.insert({id, Document(id)});
-//     return 1;
+//     Document temp = Document(id);
+//     documents.insert({id, temp});
+//     return true;
 // }
 Document& Collection::get_document(int id) {
     return documents[id];
