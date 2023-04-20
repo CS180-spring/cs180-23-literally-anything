@@ -14,6 +14,7 @@ class DBEngine {
     // either we can take a path and create databases in that folder,
     // or create a folder named root in the given path and create databases in the new root folder
     // parse root folder and update databases with objects for database, collection and document
+    DBEngine();
     DBEngine(std::string root_path);
 
     // All file operations are handled here.

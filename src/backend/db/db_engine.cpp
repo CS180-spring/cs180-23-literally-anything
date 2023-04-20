@@ -6,10 +6,13 @@
 #include <map>
 #include <sstream>
 #include <string>
-
+#include <chrono>
+#include <climits>
+using namespace std::chrono;
 #include "../../../include/nlohmann/json.hpp"
 using json = nlohmann::json;
 
+DBEngine::DBEngine() {int a = 1;}
 DBEngine::DBEngine(std::string root_path) {
     // create root directory in the given path root_path/root
     root_path = root_path.append("/root");
@@ -122,6 +125,7 @@ std::string DBEngine::get_document_body(int database_id, int collection_id, int 
     return content;
 }
 
+
 int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {
     Database& db = databases[database_id];
     Collection& coll = db.get_collection(collection_id);
@@ -134,4 +138,30 @@ int DBEngine::update_document(int database_id, int collection_id, int document_i
     out << body;
     out.close();
     return 0;
+}
+
+int DBEngine::create_database(std::string name) {
+    int id = duration_cast<milliseconds>(
+        system_clock::now().time_since_epoch()).count() & INT_MAX;
+    databases.insert({id,  Database(id, name)});
+    return id;
+    }
+
+int DBEngine::create_collection(int database_id, std::string name) {
+    int id = duration_cast<milliseconds>(
+        system_clock::now().time_since_epoch()).count() & INT_MAX;
+    Database& db = databases[database_id];
+    db.create_collection(id, name);
+
+    return id;
+}
+
+int DBEngine::create_document(int database_id, int collection_id) {
+    int id = duration_cast<milliseconds>(
+        system_clock::now().time_since_epoch()).count() & INT_MAX;
+    Database& db = databases[database_id];
+    Collection& coll = db.get_collection(collection_id);
+    coll.create_document(id);
+
+    return id;
 }
