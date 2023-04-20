@@ -6,6 +6,10 @@ using namespace std;
 Database::Database(string dbName, string collectionName) {
     this->dbName = dbName;
     this->collectionName = collectionName;
+
+    if (dbName.empty() || collectionName.empty()) {
+        cout << "You must enter in a name for the database and a name for the collection!";
+    };
 }
 
 void Database::add_collection(string collectionName) {
