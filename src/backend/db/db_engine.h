@@ -21,7 +21,7 @@ class db_engine {
     // returns -1 if exists or invalid name or some other error
     int create_database(std::string name);
     int create_collection(int database_id, std::string name);
-    int create_document(int database_id, int collection_id, std::string name);
+    int create_document(int database_id, int collection_id);
 
     // id: name
     std::map<int, std::string> list_databases();
