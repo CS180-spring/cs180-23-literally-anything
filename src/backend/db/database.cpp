@@ -24,11 +24,11 @@ string Database::get_name() {
     return dbName;
 }
 
-Collection Database::get_collection(int id) {
+Collection& Database::get_collection(int id) {
     return collections[id];
 }
 
-map<int, Collection> Database::get_collections() {
+map<int, Collection>& Database::get_collections() {
     return collections;
 }
 

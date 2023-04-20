@@ -8,9 +8,9 @@ class Collection {
    public:
     Collection();
     Collection(int id, string name);  // database id
-    // bool create_document(int id);   
-    Document get_document(int id);
-    map<int, Document> get_documents();
+    bool create_document(int id);     // document id
+    Document& get_document(int id);
+    map<int, Document>& get_documents();
     string get_name();
     int get_id();
 

@@ -3,14 +3,14 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <string>
-#include <map>
 
 #include "../../../include/nlohmann/json.hpp"
 using json = nlohmann::json;
 
-DBEngine::DBEngine(std::string root_path) { 
+DBEngine::DBEngine(std::string root_path) {
     // create root directory in the given path root_path/root
     root_path = root_path.append("/root");
     const std::filesystem::path root{root_path};
@@ -48,7 +48,7 @@ DBEngine::DBEngine(std::string root_path) {
                 // didnt get added or ma
                 int aasd;
             } else {
-                Database db = db_it->second;
+                Database& db = db_it->second;
                 // traverse through the database folder
                 // and create collections for each
                 for (std::filesystem::directory_entry const& coll_dir_entry : std::filesystem::directory_iterator{dir_entry.path()}) {
@@ -59,7 +59,7 @@ DBEngine::DBEngine(std::string root_path) {
                         std::ifstream coll_info_file(coll_info_path);
                         coll_info = json::parse(coll_info_file);
                         db.create_collection(db_info["id"].get<int>(), db_info["name"].get<std::string>());
-                        Collection coll = db.get_collection(coll_dir_id);
+                        Collection& coll = db.get_collection(coll_dir_id);
 
                         for (std::filesystem::directory_entry const& doc_file_entry : std::filesystem::directory_iterator{coll_dir_entry.path()}) {
                             if ((doc_file_entry.is_directory() == false) && (doc_file_entry.path().filename() != "collection.json")) {
@@ -68,9 +68,8 @@ DBEngine::DBEngine(std::string root_path) {
                                 std::ifstream doc_file(doc_file_entry.path());
                                 std::stringstream buffer;
                                 buffer << doc_file.rdbuf();
-                                std::cout << "buff" << buffer.str() << std::endl;
                                 coll.create_document(doc_file_id);
-                                Document doc = coll.get_document(doc_file_id);
+                                Document& doc = coll.get_document(doc_file_id);
                                 doc.update_content(buffer.str());
                             }
                         }
@@ -85,7 +84,6 @@ std::map<int, Database> DBEngine::get_databases() {
     return databases;
 }
 
-
 std::map<int, Collection> DBEngine::get_collections(int database_id) {
     Database db = databases[database_id];
     return db.get_collections();
@@ -98,37 +96,36 @@ std::map<int, Document> DBEngine::get_documents(int database_id, int collection_
     return coll.get_documents();
 }
 
-
-Database DBEngine::get_database(int database_id) {
+Database& DBEngine::get_database(int database_id) {
     // add logic if database_id does note exist
     return databases[database_id];
 }
 
-Collection DBEngine::get_collection(int database_id, int collection_id) {
-    Database db = databases[database_id];
-    Collection coll = db.get_collection(collection_id);
+Collection& DBEngine::get_collection(int database_id, int collection_id) {
+    Database& db = databases[database_id];
+    Collection& coll = db.get_collection(collection_id);
     return coll;
 }
 
-Document DBEngine::get_document(int database_id, int collection_id, int document_id) {
-    Database db = databases[database_id];
-    Collection coll = db.get_collection(collection_id);
-    Document doc = coll.get_document(document_id);
+Document& DBEngine::get_document(int database_id, int collection_id, int document_id) {
+    Database& db = databases[database_id];
+    Collection& coll = db.get_collection(collection_id);
+    Document& doc = coll.get_document(document_id);
     return doc;
 }
 
 std::string DBEngine::get_document_body(int database_id, int collection_id, int document_id) {
-    Database db = databases[database_id];
-    Collection coll = db.get_collection(collection_id);
-    Document doc = coll.get_document(document_id);
+    Database& db = databases[database_id];
+    Collection& coll = db.get_collection(collection_id);
+    Document& doc = coll.get_document(document_id);
     std::string content = doc.get_content();
     return content;
 }
 
 int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {
-    Database db = databases[database_id];
-    Collection coll = db.get_collection(collection_id);
-    Document doc = coll.get_document(document_id);
+    Database& db = databases[database_id];
+    Collection& coll = db.get_collection(collection_id);
+    Document& doc = coll.get_document(document_id);
     doc.update_content(body);
 
     // update file system

@@ -9,8 +9,8 @@ class Database {
         Database(int id, string dbName, string collectionName);
         // bool create_collection(int id, string collectionName);
         string get_name();
-        Collection get_collection(int id);
-        map<int, Collection> get_collections();
+        Collection& get_collection(int id);
+        map<int, Collection>& get_collections();
         int get_id();
 
     private:

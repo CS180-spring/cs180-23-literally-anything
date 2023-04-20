@@ -33,9 +33,9 @@ class DBEngine {
     std::string get_document_body(int database_id, int collection_id, int document_id);
 
     // maybe return pointer
-    Database get_database(int database_id);
-    Collection get_collection(int database_id, int collection_id);
-    Document get_document(int database_id, int collection_id, int document_id);
+    Database& get_database(int database_id);
+    Collection& get_collection(int database_id, int collection_id);
+    Document& get_document(int database_id, int collection_id, int document_id);
 
     std::map<int, Database> get_databases();
     std::map<int, Collection> get_collections(int database_id);
