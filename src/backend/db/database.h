@@ -5,15 +5,19 @@ using namespace std;
 
 class Database {
     public:
-        Database(string dbName, string collectionName);
-        void add_collection(string collectionName);
+        Database();
+        Database(int id, string dbName, string collectionName);
+        // bool create_collection(int id, string collectionName);
         string get_name();
-        Collection get_collection(string collectionName);
+        Collection get_collection(int id);
+        map<int, Collection> get_collections();
+        int get_id();
 
-        private:
-            string dbName;
-            string collectionName;
-            map<string, Collection> database;
+    private:
+        string dbName;
+        string collectionName;
+        int id;
+        map<int, Collection> collections;
 };
 
 #endif
