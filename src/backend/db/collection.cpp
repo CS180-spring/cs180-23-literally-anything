@@ -4,8 +4,7 @@
 using namespace std;
 Collection::Collection() {
     this->name = "default collection";
-    this ->id = 9999;
-
+    this->id = 9999;
 }
 Collection::Collection(int d, string name) {
     this->name = name;
@@ -14,11 +13,11 @@ bool Collection::create_document(int id) {
     documents.insert({id, Document(id)});
     return 1;
 }
-Document Collection::get_document(int id) {
+Document& Collection::get_document(int id) {
     return documents[id];
 }
 
-map<int, Document> Collection::get_documents() {
+map<int, Document>& Collection::get_documents() {
     return documents;
 }
 

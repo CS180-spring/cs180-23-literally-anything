@@ -13,8 +13,8 @@ int main() {
         cout << "DB id: " << db_entry.first << " name: " << db.get_name() << std::endl;
     }
 
-    std::string text = db_engine.get_document_body(123, 345, 999);
+    Document& doc = db_engine.get_document(123, 345, 999);
 
-    std::cout << "out: " << text << std::endl;
+    std::cout << "out: " << doc.get_content() << std::endl;
     return 0;
 }
