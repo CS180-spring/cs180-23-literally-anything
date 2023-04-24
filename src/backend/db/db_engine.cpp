@@ -14,12 +14,12 @@ using json = nlohmann::json;
 
 DBEngine::DBEngine() { int a = 1; }
 DBEngine::DBEngine(std::string root_path) {
-    this->root_path = root_path;
     // create root directory in the given path root_path/root
     root_path = root_path.append("/root");
     const std::filesystem::path root{root_path};
     std::filesystem::create_directory(root);
 
+    this->root_path = root_path;
     // traverse root_path
 
     std::string dir_name;
@@ -46,7 +46,6 @@ DBEngine::DBEngine(std::string root_path) {
             db_info = json::parse(db_info_file);
             databases.insert({dir_id, Database(db_info["id"].get<int>(), db_info["name"].get<std::string>())});
 
-            
             Database& db = databases[dir_id];
             // traverse through the database folder
             // and create collections for each
@@ -74,7 +73,6 @@ DBEngine::DBEngine(std::string root_path) {
                     }
                 }
             }
-            
         }
     }
 }
@@ -136,33 +134,69 @@ int DBEngine::update_document(int database_id, int collection_id, int document_i
 }
 
 int DBEngine::create_database(std::string name) {
-    int id = duration_cast<milliseconds>(
+    int id = duration_cast<nanoseconds>(
                  system_clock::now().time_since_epoch())
                  .count() &
              INT_MAX;
     databases.insert({id, Database(id, name)});
+
+    json db_info;
+    db_info["id"] = id;
+    db_info["name"] = name;
+    std::string db_info_str = db_info.dump(4);
+    std::string db_path = root_path + "/" + std::to_string(id);
+    std::filesystem::create_directory(db_path);
+    db_path = root_path + "/" + std::to_string(id) + "/db.json";
+    std::ofstream out(db_path);
+    out << db_info_str;
+    out.close();
+
     return id;
 }
 
 int DBEngine::create_collection(int database_id, std::string name) {
-    int id = duration_cast<milliseconds>(
+    int id = duration_cast<nanoseconds>(
                  system_clock::now().time_since_epoch())
                  .count() &
              INT_MAX;
     Database& db = databases[database_id];
     db.create_collection(id, name);
 
+    json coll_info;
+    coll_info["id"] = id;
+    coll_info["name"] = name;
+    std::string coll_info_str = coll_info.dump(4);
+    std::string coll_path = root_path + "/" + std::to_string(database_id) + "/" + std::to_string(id);
+    std::filesystem::create_directory(coll_path);
+    coll_path = root_path + "/" + std::to_string(database_id) + "/" + std::to_string(id) + "/collection.json";
+    std::ofstream out(coll_path);
+    out << coll_info_str;
+    out.close();
+
     return id;
 }
 
 int DBEngine::create_document(int database_id, int collection_id) {
-    int id = duration_cast<milliseconds>(
+    int id = duration_cast<nanoseconds>(
                  system_clock::now().time_since_epoch())
                  .count() &
              INT_MAX;
+    // int better_id = duration_cast<nanoseconds>(
+    //                     system_clock::now().time_since_epoch())
+    //                     .count() &
+    //                 INT_MAX;
+    // int64_t raw_id = duration_cast<nanoseconds>(
+    //                      system_clock::now().time_since_epoch())
+    //                      .count();
+
+    // Testing collisions
+    // std::cout << "Create Doc Raw ID: " << raw_id << " MS ID: " << id << " NS ID: " << better_id << std::endl;
     Database& db = databases[database_id];
     Collection& coll = db.get_collection(collection_id);
     coll.create_document(id);
+
+    std::string path = root_path + "/" + std::to_string(database_id) + "/" + std::to_string(collection_id) + "/" + std::to_string(id) + ".json";
+    std::ofstream{path};
 
     return id;
 }

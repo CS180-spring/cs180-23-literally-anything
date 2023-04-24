@@ -4,7 +4,10 @@
 #include <climits>
 #include <iostream>
 #include <string>
+
+#include "../include/nlohmann/json.hpp"
 using namespace std::chrono;
+using json = nlohmann::json;
 
 int main() {
     DBEngine db_engine("./test_data");
@@ -67,11 +70,24 @@ int main() {
     std::cout << "colll: " << colll.get_name() << std::endl;
     std::cout << "coll id: " << colll.get_id() << std::endl;
 
+    db_engine.create_document(db_id, coll_id);
+    db_engine.create_document(db_id, coll_id);
+    db_engine.create_document(db_id, coll_id);
+
     int doc_id = db_engine.create_document(db_id, coll_id);
     Document& docc = db_engine.get_document(db_id, coll_id, doc_id);
     std::cout << "docc: " << docc.get_id() << std::endl;
 
-    db_engine.update_document(db_id, coll_id, doc_id, "ajisodjaoisjdoiajsodiaoisjdoasjd");
+    json j2 = {
+        {"pi", 3.141},
+        {"happy", true},
+        {"name", "Niels"},
+        {"nothing", nullptr},
+        {"answer", {{"everything", 42}}},
+        {"list", {1, 0, 2}},
+        {"object", {{"currency", "USD"}, {"value", 42.99}}}};
+
+    db_engine.update_document(db_id, coll_id, doc_id, j2.dump(4));
     std::string bodyy = db_engine.get_document_body(db_id, coll_id, doc_id);
     std::cout << "body:\n"
               << bodyy << std::endl;
