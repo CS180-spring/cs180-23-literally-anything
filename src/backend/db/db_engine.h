@@ -24,12 +24,10 @@ class DBEngine {
     int create_collection(int database_id, std::string name);
     int create_document(int database_id, int collection_id);
 
-    // id: name
-    std::map<int, std::string> list_databases();
-
     // what if database_id/collection_id is invalid?
+    std::map<int, std::string> list_databases();
     std::map<int, std::string> list_collections(int database_id);
-    std::map<int, std::string> list_documents(int database_id, int collection_id);
+    std::vector<int> list_documents(int database_id, int collection_id);
 
     std::string get_document_body(int database_id, int collection_id, int document_id);
 
@@ -46,7 +44,6 @@ class DBEngine {
     int update_document(int database_id, int collection_id, int document_id, std::string body);
 
    private:
-    int id;
     std::string root_path;
     std::map<int, Database> databases;
 };
