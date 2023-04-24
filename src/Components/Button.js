@@ -1,35 +1,20 @@
-import React from 'react';
-import styled from 'styled-components';
-// Style the Button component
-const Button = styled.button`
-  /* Insert your favorite CSS code to style a button */
-`;
-const FileUploader = props => {
-  // Create a reference to the hidden file input element
-  const hiddenFileInput = React.useRef(null);
+import React, { useRef } from "react";
+
+function UploadButton() {
+    const inputRef = useRef<HTMLInputElement>(null);
   
-  // Programatically click the hidden file input element
-  // when the Button component is clicked
-  const handleClick = event => {
-    hiddenFileInput.current.click();
-  };
-  // Call a function (passed as a prop from the parent component)
-  // to handle the user-selected file 
-  const handleChange = event => {
-    const fileUploaded = event.target.files[0];
-    props.handleFile(fileUploaded);
-  };
-  return (
-    <>
-      <Button onClick={handleClick}>
-        Upload a file
-      </Button>
-      <input
-        type="file"
-        ref={hiddenFileInput}
-        onChange={handleChange}
-        style={{display: 'none'}} /* { Make the file input element invisible} */
-      />
-    </>
-  );}
-export default FileUploader;
+    const handleUpload = () => {
+      inputRef.current?.click();
+    };
+    return (
+      <div className="m-3">
+        <label className="mx-3">Choose file: </label>
+        <input ref={inputRef} className="d-none" type="file" />
+        <button onClick={handleUpload} className="btn btn-outline-primary">
+          Upload
+        </button>
+      </div>
+    );
+  }
+  
+  export default UploadButton;
