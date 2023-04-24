@@ -2,4 +2,4 @@ build/*
 .github
 .vscode
 *.o
-a.out
+*.out

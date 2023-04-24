@@ -6,8 +6,9 @@ Database::Database() {
     this->name = "default_db";
     this->id = 99999;
 }
-Database::Database(int d, string name) {
+Database::Database(int id, string name) {
     this->name = name;
+    this->id = id;
 }
 bool Database::create_collection(int id, string name) {
     collections.insert({id, Collection(id, name)});
