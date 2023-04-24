@@ -1,5 +1,6 @@
 import Header from '../Components/Header'
 import React from 'react';
+import ViewDataBase from './ViewDataBase';
 import { Route, useNavigate, Link, Routes } from "react-router-dom";
 import CreateDataBase from './CreateDataBase';
 
@@ -8,6 +9,10 @@ export default function Home() {
     const redirectToCreateDataBase = () => {
         navigate("/CreateDataBase");
     };
+    const redirectToViewDataBase = () => {
+        navigate("/ViewDataBase");
+    }
+
 
     return (
         <>
@@ -23,6 +28,15 @@ export default function Home() {
             <Routes>
                 <Route path="/CreateDataBase" element={<CreateDataBase />} />
             </Routes>
+            <button
+                onClick={redirectToViewDataBase}
+                style={{ backgroundColor: "blue", color: "white" }}
+                > View Database 
+            </button>
+            <Routes>
+                <Route path="/ViewDataBase" element={<ViewDataBase />} />
+            </Routes>
+
 
         </>
     )
