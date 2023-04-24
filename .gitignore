@@ -1,0 +1,7 @@
+node_modules
+build/*
+.github
+.vscode
+*.o
+*.out
+/tests/test_data/*
