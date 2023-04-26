@@ -18,7 +18,7 @@ Collection& Database::get_collection(int id) {
     return collections[id];
 }
 
-map<int, Collection>& Database::get_collections() {
+unordered_map<int, Collection>& Database::get_collections() {
     return collections;
 }
 

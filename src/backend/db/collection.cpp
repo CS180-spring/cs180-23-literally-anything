@@ -18,7 +18,7 @@ Document& Collection::get_document(int id) {
     return documents[id];
 }
 
-map<int, Document>& Collection::get_documents() {
+unordered_map<int, Document>& Collection::get_documents() {
     return documents;
 }
 

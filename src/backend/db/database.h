@@ -8,18 +8,18 @@
 
 class Database {
    public:
-    Database();               
+    Database();
     Database(int id, string name);                // database id
     bool create_collection(int id, string name);  //  collection id
     Collection& get_collection(int id);
-    map<int, Collection>& get_collections();
+    unordered_map<int, Collection>& get_collections();
     string get_name();
     int get_id();
 
    private:
     string name;
     int id;
-    map<int, Collection> collections;
+    unordered_map<int, Collection> collections;
 };
 
 #endif

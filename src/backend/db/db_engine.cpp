@@ -5,9 +5,9 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
-#include <map>
 #include <sstream>
 #include <string>
+#include <unordered_map>
 using namespace std::chrono;
 #include "../../../include/nlohmann/json.hpp"
 using json = nlohmann::json;
@@ -26,7 +26,7 @@ DBEngine::DBEngine(std::string root_path) {
     int dir_id;
     std::string db_info_path;
     json db_info;
-    std::map<int, Database>::iterator db_it;
+    std::unordered_map<int, Database>::iterator db_it;
 
     std::string coll_dir_name;
     int coll_dir_id;
@@ -77,16 +77,16 @@ DBEngine::DBEngine(std::string root_path) {
     }
 }
 
-std::map<int, Database> DBEngine::get_databases() {
+std::unordered_map<int, Database> DBEngine::get_databases() {
     return databases;
 }
 
-std::map<int, Collection> DBEngine::get_collections(int database_id) {
+std::unordered_map<int, Collection> DBEngine::get_collections(int database_id) {
     Database db = databases[database_id];
     return db.get_collections();
 }
 
-std::map<int, Document> DBEngine::get_documents(int database_id, int collection_id) {
+std::unordered_map<int, Document> DBEngine::get_documents(int database_id, int collection_id) {
     Database db = databases[database_id];
     Collection coll = db.get_collection(collection_id);
 
@@ -201,8 +201,8 @@ int DBEngine::create_document(int database_id, int collection_id) {
     return id;
 }
 
-std::map<int, std::string> DBEngine::list_databases() {
-    std::map<int, std::string> db_names;
+std::unordered_map<int, std::string> DBEngine::list_databases() {
+    std::unordered_map<int, std::string> db_names;
     for (auto const& db_entry : databases) {
         Database db = db_entry.second;
         db_names.insert({db.get_id(), db.get_name()});
@@ -211,11 +211,11 @@ std::map<int, std::string> DBEngine::list_databases() {
     return db_names;
 }
 
-std::map<int, std::string> DBEngine::list_collections(int database_id) {
-    std::map<int, std::string> coll_names;
+std::unordered_map<int, std::string> DBEngine::list_collections(int database_id) {
+    std::unordered_map<int, std::string> coll_names;
     Database& db = databases[database_id];
 
-    map<int, Collection>& collections = db.get_collections();
+    unordered_map<int, Collection>& collections = db.get_collections();
     for (auto const& coll_entry : collections) {
         Collection coll = coll_entry.second;
         coll_names.insert({coll.get_id(), coll.get_name()});
@@ -230,7 +230,7 @@ std::vector<int> DBEngine::list_documents(int database_id, int collection_id) {
     Database& db = databases[database_id];
     Collection& coll = db.get_collection(collection_id);
 
-    map<int, Document>& documents = coll.get_documents();
+    unordered_map<int, Document>& documents = coll.get_documents();
     for (auto const& doc_entry : documents) {
         Document doc = doc_entry.second;
         doc_names.push_back(doc.get_id());

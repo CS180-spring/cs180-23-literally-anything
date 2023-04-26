@@ -26,10 +26,10 @@ int main() {
     std::string collection_name;
     int document_id;
 
-    std::map<int, std::string> coll_names;
+    std::unordered_map<int, std::string> coll_names;
 
     std::vector<int> doc_ids;
-    std::map<int, std::string> db_names = db_engine.list_databases();
+    std::unordered_map<int, std::string> db_names = db_engine.list_databases();
 
     for (auto const& db_info : db_names) {
         Database& db = db_engine.get_database(db_info.first);
