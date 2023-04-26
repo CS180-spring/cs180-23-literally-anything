@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/literally-anything/static/css/main.abd64e84.css",
+    "main.js": "/literally-anything/static/js/main.3be478f6.js",
+    "index.html": "/literally-anything/index.html",
+    "main.abd64e84.css.map": "/literally-anything/static/css/main.abd64e84.css.map",
+    "main.3be478f6.js.map": "/literally-anything/static/js/main.3be478f6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.abd64e84.css",
+    "static/js/main.3be478f6.js"
+  ]
+}
