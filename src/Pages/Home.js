@@ -27,7 +27,7 @@ export default function Home() {
             <hr />
             <button
                 onClick={redirectToCreateDataBase}
-                style={{ backgroundColor: "#8A5AA4", color: "white", height: '50px', width: '100px' }}
+                style={{ backgroundColor: "#8A5AA4", color: "white", height: '60px', width: '100px' }}
                 > Create Database 
             </button>
             <Routes>
@@ -35,7 +35,7 @@ export default function Home() {
             </Routes>
             <button
                 onClick={redirectToViewDataBase}
-                style={{ backgroundColor: "#8A5AA4", color: "white", height: '50px', width: '100px' }}
+                style={{ backgroundColor: "#8A5AA4", color: "white", height: '60px', width: '100px' }}
                 > View Database 
             </button>
             <Routes>
