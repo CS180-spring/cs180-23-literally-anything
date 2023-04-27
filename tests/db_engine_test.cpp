@@ -122,9 +122,10 @@ int main() {
     std::cout << "body:\n"
               << bodyy << std::endl;
 
+    cout << db_id << endl;
     // testing delete database
-    // db_engine.delete_database(db_id);
-    // cout << db_engine.get_database(db_id).get_name() << endl;
-
+    db_engine.delete_database(1923809720);
+   
+    // 1923809720
     return 0;
 }
