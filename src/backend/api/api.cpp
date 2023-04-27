@@ -1,16 +1,13 @@
-#include "crow.h"
-#include "../db/db_engine.h"
-
+#include "api.h"
 #include "../../../include/nlohmann/json.hpp"
 using json = nlohmann::json;
 
-#include <sstream>
-#include <string>
-#include <map>
+
+
 
 using namespace std;
 
-void setup_routes(crow::SimpleApp &app, DBEngine &DB_engine){
+void API::setup_routes(crow::SimpleApp &app, DBEngine &DB_engine){
     CROW_ROUTE(app, "/createDB").methods("POST"_method)
         ([&DB_engine](const crow::request& req){
 
@@ -96,7 +93,7 @@ void setup_routes(crow::SimpleApp &app, DBEngine &DB_engine){
 }
 
 
-
+/*
 int main()
 {
     crow::SimpleApp app;
@@ -110,11 +107,11 @@ int main()
         return crow::mustache::load("jsonfield.html").render();
     });
 
-    setup_routes(app, DB_engine);
-
+    API::setup_routes(app, DB_engine);
 
     app.port(4000)
     .multithreaded()
     .run();
 }
 
+*/
