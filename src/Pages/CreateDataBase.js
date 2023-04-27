@@ -10,7 +10,7 @@ export default function CreateDataBase() {
     return (
         <>
             <Header />
-            <h2> Create Database Page </h2>
+            <h2 style={{color: "white"}}> Create Database Page </h2>
             <div className="m-3">
                 <label className="mx-3">Choose file: </label>
                 <input useRef={inputRef} className="d-none" type="file" />
