@@ -1,8 +1,11 @@
 import Header from '../Components/Header'
-import React from 'react';
+import { useLayoutEffect, React } from 'react';
 import ViewDataBase from './ViewDataBase';
 import { Route, useNavigate, Link, Routes } from "react-router-dom";
 import CreateDataBase from './CreateDataBase';
+import "./Home.css";
+
+
 
 export default function Home() {
     const navigate = useNavigate();
@@ -12,17 +15,19 @@ export default function Home() {
     const redirectToViewDataBase = () => {
         navigate("/ViewDataBase");
     }
-
-
+    
+    useLayoutEffect(() => {
+        document.body.style.backgroundColor = "#10042C"
+   });
     return (
         <>
         
             <Header />
-            <h2> Home Page </h2>
+            <h2 style={{color: "white"}}> Home Page </h2>
             <hr />
             <button
                 onClick={redirectToCreateDataBase}
-                style={{ backgroundColor: "blue", color: "white" }}
+                style={{ backgroundColor: "#8A5AA4", color: "white", height: '50px', width: '100px' }}
                 > Create Database 
             </button>
             <Routes>
@@ -30,14 +35,14 @@ export default function Home() {
             </Routes>
             <button
                 onClick={redirectToViewDataBase}
-                style={{ backgroundColor: "blue", color: "white" }}
+                style={{ backgroundColor: "#8A5AA4", color: "white", height: '50px', width: '100px' }}
                 > View Database 
             </button>
             <Routes>
                 <Route path="/ViewDataBase" element={<ViewDataBase />} />
             </Routes>
-
-
+            
         </>
+        
     )
 }
