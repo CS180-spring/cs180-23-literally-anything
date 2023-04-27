@@ -12,9 +12,9 @@ export default function CreateDataBase() {
             <Header />
             <h2 style={{color: "white"}}> Create Database Page </h2>
             <div className="m-3">
-                <label className="mx-3">Choose file: </label>
+                <label style={{color: "white"}}className="mx-3"> Choose file: </label>
                 <input useRef={inputRef} className="d-none" type="file" />
-                <button onClick={handleUpload} className="btn btn-outline-primary">
+                <button style={{backgroundColor: "#8A5AA4", color: "white", height: '50px', width: '100px'}}onClick={handleUpload} className="btn btn-outline-primary">
                     Upload
                 </button>
             </div>
