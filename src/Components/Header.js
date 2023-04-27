@@ -1,8 +1,7 @@
 
 
-
 export default function Header() {
     return (
-        <h1> RestDB</h1>
+        <h1 style={{color: "white"}}> RestDB</h1>
     )
 }
