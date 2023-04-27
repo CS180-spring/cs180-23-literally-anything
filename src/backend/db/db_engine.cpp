@@ -241,4 +241,6 @@ std::vector<int> DBEngine::list_documents(int database_id, int collection_id) {
 
 void DBEngine::delete_database(int id) {
     databases.erase(id);
+    std::string path = root_path + "/" + std::to_string(id);
+    std::filesystem::remove_all(path);
 }
