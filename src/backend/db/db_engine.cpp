@@ -238,3 +238,7 @@ std::vector<int> DBEngine::list_documents(int database_id, int collection_id) {
 
     return doc_names;
 }
+
+void DBEngine::delete_database(int id) {
+    databases.erase(id);
+}

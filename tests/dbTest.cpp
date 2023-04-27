@@ -1,12 +1,12 @@
-// #include "../src/backend/db/database.h"
-// #include "../src/backend/db/database.h"
-// #include "../src/backend/db/collection.h"
-// #include "../src/backend/db/document.h"
-// #include <iostream>
+#include "../src/backend/db/database.h"
+#include "../src/backend/db/database.h"
+#include "../src/backend/db/collection.h"
+#include "../src/backend/db/document.h"
+#include <iostream>
 
-// using namespace std;
+using namespace std;
 
-// int main() {
+int main() {
     
 //     // TEST CASE 1
 //     Document doc1(1);   // create Document
@@ -48,7 +48,20 @@
 //     Database db3(3,"", "collect2");
 //     Database db4(4, "myDB", "");
 
-    
+    // tests delete document in Collection class
+    // Collection collect1(1, "collection1");
+    // collect1.create_document(120);
+    // collect1.get_document(120).update_content("hello world");
+    // cout << collect1.get_document(120).get_content() << endl;
+    // collect1.delete_document(120);
+    // cout << collect1.get_document(120).get_content() << endl;
 
-//     return 0;
-// }
+    Database db1(1, "db1");
+    db1.create_collection(20, "collection2");
+    cout << db1.get_collection(20).get_name() << endl;
+    db1.delete_collection(20);
+    cout << db1.get_collection(20).get_name() << endl;
+
+
+    return 0;
+}

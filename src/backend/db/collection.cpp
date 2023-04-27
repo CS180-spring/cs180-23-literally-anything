@@ -29,3 +29,7 @@ string Collection::get_name() {
 int Collection::get_id() {
     return id;
 }
+
+void Collection::delete_document(int id) {
+    documents.erase(id);
+}

@@ -29,3 +29,7 @@ string Database::get_name() {
 int Database::get_id() {
     return id;
 }
+
+void Database::delete_collection(int id) {
+    collections.erase(id);
+}

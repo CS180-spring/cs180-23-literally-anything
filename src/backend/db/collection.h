@@ -13,6 +13,7 @@ class Collection {
     unordered_map<int, Document>& get_documents();
     string get_name();
     int get_id();
+    void delete_document(int id);
 
    private:
     string name;
