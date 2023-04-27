@@ -20,29 +20,33 @@ export default function Home() {
         document.body.style.backgroundColor = "#10042C"
    });
     return (
-        <>
-        
-            <Header />
-            <h2 style={{color: "white"}}> Home Page </h2>
-            <hr />
-            <button
-                onClick={redirectToCreateDataBase}
-                style={{ backgroundColor: "#8A5AA4", color: "white", height: '60px', width: '100px' }}
+        <div className="container">
+            <div className="sidebar">
+                
+            </div>
+
+
+            <div className="main-content">
+                <Header />
+                <h2> Home Page </h2>
+                <hr />
+                <button
+                    onClick={redirectToCreateDataBase}
+                    style={{ backgroundColor: "blue", color: "white" }}
                 > Create Database 
-            </button>
-            <Routes>
-                <Route path="/CreateDataBase" element={<CreateDataBase />} />
-            </Routes>
-            <button
-                onClick={redirectToViewDataBase}
-                style={{ backgroundColor: "#8A5AA4", color: "white", height: '60px', width: '100px' }}
+                </button>
+                <Routes>
+                    <Route path="/CreateDataBase" element={<CreateDataBase />} />
+                </Routes>
+                <button
+                    onClick={redirectToViewDataBase}
+                    style={{ backgroundColor: "blue", color: "white" }}
                 > View Database 
-            </button>
-            <Routes>
-                <Route path="/ViewDataBase" element={<ViewDataBase />} />
-            </Routes>
-            
-        </>
-        
+                </button>
+                <Routes>
+                    <Route path="/ViewDataBase" element={<ViewDataBase />} />
+                </Routes>
+            </div>
+        </div>
     )
 }

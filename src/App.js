@@ -2,7 +2,7 @@ import './App.css';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Home from './Pages/Home'
 import CreateDataBase from './Pages/CreateDataBase'
-import ViewDataBase from './Pages/ViewDataBase'
+import ViewDataBase from './Pages/ViewDataBase';
 import NoPage from './Pages/NoPage';
 
 
