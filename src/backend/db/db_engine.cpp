@@ -240,5 +240,12 @@ std::vector<int> DBEngine::list_documents(int database_id, int collection_id) {
 }
 
 void DBEngine::delete_database(int id) {
-    databases.erase(id);
+    std::string path = root_path + "/" + std::to_string(id);
+    if (std::filesystem::exists(path)) {
+        databases.erase(id);
+        std::filesystem::remove_all(path);
+    }
+    else {
+        cout << "ERROR: database does not exist" << endl;
+    }
 }
