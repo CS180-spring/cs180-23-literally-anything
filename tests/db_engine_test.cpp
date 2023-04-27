@@ -10,7 +10,7 @@ using namespace std::chrono;
 using json = nlohmann::json;
 
 int main() {
-    DBEngine db_engine("./test_data");
+    DBEngine db_engine("./tests/test_data");
 
     // Test db_engine.list_ functions
 
@@ -121,6 +121,10 @@ int main() {
     std::string bodyy = db_engine.get_document_body(db_id, coll_id, doc_id);
     std::cout << "body:\n"
               << bodyy << std::endl;
+
+    // testing delete database
+    // db_engine.delete_database(db_id);
+    // cout << db_engine.get_database(db_id).get_name() << endl;
 
     return 0;
 }
