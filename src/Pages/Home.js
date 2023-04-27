@@ -15,29 +15,33 @@ export default function Home() {
 
 
     return (
-        <>
-        
-            <Header />
-            <h2> Home Page </h2>
-            <hr />
-            <button
-                onClick={redirectToCreateDataBase}
-                style={{ backgroundColor: "blue", color: "white" }}
+        <div className="container">
+            <div className="sidebar">
+                
+            </div>
+
+
+            <div className="main-content">
+                <Header />
+                <h2> Home Page </h2>
+                <hr />
+                <button
+                    onClick={redirectToCreateDataBase}
+                    style={{ backgroundColor: "blue", color: "white" }}
                 > Create Database 
-            </button>
-            <Routes>
-                <Route path="/CreateDataBase" element={<CreateDataBase />} />
-            </Routes>
-            <button
-                onClick={redirectToViewDataBase}
-                style={{ backgroundColor: "blue", color: "white" }}
+                </button>
+                <Routes>
+                    <Route path="/CreateDataBase" element={<CreateDataBase />} />
+                </Routes>
+                <button
+                    onClick={redirectToViewDataBase}
+                    style={{ backgroundColor: "blue", color: "white" }}
                 > View Database 
-            </button>
-            <Routes>
-                <Route path="/ViewDataBase" element={<ViewDataBase />} />
-            </Routes>
-
-
-        </>
+                </button>
+                <Routes>
+                    <Route path="/ViewDataBase" element={<ViewDataBase />} />
+                </Routes>
+            </div>
+        </div>
     )
 }
