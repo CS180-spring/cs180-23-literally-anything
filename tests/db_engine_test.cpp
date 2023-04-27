@@ -57,22 +57,52 @@ int main() {
     }
 
     // Test get_document and creating new db/coll/docs
-    Document& doc = db_engine.get_document(123, 345, 999);
-    std::cout << "\nContent of document: 123/345/999.json\n"
-              << doc.get_content() << std::endl;
+    // Document& doc = db_engine.get_document(123, 345, 999);
+    // std::cout << "\nContent of document: 123/345/999.json\n"
+    //           << doc.get_content() << std::endl;
 
-    int db_id = db_engine.create_database("oiasdjiaosd");
+    int db_id = db_engine.create_database("Example Database");
+    int db_id2 = db_engine.create_database("Example Database 1");
+    int db_id3 = db_engine.create_database("Example Database 2");
+    int db_id4 = db_engine.create_database("Example Database 3");
+
     Database& dbb = db_engine.get_database(db_id);
     std::cout << "\ndb: " << dbb.get_name() << std::endl;
 
-    int coll_id = db_engine.create_collection(db_id, "asdaisd");
+    int coll_id = db_engine.create_collection(db_id, "Example Collection");
+    int coll_id2 = db_engine.create_collection(db_id, "Example Collection");
+    int coll_id3 = db_engine.create_collection(db_id, "Example Collection");
+    int coll_id4 = db_engine.create_collection(db_id2, "Example Collection");
+    int coll_id5 = db_engine.create_collection(db_id2, "Example Collection");
+    int coll_id6 = db_engine.create_collection(db_id3, "Example Collection");
+    int coll_id7 = db_engine.create_collection(db_id4, "Example Collection");
+    int coll_id8 = db_engine.create_collection(db_id4, "Example Collection");
+
     Collection& colll = db_engine.get_collection(db_id, coll_id);
     std::cout << "colll: " << colll.get_name() << std::endl;
     std::cout << "coll id: " << colll.get_id() << std::endl;
 
     db_engine.create_document(db_id, coll_id);
+    db_engine.create_document(db_id, coll_id2);
+    db_engine.create_document(db_id, coll_id3);
+    db_engine.create_document(db_id2, coll_id4);
+    db_engine.create_document(db_id2, coll_id5);
+    db_engine.create_document(db_id3, coll_id6);
+    db_engine.create_document(db_id4, coll_id7);
+    db_engine.create_document(db_id4, coll_id8);
+    db_engine.create_document(db_id2, coll_id4);
+    db_engine.create_document(db_id2, coll_id5);
+    db_engine.create_document(db_id3, coll_id6);
+    db_engine.create_document(db_id4, coll_id7);
+    db_engine.create_document(db_id4, coll_id8);
     db_engine.create_document(db_id, coll_id);
-    db_engine.create_document(db_id, coll_id);
+    db_engine.create_document(db_id, coll_id2);
+    db_engine.create_document(db_id, coll_id3);
+    db_engine.create_document(db_id2, coll_id4);
+    db_engine.create_document(db_id2, coll_id5);
+    db_engine.create_document(db_id3, coll_id6);
+    db_engine.create_document(db_id4, coll_id7);
+    db_engine.create_document(db_id4, coll_id8);
 
     int doc_id = db_engine.create_document(db_id, coll_id);
     Document& docc = db_engine.get_document(db_id, coll_id, doc_id);
