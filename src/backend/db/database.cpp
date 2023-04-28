@@ -6,8 +6,9 @@ Database::Database() {
     this->name = "default_db";
     this->id = 99999;
 }
-Database::Database(int d, string name) {
+Database::Database(int id, string name) {
     this->name = name;
+    this->id = id;
 }
 bool Database::create_collection(int id, string name) {
     collections.insert({id, Collection(id, name)});
@@ -17,7 +18,7 @@ Collection& Database::get_collection(int id) {
     return collections[id];
 }
 
-map<int, Collection>& Database::get_collections() {
+unordered_map<int, Collection>& Database::get_collections() {
     return collections;
 }
 
@@ -27,4 +28,8 @@ string Database::get_name() {
 
 int Database::get_id() {
     return id;
+}
+
+void Database::delete_collection(int id) {
+    collections.erase(id);
 }
