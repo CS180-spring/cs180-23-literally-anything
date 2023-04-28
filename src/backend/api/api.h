@@ -10,7 +10,9 @@
 
 
 class API {
-   void setup_routes(crow::SimpleApp &app, DBEngine &DB_engine);
+   public:
+    //API();
+    static void setup_routes(crow::SimpleApp &app, DBEngine &DB_engine);
 };
 
 #endif
