@@ -4,7 +4,6 @@
 # Build Instructions
 
 ## Windows
-
 ### CMake
 Download and Run [CMake Installer](https://cmake.org/download/), make sure to select add to path for all users.
 
@@ -14,7 +13,6 @@ Download and Run [CMake Installer](https://cmake.org/download/), make sure to se
 Download and Run [Build Tools for Visual Studio Installer](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022), make sure to select Desktop development with C++ Workload.
 
 ## Linux
-
 ### CMake
 
 ```bash
@@ -23,6 +21,11 @@ sudo apt install cmake
 ### C++ Tools
 ```bash
 sudo apt install build-essential
+```
+## Mac
+### CMake
+```bash
+brew install cmake
 ```
 
 ## Build
