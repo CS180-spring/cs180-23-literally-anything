@@ -13,17 +13,6 @@ Download and Run [CMake Installer](https://cmake.org/download/), make sure to se
 
 Download and Run [Build Tools for Visual Studio Installer](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022), make sure to select Desktop development with C++ Workload.
 
-### Build
-```cmd
-git clone https://github.com/CS180-spring/cs180-23-literally-anything/
-cd cs180-23-literally-anything
-cd build
-cmake ..
-cmake --build .
-cd bin
-```
-Built executables can be found in cs180-23-literally-anything/build/bin
-
 ## Linux
 
 ### CMake
@@ -36,8 +25,8 @@ sudo apt install cmake
 sudo apt install build-essential
 ```
 
-### Build
-```bash
+## Build
+```cmd
 git clone https://github.com/CS180-spring/cs180-23-literally-anything/
 cd cs180-23-literally-anything
 cd build
@@ -45,6 +34,7 @@ cmake ..
 cmake --build .
 cd bin
 ```
+Built executables can be found in cs180-23-literally-anything/build/bin
 
 
 # cs180-project-API-endpoints
