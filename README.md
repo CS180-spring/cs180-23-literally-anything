@@ -28,6 +28,9 @@ Built executables can be found in cs180-23-literally-anything/build/bin
 
 ### CMake
 
+```bash
+sudo apt install cmake
+```
 ### C++ Tools
 ```bash
 sudo apt install build-essential
