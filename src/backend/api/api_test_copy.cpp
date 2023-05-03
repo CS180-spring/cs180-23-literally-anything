@@ -21,7 +21,21 @@ int main()
     crow::request req;
     crow::response res;
 
+
+    req.url = "/createDB";
+    // req.body = "{ \"name\": \"API TEST\"}";
+    json j;
+    j["name"] = "API TEST";
+    req.body = j.dump();
+    req.method = crow::HTTPMethod::POST;
+    app.handle(req, res);
+
+    std::cout << "Created DB ID: " << res.body << std::endl;
+
     req.url = "/listDBs";
+    req.method = crow::HTTPMethod::GET;
+
+    req.body = "";
 
     app.handle(req, res); //res will contain a code of 200, and a response body of "hi"
     
