@@ -1,16 +1,16 @@
-#include "../src/backend/db/db_engine.h"
+#include "db_engine.h"
 
 #include <chrono>
 #include <climits>
 #include <iostream>
 #include <string>
 
-#include "../include/nlohmann/json.hpp"
+#include "nlohmann/json.hpp"
 using namespace std::chrono;
 using json = nlohmann::json;
 
 int main() {
-    DBEngine db_engine("./tests/test_data");
+    DBEngine db_engine("../../tests/test_data");
 
     // Test db_engine.list_ functions
 

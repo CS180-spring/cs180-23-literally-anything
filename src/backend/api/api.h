@@ -1,7 +1,7 @@
 #ifndef API_H
 #define API_H
 
-#include "../db/db_engine.h"
+#include "db_engine.h"
 #include "crow.h"
 
 #include <sstream>

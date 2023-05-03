@@ -9,7 +9,7 @@
 #include <string>
 #include <unordered_map>
 using namespace std::chrono;
-#include "../../../include/nlohmann/json.hpp"
+#include "nlohmann/json.hpp"
 using json = nlohmann::json;
 
 DBEngine::DBEngine() { int a = 1; }
@@ -39,9 +39,9 @@ DBEngine::DBEngine(std::string root_path) {
 
     for (std::filesystem::directory_entry const& dir_entry : std::filesystem::directory_iterator{root}) {
         if (dir_entry.is_directory() == true) {
-            dir_name = dir_entry.path().filename();
+            dir_name = dir_entry.path().filename().string();
             dir_id = std::stoi(dir_name);
-            db_info_path = dir_entry.path() / "db.json";
+            db_info_path = dir_entry.path().string() + "/db.json";
             std::ifstream db_info_file(db_info_path);
             db_info = json::parse(db_info_file);
             databases.insert({dir_id, Database(db_info["id"].get<int>(), db_info["name"].get<std::string>())});
@@ -51,17 +51,17 @@ DBEngine::DBEngine(std::string root_path) {
             // and create collections for each
             for (std::filesystem::directory_entry const& coll_dir_entry : std::filesystem::directory_iterator{dir_entry.path()}) {
                 if (coll_dir_entry.is_directory() == true) {
-                    coll_dir_name = coll_dir_entry.path().filename();
+                    coll_dir_name = coll_dir_entry.path().filename().string();
                     coll_dir_id = std::stoi(coll_dir_name);
-                    coll_info_path = coll_dir_entry.path() / "collection.json";
+                    coll_info_path = coll_dir_entry.path().string() + "/collection.json";
                     std::ifstream coll_info_file(coll_info_path);
                     coll_info = json::parse(coll_info_file);
                     db.create_collection(coll_info["id"].get<int>(), coll_info["name"].get<std::string>());
                     Collection& coll = db.get_collection(coll_dir_id);
 
                     for (std::filesystem::directory_entry const& doc_file_entry : std::filesystem::directory_iterator{coll_dir_entry.path()}) {
-                        if ((doc_file_entry.is_directory() == false) && (doc_file_entry.path().filename() != "collection.json")) {
-                            doc_file_name = doc_file_entry.path().filename();
+                        if ((doc_file_entry.is_directory() == false) && (doc_file_entry.path().filename().string() != "collection.json")) {
+                            doc_file_name = doc_file_entry.path().filename().string();
                             doc_file_id = stoi(doc_file_name);
                             std::ifstream doc_file(doc_file_entry.path());
                             std::stringstream buffer;
