@@ -39,6 +39,18 @@ cd bin
 ```
 Built executables can be found in cs180-23-literally-anything/build/bin
 
+# Deploy Website to Github Pages
+
+```bash
+cd [project-directory]
+npm run deploy
+```
+
+Go to the [Deployments page](https://github.com/CS180-spring/cs180-23-literally-anything/deployments/) for your github repo.
+
+You can access the website at https://cs180-spring.github.io/cs180-23-literally-anything/.
+
+
 
 # cs180-project-API-endpoints
 
