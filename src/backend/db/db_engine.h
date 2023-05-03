@@ -42,7 +42,7 @@ class DBEngine {
 
     // this is also used to update the body after the document is created using create_document
     int update_document(int database_id, int collection_id, int document_id, std::string body);
-    void delete_database(int id);
+    int delete_database(int id);
 
    private:
     std::string root_path;

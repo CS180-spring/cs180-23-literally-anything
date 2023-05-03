@@ -15,6 +15,15 @@ void API::setup_routes(crow::SimpleApp &app, DBEngine &DB_engine){
             return std::to_string(DB_engine.create_database(name));
         });
 
+    CROW_ROUTE(app, "/deleteDB").methods("GET"_method)
+        ([&DB_engine](const crow::request& req){
+
+            json parsed = json::parse(req.body);
+            int db_id = stoi(parsed.at("db_id").dump()); //dump();
+            return std::to_string(DB_engine.delete_database(db_id));
+        });
+        
+
     CROW_ROUTE(app, "/listDBs").methods("GET"_method)
         ([&DB_engine](){
 
