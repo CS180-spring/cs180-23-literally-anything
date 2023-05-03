@@ -3,7 +3,6 @@
 #include "../../../include/nlohmann/json.hpp"
 using json = nlohmann::json;
 
-
 using namespace std;
 
 void API::setup_routes(crow::SimpleApp &app, DBEngine &DB_engine){
@@ -12,7 +11,7 @@ void API::setup_routes(crow::SimpleApp &app, DBEngine &DB_engine){
 
             //int DBEngine::create_database(std::string name) {
             json parsed = json::parse(req.body);
-            string name = parsed.at("name").get<std::string>();
+            string name = parsed.at("name").dump();
             return std::to_string(DB_engine.create_database(name));
         });
 
@@ -31,7 +30,7 @@ void API::setup_routes(crow::SimpleApp &app, DBEngine &DB_engine){
         ([&DB_engine](/*int db_id, string collectionName*/const crow::request& req){
             json parsed = json::parse(req.body);
 
-            int collId = DB_engine.create_collection(stoi(parsed.at("db_id").dump()), parsed.at("collectionName").get<std::string>());
+            int collId = DB_engine.create_collection(stoi(parsed.at("db_id").dump()), parsed.at("collectionName").dump());
             return std::to_string(collId);
         });
 
@@ -40,11 +39,9 @@ void API::setup_routes(crow::SimpleApp &app, DBEngine &DB_engine){
             json parsed = json::parse(req.body);
 
             json j = DB_engine.list_collections(stoi(parsed.at("db_id").dump()));
-            string jstr = to_string(j);
-            // std::ostringstream os;
-            // os << j;
-            // return os.str();
-            return jstr;
+            std::ostringstream os;
+            os << j;
+            return os.str();
             
         });
 
@@ -90,7 +87,7 @@ void API::setup_routes(crow::SimpleApp &app, DBEngine &DB_engine){
             // os << j;
             // return os.str();
 
-            return j.get<std::string>();
+            return j.dump(-1);
         });
 
     
