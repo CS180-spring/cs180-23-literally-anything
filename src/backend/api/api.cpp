@@ -3,27 +3,30 @@
 #include "../../../include/nlohmann/json.hpp"
 using json = nlohmann::json;
 
-
 using namespace std;
 
-void API::setup_routes(crow::SimpleApp &app, DBEngine &DB_engine){
+void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
     CROW_ROUTE(app, "/createDB").methods("POST"_method)
         ([&DB_engine](const crow::request& req){
 
             //int DBEngine::create_database(std::string name) {
             json parsed = json::parse(req.body);
-            string name = parsed.at("name").get<std::string>();
+            string name = parsed.at("name").dump();
             return std::to_string(DB_engine.create_database(name));
         });
 
-    CROW_ROUTE(app, "/listDBs").methods("GET"_method)
-        ([&DB_engine](){
 
-            json j = DB_engine.list_databases();
-            std::ostringstream os;
-            os << j;
-            return os.str();
-            //return os.str();
+    CROW_ROUTE(app, "/listDBs").methods("GET"_method)
+        ([&DB_engine]() {
+            std::unordered_map<int, std::string> db_map = DB_engine.list_databases();
+            json j;
+            for (const auto& pair : db_map) {
+                json db;
+                db["db_id"] = pair.first;
+                db["db_name"] = pair.second;
+                j.push_back(db);
+            }
+            return to_string(j);
         });
 
     
@@ -31,7 +34,7 @@ void API::setup_routes(crow::SimpleApp &app, DBEngine &DB_engine){
         ([&DB_engine](/*int db_id, string collectionName*/const crow::request& req){
             json parsed = json::parse(req.body);
 
-            int collId = DB_engine.create_collection(stoi(parsed.at("db_id").dump()), parsed.at("collectionName").get<std::string>());
+            int collId = DB_engine.create_collection(stoi(parsed.at("db_id").dump()), parsed.at("collectionName").dump());
             return std::to_string(collId);
         });
 
@@ -40,11 +43,9 @@ void API::setup_routes(crow::SimpleApp &app, DBEngine &DB_engine){
             json parsed = json::parse(req.body);
 
             json j = DB_engine.list_collections(stoi(parsed.at("db_id").dump()));
-            string jstr = to_string(j);
-            // std::ostringstream os;
-            // os << j;
-            // return os.str();
-            return jstr;
+            std::ostringstream os;
+            os << j;
+            return os.str();
             
         });
 
@@ -90,7 +91,7 @@ void API::setup_routes(crow::SimpleApp &app, DBEngine &DB_engine){
             // os << j;
             // return os.str();
 
-            return j.get<std::string>();
+            return j.dump(-1);
         });
 
     
@@ -105,7 +106,7 @@ void API::setup_routes(crow::SimpleApp &app, DBEngine &DB_engine){
             // std::ostringstream sos;
             // os << x;
             int x = DB_engine.update_document(database_id, collection_id, document_id, parsed.dump());
-            cout << x << endl;
+            std::cout << x << endl;
             return crow::response(200, to_string(x));
         });
 

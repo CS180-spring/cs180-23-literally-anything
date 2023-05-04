@@ -1,4 +1,4 @@
-build/*
+build/
 .github
 .vscode
 *.o
@@ -12,3 +12,6 @@ crow.h
 /tests/bin
 .DS_Store
 *.cmake
+data/
+node_modules
+

@@ -29,6 +29,8 @@ class DBEngine {
     std::unordered_map<int, std::string> list_collections(int database_id);
     std::vector<int> list_documents(int database_id, int collection_id);
 
+    int set_collection_schema(int database_id, int collection_id, std::string schema);
+    string get_collection_schema(int database_id, int collection_id);
     std::string get_document_body(int database_id, int collection_id, int document_id);
 
     // maybe return pointer
@@ -42,7 +44,7 @@ class DBEngine {
 
     // this is also used to update the body after the document is created using create_document
     int update_document(int database_id, int collection_id, int document_id, std::string body);
-    void delete_database(int id);
+    int delete_database(int id);
 
    private:
     std::string root_path;
