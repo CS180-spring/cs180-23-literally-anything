@@ -7,7 +7,7 @@ const ViewDataBase = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('http://54.183.24.168:4000/listDBs')
+    axios.get('https://54.183.24.168:4000/listDBs')
       .then(response => {
         setData(response.data);
       })

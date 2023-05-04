@@ -1,7 +1,9 @@
 import Header from '../Components/Header'
 import React, { useRef } from "react";
 
-export default function CreateDataBase() {
+const CreateDataBase = () => {
+
+    
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleUpload = () => {
@@ -21,3 +23,5 @@ export default function CreateDataBase() {
         </>
     )
 }
+
+export default CreateDataBase;
