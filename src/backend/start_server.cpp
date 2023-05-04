@@ -22,7 +22,7 @@ int main()
         .ignore();
     // clang-format on
 
-    app.ssl_file("../../httpscert/host.cert", "../../httpscert/host.key")
+    app.ssl_file("../../httpscert/host.cert", "../../httpscert/host.key");
 
 
     DBEngine DB_engine("../../data");
