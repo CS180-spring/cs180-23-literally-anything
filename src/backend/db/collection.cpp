@@ -74,10 +74,9 @@ void Collection::delete_document(int id) {
 
 json Collection::search_content_json(std::string field, std::string value) {
     json data;
-
+    vector<json> docs;
     for (auto i = documents.begin(); i != documents.end(); i++) {
         // cout << i->first << " " << i->second.get_content_json() << endl;
-        vector<json> docs;
         data = i->second.get_content_json();
 
         if (data[field] == value) {
