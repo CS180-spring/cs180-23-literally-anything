@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include "nlohmann/json.hpp"
+using json = nlohmann::json;
 
 class Document {
    public:
@@ -10,13 +12,13 @@ class Document {
     Document(int id);
     int get_id();
     std::string get_content();
+    json get_content_json();
     bool update_content(std::string content);
 
    private:
     int id;
-
-    // this will be a json object in the future
-    std::string body;
+    std::string content_str;
+    json content;
 };
 
 #endif

@@ -1,12 +1,29 @@
-#include "api/api.h"
+#include "api.h"
 
-#include "../../include/nlohmann/json.hpp"
+#include "nlohmann/json.hpp"
 using json = nlohmann::json;
 
 int main()
 {
-    crow::SimpleApp app;
+    //crow::SimpleApp app;
+    crow::App<crow::CORSHandler> app;
     crow::mustache::set_base(".");
+
+    auto& cors = app.get_middleware<crow::CORSHandler>();
+
+    // clang-format off
+    cors
+      .global()
+        .headers("X-Custom-Header", "Access-Control-Allow-Origin")
+        .methods("POST"_method, "GET"_method)
+      .prefix("/cors")
+        .origin("example.com")
+      .prefix("/nocors")
+        .ignore();
+    // clang-format on
+
+    app.ssl_file("../../httpscert/host.cert", "../../httpscert/host.key");
+
 
     DBEngine DB_engine("../../data");
 
