@@ -32,8 +32,3 @@ bool Document::update_content(std::string new_content) {
     return true;
 }
 
-std::string Document::get_content_json(std::string field, std::string value) {
-
-
-}
-

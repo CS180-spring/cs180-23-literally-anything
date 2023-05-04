@@ -139,8 +139,9 @@ int main() {
               << json::parse(bodyy).dump(2) << std::endl;
 
     // testing delete database
-    db_engine.delete_database(db_id);
-    cout << db_engine.get_database(db_id).get_name() << endl;
+    // db_engine.delete_database(db_id);
+    // cout << db_engine.get_database(db_id).get_name() << endl;
+    colll.search_content_json("hi", "there");
    
     return 0;
 }

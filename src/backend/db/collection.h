@@ -23,6 +23,7 @@ class Collection {
     Document& get_document(int id);
     unordered_map<int, Document>& get_documents();
     void delete_document(int id);
+    json search_content_json(std::string field, std::string value);
 
    private:
     int id;

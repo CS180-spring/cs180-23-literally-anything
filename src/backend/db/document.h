@@ -14,7 +14,6 @@ class Document {
     std::string get_content();
     json get_content_json();
     bool update_content(std::string content);
-    std::string get_content_json(std::string field, std::string value);
 
    private:
     int id;
