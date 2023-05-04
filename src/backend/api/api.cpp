@@ -94,6 +94,24 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             return j.dump(-1);
         });
 
+    CROW_ROUTE(app, "/deleteDB").methods("GET"_method)
+        ([&DB_engine](const crow::request& req){
+            json parsed = json::parse(req.body);
+            return DB_engine.delete_database(stoi(parsed.at("db_id").dump()));
+        });
+    
+    
+    CROW_ROUTE(app, "/searchContent").methods("GET"_method)
+        ([&DB_engine](const crow::request& req){
+            json parsed = json::parse(req.body);
+            // {"db_id": ...,
+            // "coll_id": ...,
+            // "query_key": ...,
+            // "query_val": ..}
+
+            vector<json> docscol = DB_engine.get_collection(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump())).search_content_json(stoi(parsed.at("query_key").dump()), stoi(parsed.at("query_val").dump()));
+            return docscol;
+        });
     
 //int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {
     CROW_ROUTE(app, "/updateDoctument/<int>/<int>/<int>")
