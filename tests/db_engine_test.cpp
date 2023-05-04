@@ -141,7 +141,10 @@ int main() {
     // testing delete database
     // db_engine.delete_database(db_id);
     // cout << db_engine.get_database(db_id).get_name() << endl;
-    colll.search_content_json("hi", "there");
+    json search = colll.search_content_json("name", "Niels");     
+    std::cout << "Searching name: Niels, search result:" << search.dump(2) << std::endl;     
+    json search2 = colll.search_content_json("name", "Bob");     
+    std::cout << "Searching name: Bob, search result::" << search2.dump(2) << std::endl;
    
     return 0;
 }
