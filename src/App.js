@@ -5,10 +5,14 @@ import CreateDataBase from './Pages/CreateDataBase'
 import ViewDataBase from './Pages/ViewDataBase';
 import NoPage from './Pages/NoPage';
 import axios from 'axios';
-import { React, useEffect, useState } from 'react';
-import Components from './Components/posts'
 
-
+axios.get('https://54.183.24.168:4000/listDBs')
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
 
 function App() {
 
@@ -25,9 +29,9 @@ function App() {
       <HashRouter>
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/home/*" element={<Home />} />
-          <Route path="/createDataBase/*" element={<CreateDataBase />} />
-          <Route path="/viewDataBase/*" element ={<ViewDataBase />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/createDataBase" element={<CreateDataBase />} />
+          <Route path="/viewDataBase" element={<ViewDataBase />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
       </HashRouter>

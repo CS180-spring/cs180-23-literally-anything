@@ -4,7 +4,6 @@ import ViewDataBase from './ViewDataBase';
 import { Route, useNavigate, Link, Routes } from "react-router-dom";
 import CreateDataBase from './CreateDataBase';
 import axios from 'axios';
-import { listDBs } from '../Components/AxiosFunctions'
 
 export default function Home() {
     const navigate = useNavigate();
@@ -19,13 +18,9 @@ export default function Home() {
         document.body.style.backgroundColor = "#10042C"
    });
 
-   const getDB = () => {
-        axios.get('http://54.183.24.168:4000/listDBs').then(
-            (response) => {
-            console.log(response);
-            }
-        );
-    }; 
+
+
+
    
     return (
         
