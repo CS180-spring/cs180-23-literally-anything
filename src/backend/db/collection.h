@@ -13,7 +13,7 @@ using namespace std;
 class Collection {
    public:
     Collection();
-    Collection(int id, string name);  // database id
+    Collection(int id, string name, string root_path);  // database id
     string get_name();
     void set_name(string new_name);
     int get_id();
@@ -31,6 +31,7 @@ class Collection {
     string name;
     json schema;
     unordered_map<int, Document> documents;
+    std::string root_path;
 };
 
 #endif
