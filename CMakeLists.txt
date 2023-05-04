@@ -14,24 +14,28 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin)
 include(FetchContent)
 
 message(STATUS "nlohmann/json...")
+set(JSON_Install ON CACHE INTERNAL "")
+
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 FetchContent_Declare(json
-  GIT_REPOSITORY https://github.com/nlohmann/json.git
-  GIT_TAG master
+  # GIT_REPOSITORY https://github.com/nlohmann/json.git
+  # GIT_TAG master
+  URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz
   )
 
 FetchContent_MakeAvailable(json)
 
 message(STATUS "asio...")
 FetchContent_Declare(asio
-  GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
-  GIT_TAG master
+  # GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
+  # GIT_TAG master
+  URL https://sourceforge.net/projects/asio/files/asio/1.28.0%20%28Stable%29/asio-1.28.0.tar.gz/download
   )
 
 FetchContent_MakeAvailable(asio)
 add_library(asio INTERFACE)
-set(ASIO_INCLUDE_DIR "${asio_SOURCE_DIR}/asio/include")
-target_include_directories(asio INTERFACE ${asio_SOURCE_DIR}/asio/include)
+set(ASIO_INCLUDE_DIR "${asio_SOURCE_DIR}/include")
+target_include_directories(asio INTERFACE ${asio_SOURCE_DIR}/include)
 target_compile_definitions(asio INTERFACE ASIO_STANDALONE)
 find_package(Threads)
 target_link_libraries(asio INTERFACE Threads::Threads)
@@ -50,11 +54,19 @@ endif()
 message(STATUS "crow...")
 
 FetchContent_Declare(crow
-  GIT_REPOSITORY https://github.com/CrowCpp/Crow.git
-  GIT_TAG master
+  # GIT_REPOSITORY https://github.com/CrowCpp/Crow.git
+  # GIT_TAG master
+  URL https://github.com/CrowCpp/Crow/tarball/master
+)
+message(STATUS "json_schema...")
+
+FetchContent_Declare(json_schema
+  GIT_REPOSITORY https://github.com/pboettch/json-schema-validator.git
+  GIT_TAG 2.2.0
 )
 
 FetchContent_MakeAvailable(crow)
+FetchContent_MakeAvailable(json_schema)
 
 add_subdirectory(tests)
 add_subdirectory(src/backend)

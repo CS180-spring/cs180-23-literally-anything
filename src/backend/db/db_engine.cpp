@@ -88,7 +88,7 @@ std::unordered_map<int, Collection> DBEngine::get_collections(int database_id) {
 
 std::unordered_map<int, Document> DBEngine::get_documents(int database_id, int collection_id) {
     Database db = databases[database_id];
-    Collection coll = db.get_collection(collection_id);
+    Collection& coll = db.get_collection(collection_id);
 
     return coll.get_documents();
 }
@@ -120,10 +120,29 @@ std::string DBEngine::get_document_body(int database_id, int collection_id, int 
 }
 
 int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {
+    json j = json::parse(body, nullptr, false);
+
+    // Not valid json
+    if (j.is_discarded()) {
+        return -1;
+    }
+
     Database& db = databases[database_id];
     Collection& coll = db.get_collection(collection_id);
     Document& doc = coll.get_document(document_id);
-    doc.update_content(body);
+
+    
+    // Check if json matches schema for colection
+    bool valid = coll.validate_json(body);
+    if (!valid) {
+        return -2;
+    }
+
+    bool updated = doc.update_content(body);
+
+    if (!updated) {
+        return -3;
+    }
 
     // update file system
     std::string path = root_path + "/" + std::to_string(database_id) + "/" + std::to_string(collection_id) + "/" + std::to_string(document_id) + ".json";
@@ -201,6 +220,24 @@ int DBEngine::create_document(int database_id, int collection_id) {
     return id;
 }
 
+int DBEngine::set_collection_schema(int database_id, int collection_id, std::string schema) {
+    Database& db = databases[database_id];
+    Collection& coll = db.get_collection(collection_id);
+
+    bool valid = coll.set_schema(schema);
+    if (!valid) return -1;
+
+    // TODO: update schema in filsystem
+    return 0;
+}
+
+string DBEngine::get_collection_schema(int database_id, int collection_id) {
+    Database& db = databases[database_id];
+    Collection& coll = db.get_collection(collection_id);
+
+    return coll.get_schema();
+}
+
 std::unordered_map<int, std::string> DBEngine::list_databases() {
     std::unordered_map<int, std::string> db_names;
     for (auto const& db_entry : databases) {
@@ -216,8 +253,8 @@ std::unordered_map<int, std::string> DBEngine::list_collections(int database_id)
     Database& db = databases[database_id];
 
     unordered_map<int, Collection>& collections = db.get_collections();
-    for (auto const& coll_entry : collections) {
-        Collection coll = coll_entry.second;
+    for (auto & coll_entry : collections) {
+        Collection& coll = coll_entry.second;
         coll_names.insert({coll.get_id(), coll.get_name()});
     }
 

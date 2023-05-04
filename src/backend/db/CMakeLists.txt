@@ -18,4 +18,4 @@ target_include_directories(DatabaseModule
     ${CMAKE_CURRENT_LIST_DIR}
   )
 
-target_link_libraries(DatabaseModule PUBLIC nlohmann_json::nlohmann_json) 
+target_link_libraries(DatabaseModule PUBLIC nlohmann_json::nlohmann_json nlohmann_json_schema_validator ) 
