@@ -1,6 +1,7 @@
 #ifndef COLLECTION_H
 #define COLLECTION_H
 #include <unordered_map>
+#include <vector>
 #include "nlohmann/json-schema.hpp"
 #include "nlohmann/json.hpp"
 using json = nlohmann::json;
