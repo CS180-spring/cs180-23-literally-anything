@@ -1,13 +1,14 @@
-#include <catch_amalgamated.hpp>
-#include <../src/backend/api/api.h>
+#include <gtest/gtest.h>
+#include <"../src/backend/api/api.h">
 #include <json.hpp>
+#include <iostream>
 #include <typeinfo>
 #include <string>
 using namespace std;
 using namespace crow;
 using json = nlohmann::json;
 int dbid,collid,docid;
-TEST_CASE("Create DB,Collection,Document")
+TEST(CreateTest,ApiTests)
 {
     SimpleApp app;
     mustache::set_base(".");
@@ -26,8 +27,9 @@ TEST_CASE("Create DB,Collection,Document")
         req.body = j.dump();
         req.method = HTTPMethod::POST;
         app.handle(req,res);
-        CHECK(res.code==200);
-        CHECK(typeid(res.body).name()=="i");
+        EXPECT_EQ(res.code,200);
+        EXPECT_EQ(typeid(res.body).name(),"s");
+        std::cout<<res.body<<endl;
         dbid=stoi(res.body);
 
         jj["collectionName"]="test456";
@@ -36,8 +38,8 @@ TEST_CASE("Create DB,Collection,Document")
         req.url = "/createCollection";
         req.method=HTTPMethod::GET;
         app.handle(req,res);
-        CHECK(res.code==200);
-        CHECK(typeid(res.body).name()=="i");
+        EXPECT_EQ(res.code,200);
+        EXPECT_EQ(typeid(res.body).name(),"s");
         collid = stoi(res.body);
 
         jjj["db_id"]=dbid;
@@ -46,29 +48,45 @@ TEST_CASE("Create DB,Collection,Document")
         req.url="/createDocument";
         req.method=HTTPMethod::GET;
         app.handle(req,res);
-        CHECK(res.code==200);
-        CHECK(typeid(res.body).name()=="i");
+        EXPECT_EQ(res.code,200);
+        EXPECT_EQ(typeid(res.body).name(),"s");
         docid=stoi(res.body);
     }
 }
-TEST_CASE("List"){
+TEST(ListTests,ApiTests){
     SimpleApp app;
     mustache::set_base(".");
     DBEngine DB_engine("../data");
     API api;
     api.setup_routes(app, DB_engine);
     app.validate();
-    SECTION("List Databases"){
-        request req;
-        response res;
+    request req;
+    response res;
 
-    }
-    SECTION("List Collections"){
-        request req;
-        response res;
-    }
-    SECTION("List Documents"){
-        request req;
-        response res;
-    }
+    nlohmann::json j;
+    req.url = "/listDBs";
+    req.method=HTTPMethod::GET;
+    app.handle(req,res);
+    cout<<res.body<<endl;
+    EXPECT_EQ(res.code,200);
+
+    nlohmann::json jj;
+    jj["db_id"]=dbid;
+    req.url = "/listCollection";
+    req.method=HTTPMethod::GET;
+    req.body=jj.dump();
+    app.handle(req,res);
+    cout<<res.body<<endl;
+    EXPECT_EQ(res.code,200);
+
+    nlohmann::json jjj;
+    jjj["db_id"]=dbid;
+    jjj["coll_id"]=collid;
+    req.url = "/listDocuments";
+    req.method=HTTPMethod::GET;
+    req.body=jjj.dump();
+    app.handle(req,res);
+    cout<<res.body<<endl;
+    EXPECT_EQ(res.code,200);
+
 }

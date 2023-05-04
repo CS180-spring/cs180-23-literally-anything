@@ -3,3 +3,12 @@ build/*
 .vscode
 *.o
 a.out
+include/crow
+crow.h
+/tests/_deps
+/tests/CMakeFiles
+/tests/lib
+/tests/test_data
+/tests/bin
+.DS_Store
+*.cmake
