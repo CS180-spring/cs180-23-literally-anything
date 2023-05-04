@@ -1,5 +1,8 @@
-build/*
+build/
 .github
 .vscode
 *.o
 a.out
+tests/test_data/
+data/
+node_modules

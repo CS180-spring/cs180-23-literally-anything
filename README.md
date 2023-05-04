@@ -1,6 +1,43 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10831999&assignment_repo_type=AssignmentRepo)
 # Project-CS180
 
+# Build Instructions
+
+## Windows
+### CMake
+Download and Run [CMake Installer](https://cmake.org/download/), make sure to select add to path for all users.
+
+### C++ Tools
+*MSYS/MINGW are not supported as of now*
+
+Download and Run [Build Tools for Visual Studio Installer](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022), make sure to select Desktop development with C++ Workload.
+
+## Linux
+### CMake
+
+```bash
+sudo apt install cmake
+```
+### C++ Tools
+```bash
+sudo apt install build-essential
+```
+## Mac
+### CMake
+```bash
+brew install cmake
+```
+
+## Build
+```cmd
+git clone https://github.com/CS180-spring/cs180-23-literally-anything/
+cd cs180-23-literally-anything
+cd build
+cmake ..
+cmake --build .
+cd bin
+```
+Built executables can be found in cs180-23-literally-anything/build/bin
 
 # Deploy Website to Github Pages
 

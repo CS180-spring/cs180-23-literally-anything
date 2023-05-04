@@ -1,6 +1,7 @@
 #include "document.h"
 
 #include <iostream>
+
 Document::Document() {
     this->id = 9999;
 }
@@ -13,12 +14,21 @@ int Document::get_id() {
 }
 
 std::string Document::get_content() {
-    return body;
+    return content_str;
+}
+json Document::get_content_json() {
+    return content;
 }
 
-bool Document::update_content(std::string content) {
-    body = content;
-    // will return false in the future if the given content is not valid json
+bool Document::update_content(std::string new_content) {
+    json j = json::parse(new_content, nullptr, false);
+
+    // Not valid json
+    if (j.is_discarded()) {
+        return false;
+    }
+    content_str = new_content;
+    content = j;
     return true;
 }
 
