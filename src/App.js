@@ -12,14 +12,13 @@ import Components from './Components/posts'
 
 function App() {
 
-  const getDB = () => {
-    axios.get('http://54.183.24.168:4000/listDBs').then(
-      (response) => {
-      console.log(response);
-      }
-    );
-  };  
-
+  axios.get('http://54.183.24.168:4000/listDBs')
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
   return (
     
     <div className="App">
