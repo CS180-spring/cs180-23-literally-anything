@@ -21,3 +21,9 @@ bool Document::update_content(std::string content) {
     // will return false in the future if the given content is not valid json
     return true;
 }
+
+std::string Document::get_content_json(std::string field, std::string value) {
+
+
+}
+
