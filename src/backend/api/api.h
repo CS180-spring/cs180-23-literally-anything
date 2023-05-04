@@ -14,7 +14,7 @@
 class API {
    public:
     //API();
-    void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine);
+    void setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine);
 };
 
 #endif

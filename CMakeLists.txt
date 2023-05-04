@@ -58,6 +58,8 @@ FetchContent_Declare(crow
   # GIT_TAG master
   URL https://github.com/CrowCpp/Crow/tarball/master
 )
+set(CROW_FEATURES ssl)
+
 message(STATUS "json_schema...")
 
 FetchContent_Declare(json_schema
