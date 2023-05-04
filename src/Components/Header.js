@@ -1,7 +1,11 @@
+import React from 'react';
 
+const Header = () => {
+  return (
+    <header>
+        <h1>RestDB+</h1>
+    </header>
+  );
+};
 
-export default function Header() {
-    return (
-        <h1 style={{color: "white"}}> RestDB</h1>
-    )
-}
+export default Header;

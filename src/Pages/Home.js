@@ -4,21 +4,15 @@ import ViewDataBase from './ViewDataBase';
 import { Route, useNavigate, Link, Routes } from "react-router-dom";
 import CreateDataBase from './CreateDataBase';
 
-
-
-
 export default function Home() {
     const navigate = useNavigate();
     const redirectToCreateDataBase = () => {
         navigate("/CreateDataBase");
-    };
+    }
     const redirectToViewDataBase = () => {
         navigate("/ViewDataBase");
     }
     
-    useLayoutEffect(() => {
-        document.body.style.backgroundColor = "#10042C"
-   });
     return (
         <div className="container">
             <div className="sidebar">

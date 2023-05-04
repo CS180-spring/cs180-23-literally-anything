@@ -1,29 +1,62 @@
 import Header from '../Components/Header'
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Route, useNavigate, Link, Routes } from "react-router-dom";
+import axios from 'axios';
+
+const ViewDataBase = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://54.183.24.168:4000/listDBs')
+      .then(response => {
+        setData(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  return (
+      <div className="container">
+          <div class="topbar">
+              <h1>
+                  test
+              </h1>
+          </div>
+      
+          <div className="bottombar">
+                      <div className="sidebar">
+                          <h1>Create Database button</h1>
+
+                          <h3>other database view here</h3>
+                      </div>
 
 
-export default function ViewDataBase() {
+                      <div className="main-content">
+                          <Header />
+                          <h2> View Database Page </h2>
+                          
+                          <table>
+                            <thead>
+                              <tr>
+                               <th>DataBase ID</th>
+                                <th>DataBase Name</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {data.map((item) => (
+                              <tr key={item.db_id}>
+                                <td>{item.db_id}</td>
+                                <td>{item.db_name}</td>
+                              </tr>
+                              ))}
+                            </tbody>
+                          </table>
 
-    return (
-        <div className="container">
-            <div class="topbar">
-                <h1>
-                    test
-                </h1>
-            </div>
-        
-            <div className="bottombar">
-                        <div className="sidebar">
-                            
-                        </div>
-
-
-                        <div className="main-content">
-                            <Header />
-                            <h2> View Database Page </h2>
-                        </div>
-                </div>
-            </div>
-    )
+                      </div>
+              </div>
+          </div>
+  )
 }
+
+export default ViewDataBase;
