@@ -6,7 +6,7 @@ import ViewDataBase from './Pages/ViewDataBase';
 import NoPage from './Pages/NoPage';
 import axios from 'axios';
 
-axios.get('https://54.183.24.168:4000/listDBs')
+axios.get('https://54.177.181.151:4000/listDBs')
   .then(response => {
     console.log(response.data);
   })
