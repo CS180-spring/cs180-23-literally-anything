@@ -14,9 +14,10 @@
   left: 0;
   width: 100%;
   height: 80px;
-  background-color: #333;
+  background-color: #21104D;
   color: #fff;
   text-align: center;
+  border: 4px solid #2F1087
 }
 
 .bottombar {
@@ -26,12 +27,13 @@
 
 .sidebar {
   position: fixed;
-  top: 80px;
+  top: 88px;
   left: 0;
   width: 15%;
   height: calc(100% - 50px);
-  background-color: #ccc;
-  color: #333;
+  background-color: #21104D;
+  color: #ffffff;
+  border: 4px solid #2F1087
 }
 
 .main-content {

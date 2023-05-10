@@ -16,15 +16,8 @@ axios.get('https://54.183.24.168:4000/listDBs')
 
 function App() {
 
-  axios.get('http://54.183.24.168:4000/listDBs')
-  .then(response => {
-    console.log(response.data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+
   return (
-    
     <div className="App">
       <HashRouter>
         <Routes>
@@ -35,8 +28,8 @@ function App() {
           <Route path="*" element={<NoPage />} />
         </Routes>
       </HashRouter>
+
     </div>
-    
   );
 }
 
