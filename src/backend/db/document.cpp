@@ -31,3 +31,4 @@ bool Document::update_content(std::string new_content) {
     content = j;
     return true;
 }
+

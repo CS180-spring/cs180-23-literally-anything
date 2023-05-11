@@ -15,7 +15,6 @@ class Database {
     unordered_map<int, Collection>& get_collections();
     string get_name();
     int get_id();
-    void delete_collection(int id);
 
    private:
     string name;

@@ -1,6 +1,5 @@
-some text
-
-here is some 
-
-
-text
+{
+    "fruit": "Banana",
+    "size": "Large",
+    "color": "Yellow"
+}

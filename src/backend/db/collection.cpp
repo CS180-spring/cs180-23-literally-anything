@@ -68,8 +68,18 @@ Document& Collection::get_document(int id) {
 unordered_map<int, Document>& Collection::get_documents() {
     return documents;
 }
-void Collection::delete_document(int id) {
-    documents.erase(id);
-}
 
+json Collection::search_content_json(std::string field, std::string value) {
+    json data;
+    vector<json> docs;
+    for (auto i = documents.begin(); i != documents.end(); i++) {
+        // cout << i->first << " " << i->second.get_content_json() << endl;
+        data = i->second.get_content_json();
+
+        if (data[field] == value) {
+            docs.push_back(data);
+        }
+    }
+    return docs;
+}
 
