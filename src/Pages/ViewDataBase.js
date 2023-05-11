@@ -1,4 +1,3 @@
-import Header from '../Components/Header'
 import React, { useState, useEffect, useRef } from "react";
 import { Route, useNavigate, Link, Routes } from "react-router-dom";
 import axios from 'axios';
@@ -28,25 +27,25 @@ const ViewDataBase = () => {
           <div className="bottombar">
                       <div className="sidebar">
                           <div className="button">{/* <h1>Create Database button</h1> */}
-                            {Button && <Button buttonStyle='btn--primary' buttonSize='btn--large'> Create DataBase
+                            {Button && <Button buttonStyle='btn--outline' buttonSize='btn--large'> Create DataBase
                             </Button>}
                           </div>
-                          <div className="button">
+                          {/* <div className="button">
                             {Button && <Button buttonStyle='btn--primary' buttonSize='btn--large'> Edit DataBase
                             </Button>}
-                            {/* <h3>other database view here</h3> */}
+                             <h3>other database view here</h3> 
                           </div>
                           <div className="button">
                             {Button && <Button buttonStyle='btn--primary' buttonSize='btn--large'> View Existing DataBase
                             </Button>}
-                            {/* <h3>other database view here</h3> */}
-                          </div>
+                             <h3>other database view here</h3> 
+                          </div> */}
                       </div>
 
 
                       <div className="main-content">
-                          <Header />
-                          <h2> View Database Page </h2>
+                          
+                          
                           
                           <table>
                             <thead>
