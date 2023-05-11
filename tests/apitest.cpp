@@ -2,7 +2,6 @@
 #include "api.h"
 #include "nlohmann/json.hpp"
 #include <iostream>
-#include <typeinfo>
 #include <string>
 using namespace std;
 using json = nlohmann::json;
@@ -100,9 +99,9 @@ TEST(UpdateDocument, ApiTests)
     crow::response res;
     string testurl;
     json testjson;
-    testjson["string"] = "teststring";
-    testjson["int"] = 1234;
-    testjson["bool"] = true;
+    testjson["s"] = "teststring";
+    testjson["i"] = 1234;
+    testjson["b"] = true;
     cout << testjson.dump() << endl;
     testurl = "/updateDoctument/" + to_string(dbid) + "/" + to_string(collid) + "/" + to_string(docid);
     cout << testurl << endl;
@@ -113,29 +112,28 @@ TEST(UpdateDocument, ApiTests)
     EXPECT_EQ(res.code, 200);
     EXPECT_EQ(res.body, "0");
 }
-// TEST(FetchDocument,ApiTests){
-//     crow::App<crow::CORSHandler> app;
-//     auto &cors = app.get_middleware<crow::CORSHandler>();
-//     DBEngine DB_engine("../../data");
-//     API api;
-//     api.setup_routes(app,DB_engine);
-//     app.validate();
-//     crow::request req;
-//     crow::response res;
-//     nlohmann::json jtest;
-//     jtest["db_id"]=dbid;
-//     jtest["coll_id"]=collid;
-//     jtest["doc_id"]=docid;
-//     req.body = jtest.dump();
-//     req.url = "/fetchDocument";
-//     req.method = crow::HTTPMethod::GET;
-//     app.handle_full(req,res);
-//     EXPECT_EQ(res.code,200);
-//     nlohmann::json result = nlohmann::json::parse(res.body);
-//     string rstring = result.at("string");
-//     int rint=result["int"];
-//     bool rbool=result["bool"];
-//     EXPECT_EQ(rstring,"teststring");
-//     EXPECT_EQ(rint,1234);
-//     EXPECT_EQ(rbool,true);
-// }
+TEST(FetchDocument,ApiTests){
+    crow::App<crow::CORSHandler> app;
+    auto &cors = app.get_middleware<crow::CORSHandler>();
+    DBEngine DB_engine("../../data");
+    API api;
+    api.setup_routes(app,DB_engine);
+    app.validate();
+    crow::request req;
+    crow::response res;
+    nlohmann::json jtest;
+    jtest["db_id"]=dbid;
+    jtest["coll_id"]=collid;
+    jtest["doc_id"]=docid;
+    req.body = jtest.dump();
+    req.url = "/fetchDocument";
+    req.method = crow::HTTPMethod::GET;
+    app.handle_full(req,res);
+    EXPECT_EQ(res.code,200);
+    auto result = nlohmann::json::parse(res.body);
+    string teststring=result.dump();
+    cout<<res.body<<endl;
+    cout<<teststring<<endl;
+    // string rstring = result["string"];
+    EXPECT_EQ(res.body,"\"{\"b\":true,\"i\":1234,\"s\":\"teststring\"}\"");
+}
