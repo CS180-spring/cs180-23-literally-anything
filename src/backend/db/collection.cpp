@@ -82,11 +82,6 @@ json Collection::search_content_json(json j) {
                 docs.push_back(data);
             }
         }
-
-        // if (data[field] == value) {
-        //     docs.push_back(data);
-        // }
-
     }
     return docs;
 }
