@@ -73,12 +73,37 @@ unordered_map<int, Document>& Collection::get_documents() {
 json Collection::search_content_json(json j) {
     json data;
     vector<json> docs;
+    bool inDoc = false;
+    int numSame = 0;
     for (auto i = documents.begin(); i != documents.end(); i++) {
         // cout << i->first << " " << i->second.get_content_json() << endl;
+        numSame = 0;
         data = i->second.get_content_json();
         
         for (auto& el : j.items()) {
-            if (data[el.key()] == el.value()) {
+            cout << j.size() << endl;
+            if (j.size() <= 0 && j.size() == 1) {
+                if (data[el.key()] == el.value()) {
+                    // inDoc = true;
+                    docs.push_back(data);
+                    cout << "hello" << endl;
+                    
+                }
+            }
+            else {
+                if (data[el.key()] == el.value()) {
+                    // inDoc = true;
+                    cout << "key" << el.key() << endl;
+                    numSame++;
+                }
+                else {
+                    // inDoc = false;
+                    cout << "numSame: " << numSame << endl;
+                    return docs;
+                }
+            }
+            if (numSame == j.size()) {
+                cout << "hi" << endl;
                 docs.push_back(data);
             }
         }

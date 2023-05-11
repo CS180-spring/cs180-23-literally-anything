@@ -141,13 +141,16 @@ int main() {
     // testing delete database
     // db_engine.delete_database(db_id);
     // cout << db_engine.get_database(db_id).get_name() << endl;
-    json jtest1 = {{"name", "Niels"}};
+    json jtest1 = {{"name", "Niels"}, {"happy", true}};
     json search = colll.search_content_json(jtest1);
     json jtest2 = {{"pi", 3.141}};
     json jtest3 = {{"happy", true}};     
-    std::cout << "Searching name: Niels, search result:" << search.dump(2) << std::endl;     
+    std::cout << "Searching name: Niels, and happy: true search result:" << search.dump(2) << std::endl;     
     json search2 = colll.search_content_json(jtest2);     
     std::cout << "Searching name: pi 3.141, search result::" << search2.dump(2) << std::endl;
+    json jtest4 = {{"name", "Niels"}, {"happy", false}};
+    json search3 = colll.search_content_json(jtest4);
+    std::cout << "Searching name: Niels, and happy: false search result:" << search.dump(2) << std::endl;   
    
     return 0;
 }
