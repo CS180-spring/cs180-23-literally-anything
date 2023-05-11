@@ -31,19 +31,11 @@ const ViewDataBase = () => {
                             {Button && <Button buttonStyle='btn--outline' buttonSize='btn--large'> Create DataBase
                             </Button>}
                           </div>
-                          <div>
-                            <d
+                          <div className="dropdown">
+                            <Dropdown>
+                              
+                            </Dropdown>
                           </div>
-                          {/* <div className="button">
-                            {Button && <Button buttonStyle='btn--primary' buttonSize='btn--large'> Edit DataBase
-                            </Button>}
-                             <h3>other database view here</h3> 
-                          </div>
-                          <div className="button">
-                            {Button && <Button buttonStyle='btn--primary' buttonSize='btn--large'> View Existing DataBase
-                            </Button>}
-                             <h3>other database view here</h3> 
-                          </div> */}
                       </div>
 
 
