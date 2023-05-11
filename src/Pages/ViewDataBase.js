@@ -3,7 +3,6 @@ import { Route, useNavigate, Link, Routes } from "react-router-dom";
 import axios from 'axios';
 import { Button } from '../Components/Button';
 import { Dropdown } from '../Components/Dropdown';
-
 const ViewDataBase = () => {
   const [data, setData] = useState([]);
 
