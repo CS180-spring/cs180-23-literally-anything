@@ -103,15 +103,15 @@ TEST(UpdateDocument, ApiTests)
     testjson["string"] = "teststring";
     testjson["int"] = 1234;
     testjson["bool"] = true;
-    cout<<testjson.dump()<<endl;
-    testurl = "/updateDoctument/" + to_string(dbid)+"/"+to_string(collid)+"/"+to_string(docid);
-    cout<<testurl<<endl;
+    cout << testjson.dump() << endl;
+    testurl = "/updateDoctument/" + to_string(dbid) + "/" + to_string(collid) + "/" + to_string(docid);
+    cout << testurl << endl;
     req.method = crow::HTTPMethod::POST;
     req.url = testurl;
     req.body = testjson.dump();
-    app.handle_full(req,res);
-    EXPECT_EQ(res.code,200);
-    EXPECT_EQ(res.body,"0");
+    app.handle_full(req, res);
+    EXPECT_EQ(res.code, 200);
+    EXPECT_EQ(res.body, "0");
 }
 // TEST(FetchDocument,ApiTests){
 //     crow::App<crow::CORSHandler> app;
