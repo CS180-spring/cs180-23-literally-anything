@@ -1,11 +1,11 @@
 import { React, useRef } from "react";
 import './Button.css';
 import { Link } from 'react-router-dom';
-
+import { Dropdown } from './Dropdown'
 
 const STYLES = ['btn--primary', 'btn--outline'];
 
-const SIZES = ['btn--medium', 'btn--large'];
+const SIZES = ['btn--small', 'btn--medium', 'btn--large'];
 
 export const Button = ({children, type, onClick, buttonStyle, buttonSize}) => {
   const checkButtonStyle = STYLES.includes(buttonStyle) ? buttonStyle : STYLES[0];
@@ -14,7 +14,7 @@ export const Button = ({children, type, onClick, buttonStyle, buttonSize}) => {
 
 
   return (
-    <Link to= '/ViewDataBase' className='ViewDataBase'>
+    //<Link to= '/ViewDataBase' className='ViewDataBase'>
       <button 
       className={`btn ${checkButtonStyle} ${checkButtonSize}`}
       onClick={onClick}
@@ -22,7 +22,7 @@ export const Button = ({children, type, onClick, buttonStyle, buttonSize}) => {
       >
         {children}
       </button>
-    </Link>
+    //</Link>
   )
 }
 

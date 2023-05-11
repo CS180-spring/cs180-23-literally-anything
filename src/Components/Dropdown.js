@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import Dropdown from './Dropdown'
+import React, { useState } from 'react';
+import './Dropdown.css';
+import { Button } from './Button';
 
-function Dropdown () {
+export const Dropdown =()=> {
     const [state, setstate] = useState(false);
     const showDropdown=()=> {
         setstate(true);
@@ -10,17 +11,38 @@ function Dropdown () {
         setstate(false);
     }
     return (
-        <div className="Dropdown">
+        <div className="dropdown">
             <div classNmae="dropdown-menu" onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
-                DataBase
-
-                <ul>
-                    <li>     Collection 1</li>
-                    <li>     Collection 2</li>
-                    <li>     Collection 3</li>
-                    <li>     Collection 4</li>
-                </ul>
+                DataBase:
+                {state ?(<ul className="dropdown-list" onMouseEnter={showDropdown}>
+                    <li>
+                        <div className="button">
+                            {Button && <Button buttonStyle='btn--outline' buttonSize='btn--small'> Collection 1
+                            </Button>}
+                        </div>
+                    </li>
+                    <li>
+                        <div className="button">
+                            {Button && <Button buttonStyle='btn--outline' buttonSize='btn--small'> Collection 2
+                            </Button>}
+                        </div>
+                    </li>
+                    <li>
+                        <div className="button">
+                            {Button && <Button buttonStyle='btn--outline' buttonSize='btn--small'> Collection 3
+                            </Button>}
+                        </div>
+                    </li>
+                    <li>
+                        <div className="button">
+                            {Button && <Button buttonStyle='btn--outline' buttonSize='btn--small'> Collection 4
+                            </Button>}
+                        </div>
+                    </li>
+                </ul>):
+                null}
             </div>
         </div>
     )
 }
+

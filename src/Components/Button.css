@@ -17,6 +17,10 @@
     border: 2px solid #A85AA4;
 }
 
+.btn--edit {
+
+}
+
 .btn--outline {
     background-color: #A85AA4;
     color: #ffffff;
@@ -24,6 +28,15 @@
     border: 2px solid #2F1087;
     transition: all.3s ease-out;
 }
+
+.btn--small {
+    padding: 6px 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .btn--medium {
     padding: 8px 20px;
     margin-left: 10px;
