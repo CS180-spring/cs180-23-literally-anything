@@ -27,12 +27,11 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
 
             for (const auto& pair : db_map) {
                 j.push_back({{"id", pair.first}, {"name", pair.second}});
-                
             }
 
-            string returnObj = j.dump(-1).erase(0, 1);
-            returnObj.pop_back();
-            return crow::response(200, "json", returnObj);
+            //string returnObj = j.dump(-1).erase(0, 1);
+            //returnObj.pop_back();
+            return crow::response(200, "json", j.dump());
         });
 
     
