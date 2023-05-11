@@ -1,7 +1,7 @@
-import Header from '../Components/Header'
 import React, { useState, useEffect, useRef } from "react";
 import { Route, useNavigate, Link, Routes } from "react-router-dom";
 import axios from 'axios';
+import { Button } from '../Components/Button';
 
 const ViewDataBase = () => {
   const [data, setData] = useState([]);
@@ -20,21 +20,32 @@ const ViewDataBase = () => {
       <div className="container">
           <div class="topbar">
               <h1>
-                  test
+                  RestDB+
               </h1>
           </div>
       
           <div className="bottombar">
                       <div className="sidebar">
-                          <h1>Create Database button</h1>
-
-                          <h3>other database view here</h3>
+                          <div className="button">{/* <h1>Create Database button</h1> */}
+                            {Button && <Button buttonStyle='btn--outline' buttonSize='btn--large'> Create DataBase
+                            </Button>}
+                          </div>
+                          {/* <div className="button">
+                            {Button && <Button buttonStyle='btn--primary' buttonSize='btn--large'> Edit DataBase
+                            </Button>}
+                             <h3>other database view here</h3> 
+                          </div>
+                          <div className="button">
+                            {Button && <Button buttonStyle='btn--primary' buttonSize='btn--large'> View Existing DataBase
+                            </Button>}
+                             <h3>other database view here</h3> 
+                          </div> */}
                       </div>
 
 
                       <div className="main-content">
-                          <Header />
-                          <h2> View Database Page </h2>
+                          
+                          
                           
                           <table>
                             <thead>

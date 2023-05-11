@@ -1,20 +1,28 @@
-import React, { useRef } from "react";
+import { React, useRef } from "react";
+import './Button.css';
+import { Link } from 'react-router-dom';
 
-function UploadButton() {
-    const inputRef = useRef<HTMLInputElement>(null);
-  
-    const handleUpload = () => {
-      inputRef.current?.click();
-    };
-    return (
-      <div className="m-3">
-        <label className="mx-3">Choose file: </label>
-        <input ref={inputRef} className="d-none" type="file" />
-        <button onClick={handleUpload} className="btn btn-outline-primary">
-          Upload
-        </button>
-      </div>
-    );
-  }
-  
-  export default UploadButton;
+
+const STYLES = ['btn--primary', 'btn--outline'];
+
+const SIZES = ['btn--medium', 'btn--large'];
+
+export const Button = ({children, type, onClick, buttonStyle, buttonSize}) => {
+  const checkButtonStyle = STYLES.includes(buttonStyle) ? buttonStyle : STYLES[0];
+
+  const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[0]
+
+
+  return (
+    <Link to= '/ViewDataBase' className='ViewDataBase'>
+      <button 
+      className={`btn ${checkButtonStyle} ${checkButtonSize}`}
+      onClick={onClick}
+      type={type}
+      >
+        {children}
+      </button>
+    </Link>
+  )
+}
+
