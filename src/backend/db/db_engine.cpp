@@ -290,7 +290,7 @@ int DBEngine::delete_database(int id) {
 
 int DBEngine::delete_collection(int db_id, int coll_id) {
     std::string path = root_path + "/" + std::to_string(db_id) + "/" + std::to_string(coll_id);
-    unordered_map<int, Collection> collections = databases[db_id].get_collections();
+    unordered_map<int, Collection> &collections = databases[db_id].get_collections();
 
     if (std::filesystem::exists(path)) {
         collections.erase(coll_id);

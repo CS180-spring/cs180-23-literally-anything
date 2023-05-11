@@ -11,8 +11,12 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
 
             //int DBEngine::create_database(std::string name) {
             json parsed = json::parse(req.body);
-            string name = parsed.at("name").dump();
-            return crow::response(200, "text/plain", std::to_string(DB_engine.create_database(name)));
+            string name = parsed.at("name").dump(-1);
+            
+            string returnObj = name.erase(0, 1);
+            returnObj.pop_back();
+
+            return crow::response(200, "text/plain", std::to_string(DB_engine.create_database(returnObj)));
         });
 
 
@@ -56,7 +60,6 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             json parsed = json::parse(req.body);
 
             int docId = DB_engine.create_document(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()));
-
             //int docId = DB_engine.create_document(db_id, collection_id);
             return crow::response(200, "text/plain", std::to_string(docId));
         });
