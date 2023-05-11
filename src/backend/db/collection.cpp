@@ -79,10 +79,7 @@ json Collection::search_content_json(std::string field, std::string value) {
         if (data[field] == value) {
             docs.push_back(data);
         }
-        return docs;
-
     }
-
-
+    return docs;
 }
 

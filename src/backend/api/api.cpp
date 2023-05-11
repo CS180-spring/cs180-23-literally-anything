@@ -20,13 +20,15 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
         ([&DB_engine]() {
             std::unordered_map<int, std::string> db_map = DB_engine.list_databases();
             json j;
+
             for (const auto& pair : db_map) {
-                json db;
-                db["db_id"] = pair.first;
-                db["db_name"] = pair.second;
-                j.push_back(db);
+                j.push_back({{"id", pair.first}, {"name", pair.second}});
+                
             }
-            return to_string(j);
+
+            string returnObj = j.dump(-1).erase(0, 1);
+            returnObj.pop_back();
+            return crow::response(200, "json", returnObj);
         });
 
     
@@ -81,20 +83,40 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
         ([&DB_engine](const crow::request& req){
             json parsed = json::parse(req.body);
 
-            json j = DB_engine.get_document_body(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()), stoi(parsed.at("doc_id").dump()));
-            //json j = DB_engine.get_document(database_id, collection_id, document_id).get_content();
-            //std::ostringstream os;
-            //os << j;
-            //return os.str();
-            
-            // std::ostringstream os;
-            // os << j;
-            // return os.str();
 
-            return j.dump(-1);
+            int database_id = stoi(parsed.at("db_id").dump());
+            int collection_id = stoi(parsed.at("coll_id").dump());
+            int document_id = stoi(parsed.at("doc_id").dump());
+            string returnObj = DB_engine.get_document_body(database_id, collection_id, document_id);
+            return crow::response(200, "text/plain", returnObj);
+        });
+    
+    CROW_ROUTE(app, "/deleteDB").methods("GET"_method)
+        ([&DB_engine](const crow::request& req){
+            json parsed = json::parse(req.body);
+            return DB_engine.delete_database(stoi(parsed.at("db_id").dump()));
+        });
+    
+
+    CROW_ROUTE(app, "/searchContent").methods("GET"_method)
+        ([&DB_engine](const crow::request& req){
+            json parsed = json::parse(req.body);
+        
+            
+            Collection coll = DB_engine.get_collection(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()));
+            //json Collection::search_content_json(std::string field, std::string value)
+            auto field = parsed.at("query_key");
+            auto key = parsed.at("query_val");
+            auto result = coll.search_content_json(field, key);
+            string returnObj = result.dump(-1).erase(0, 1);
+            returnObj.pop_back();
+            return crow::response(200, "json", returnObj);
+            //coll.search_content_json(stoi(parsed.at("query_key")).dump(), stoi(parsed.at("query_val")).dump());
+            //json j = docscol
+            //return j.dump();
         });
 
-    
+
 //int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {
     CROW_ROUTE(app, "/updateDoctument/<int>/<int>/<int>")
         .methods("POST"_method)
