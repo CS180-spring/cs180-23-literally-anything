@@ -1,6 +1,6 @@
 import './App.css';
 import { Routes, Route, HashRouter } from 'react-router-dom';
-import Home from './Pages/Home'
+// import Home from './Pages/Home'
 import ViewDataBase from './Pages/ViewDataBase';
 import NoPage from './Pages/NoPage';
 import axios from 'axios';
@@ -20,9 +20,10 @@ function App() {
     <div className="App">
       <HashRouter>
         <Routes>
-          <Route index element={<Home />} />
-          <Route path="/home" element={<Home />} />
+          {/* <Route index element={<Home />} /> */}
+          <Route index element={<ViewDataBase />}/>
           <Route path="/viewDataBase" element={<ViewDataBase />} />
+          {/* <Route path="/viewDataBase" element={<ViewDataBase />} /> */}
           <Route path="*" element={<NoPage />} />
         </Routes>
       </HashRouter>
