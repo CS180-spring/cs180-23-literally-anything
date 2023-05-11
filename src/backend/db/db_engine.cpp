@@ -304,7 +304,7 @@ int DBEngine::delete_collection(int db_id, int coll_id) {
 
 int DBEngine::delete_document(int db_id, int coll_id, int doc_id) {
     std::string path = root_path + "/" + std::to_string(db_id) + "/" + std::to_string(coll_id) + "/" + std::to_string(doc_id);
-    unordered_map<int, Document> documents = databases[db_id].get_collection(coll_id).get_documents();
+    unordered_map<int, Document> &documents = databases[db_id].get_collection(coll_id).get_documents();
 
     if (std::filesystem::exists(path)) {
         documents.erase(doc_id);
