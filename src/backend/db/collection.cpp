@@ -6,13 +6,10 @@ Collection::Collection() {
     this->name = "default collection";
     this->id = 9999;
 }
-Collection::Collection(int id, string name, string root_path) {
+Collection::Collection(int id, string name) {
     this->name = name;
     this->id = id;
     this->schema = true;
-    root_path = root_path.append("/root");
-    const std::filesystem::path root{root_path};
-    this->root_path = root_path;
 }
 string Collection::get_name() {
     return name;
@@ -70,17 +67,6 @@ Document& Collection::get_document(int id) {
 
 unordered_map<int, Document>& Collection::get_documents() {
     return documents;
-}
-void Collection::delete_document(int db_id, int coll_id, int doc_id) {
-    std::string path = root_path + "/" + std::to_string(db_id) + + "/" + std::to_string(coll_id) + + "/" + std::to_string(doc_id);
-    if (std::filesystem::exists(path)) {
-        documents.erase(id);
-        std::filesystem::remove_all(path);
-    }
-    else {
-        return -1;
-    }
-    return 0;
 }
 
 json Collection::search_content_json(std::string field, std::string value) {
