@@ -75,36 +75,33 @@ json Collection::search_content_json(json j) {
     vector<json> docs;
     bool inDoc = false;
     int numSame = 0;
+
+    // iterate through every document in a collection
     for (auto i = documents.begin(); i != documents.end(); i++) {
-        // cout << i->first << " " << i->second.get_content_json() << endl;
+
         numSame = 0;
         data = i->second.get_content_json();
         
+        // iterate through the query and compare it's field and values to the ones in the document i
         for (auto& el : j.items()) {
             cout << j.size() << endl;
-            if (j.size() <= 0 && j.size() == 1) {
+            if (j.size() > 0 && j.size() == 1) {
                 if (data[el.key()] == el.value()) {
-                    // inDoc = true;
                     docs.push_back(data);
-                    cout << "hello" << endl;
-                    
+                    return docs;
                 }
             }
             else {
                 if (data[el.key()] == el.value()) {
-                    // inDoc = true;
-                    cout << "key" << el.key() << endl;
                     numSame++;
                 }
                 else {
-                    // inDoc = false;
-                    cout << "numSame: " << numSame << endl;
                     return docs;
                 }
             }
             if (numSame == j.size()) {
-                cout << "hi" << endl;
                 docs.push_back(data);
+                return docs;
             }
         }
     }

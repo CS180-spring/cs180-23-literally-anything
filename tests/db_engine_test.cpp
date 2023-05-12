@@ -150,7 +150,10 @@ int main() {
     std::cout << "Searching name: pi 3.141, search result::" << search2.dump(2) << std::endl;
     json jtest4 = {{"name", "Niels"}, {"happy", false}};
     json search3 = colll.search_content_json(jtest4);
-    std::cout << "Searching name: Niels, and happy: false search result:" << search.dump(2) << std::endl;   
+    std::cout << "Searching name: Niels, and happy: false search result:" << search3.dump(2) << std::endl;   
+    json jtest5 = {{"name", "Alex"}, {"happy", false}};
+    json search4 = colll.search_content_json(jtest5);
+    std::cout << "Searching name: Alex, and happy: false search result:" << search4.dump(2) << std::endl;   
    
     return 0;
 }
