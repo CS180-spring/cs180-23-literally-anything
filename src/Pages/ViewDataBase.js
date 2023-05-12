@@ -3,11 +3,12 @@ import { Route, useNavigate, Link, Routes } from "react-router-dom";
 import axios from 'axios';
 import { Button } from '../Components/Button';
 import { Dropdown } from '../Components/Dropdown';
+import { TextBox } from '../Components/TextBox';
 const ViewDataBase = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('https://54.183.24.168:4000/listDBs')
+    axios.get('https://54.177.181.151:4000/listDBs')
       .then(response => {
         setData(response.data);
       })
@@ -40,8 +41,9 @@ const ViewDataBase = () => {
 
                       <div className="main-content">
                           
-                          
-                          
+                        <div className="textbox">
+                          <TextBox/>
+                        </div>
                           <table>
                             <thead>
                               <tr>
@@ -51,9 +53,9 @@ const ViewDataBase = () => {
                             </thead>
                             <tbody>
                               {data.map((item) => (
-                              <tr key={item.db_id}>
-                                <td>{item.db_id}</td>
-                                <td>{item.db_name}</td>
+                              <tr key={item.id}>
+                                <td>{item.id}</td>
+                                <td>{item.name}</td>
                               </tr>
                               ))}
                             </tbody>
