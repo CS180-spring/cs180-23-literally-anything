@@ -3,7 +3,7 @@ import { Route, useNavigate, Link, Routes } from "react-router-dom";
 import axios from 'axios';
 import { Button } from '../Components/Button';
 import { Dropdown } from '../Components/Dropdown';
-import { TextBox } from '../Components/TextBox';
+import TextBox from '../Components/TextBox';
 import PopupGfg from "../Components/Popup";
 
 const ViewDataBase = () => {
@@ -34,8 +34,8 @@ const ViewDataBase = () => {
       
           <div className="bottombar">
                       <div className="sidebar">
-                          <div className="popup">
-                            <PopupGfg/>
+                        <div className="textbox">
+                            <TextBox/>
                           </div>
                           <div className="dropdown">
                             <Dropdown>
@@ -46,10 +46,6 @@ const ViewDataBase = () => {
 
 
                       <div className="main-content">
-                          
-                        <div className="textbox">
-                          <TextBox/>
-                        </div>
                           <table>
                             <thead>
                               <tr>
