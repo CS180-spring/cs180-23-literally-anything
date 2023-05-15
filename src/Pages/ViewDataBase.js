@@ -4,8 +4,11 @@ import axios from 'axios';
 import { Button } from '../Components/Button';
 import { Dropdown } from '../Components/Dropdown';
 import { TextBox } from '../Components/TextBox';
+import PopupGfg from "../Components/Popup";
+
 const ViewDataBase = () => {
   const [data, setData] = useState([]);
+  const [newDbCreated, setNewDbCreated] = useState(false);
 
   useEffect(() => {
     axios.get('https://54.177.181.151:4000/listDBs')
@@ -15,7 +18,11 @@ const ViewDataBase = () => {
       .catch(error => {
         console.log(error);
       });
-  }, []);
+  }, [newDbCreated]);
+
+  const handleNewDbCreated = () => {
+    setNewDbCreated(true);
+  }
 
   return (
       <div className="container">
@@ -27,9 +34,8 @@ const ViewDataBase = () => {
       
           <div className="bottombar">
                       <div className="sidebar">
-                          <div className="button">{/* <h1>Create Database button</h1> */}
-                            {Button && <Button buttonStyle='btn--outline' buttonSize='btn--large'> Create DataBase
-                            </Button>}
+                          <div className="popup">
+                            <PopupGfg/>
                           </div>
                           <div className="dropdown">
                             <Dropdown>
