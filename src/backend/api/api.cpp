@@ -9,7 +9,6 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
     CROW_ROUTE(app, "/createDB").methods("POST"_method)
         ([&DB_engine](const crow::request& req){
 
-            //int DBEngine::create_database(std::string name) {
             json parsed = json::parse(req.body);
             string name = parsed.at("name").dump(-1);
             
