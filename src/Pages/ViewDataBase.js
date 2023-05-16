@@ -3,6 +3,7 @@ import { Route, useNavigate, Link, Routes } from "react-router-dom";
 import axios from 'axios';
 import { Button } from '../Components/Button';
 import { Dropdown } from '../Components/Dropdown';
+
 const ViewDataBase = () => {
   const [data, setData] = useState([]);
 
@@ -18,50 +19,32 @@ const ViewDataBase = () => {
 
   return (
       <div className="container">
-          <div class="topbar">
-              <h1>
-                  RestDB+
-              </h1>
+        <div className="left_column">
+          <h1>asdf</h1>
+        </div>
+
+        <div className="main_content">
+          <div className="table_container">
+            <table>
+              <thead>
+                <tr>
+                  <th>DataBase ID</th>
+                  <th>DataBase Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.name}</td>
+                </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-      
-          <div className="bottombar">
-                      <div className="sidebar">
-                          <div className="button">{/* <h1>Create Database button</h1> */}
-                            {Button && <Button buttonStyle='btn--outline' buttonSize='btn--large'> Create DataBase
-                            </Button>}
-                          </div>
-                          <div className="dropdown">
-                            <Dropdown>
-                              
-                            </Dropdown>
-                          </div>
-                      </div>
+        </div>
 
-
-                      <div className="main-content">
-                          
-                          
-                          
-                          <table>
-                            <thead>
-                              <tr>
-                               <th>DataBase ID</th>
-                                <th>DataBase Name</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {data.map((item) => (
-                              <tr key={item.db_id}>
-                                <td>{item.db_id}</td>
-                                <td>{item.db_name}</td>
-                              </tr>
-                              ))}
-                            </tbody>
-                          </table>
-
-                      </div>
-              </div>
-          </div>
+      </div>
   )
 }
 
