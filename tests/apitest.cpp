@@ -8,25 +8,24 @@ using json = nlohmann::json;
 int dbid = 0;
 int collid = 0;
 int docid = 0;
-class ApiTest : public ::testing::Test
-{
-protected:
-    void SetUp() override
-    {
-        api.setup_routes(app, DB_engine);
-        app.validate();
-    }
-    crow::App<crow::CORSHandler app;
-    auto &cors = app.get_middleware<crow::CORSHandler>();
-    DBEngine DB_engine("/gtest_data");
-    API api;
-    crow::request req;
-    crow::response res;
-};
+// class ApiTest : public ::testing::Test
+// {
+// protected:
+//     void SetUp() override
+//     {
+//         api.setup_routes(app, DB_engine);
+//         app.validate();
+//     }
+//     crow::App<crow::CORSHandler app;
+//     auto &cors = app.get_middleware<crow::CORSHandler>();
+//     DBEngine DB_engine("../../data");
+//     API api;
+//     crow::request req;
+//     crow::response res;
+// };
 
 TEST(CreateTest, ApiTests)
 {
-
     crow::App<crow::CORSHandler> app;
     auto &cors = app.get_middleware<crow::CORSHandler>();
     DBEngine DB_engine("../../data");
@@ -42,7 +41,6 @@ TEST(CreateTest, ApiTests)
     crow::response res;
     req.url = "/createDB";
     req.body = j.dump();
-    cout << "akjlsdasdlaskdlask" << endl;
     cout << j.dump() << endl;
     req.method = crow::HTTPMethod::POST;
     app.handle_full(req, res);
@@ -166,11 +164,72 @@ TEST(SearchTest, ApiTests)
     app.validate();
     crow::request req;
     crow::response res;
+    json j;
+    j["db_id"] = dbid;
+    j["coll_id"]=collid;
+    j["query_key"]="s";
+    j["query_val"] ="teststring";
+    req.body=j.dump();
     req.url="/searchContent";
     req.method=crow::HTTPMethod::GET;
-    
+    app.handle_full(req,res);
+    EXPECT_EQ(res.code,200);
+    EXPECT_EQ(res.body,"{\"b\":true,\"i\":1234,\"s\":\"teststring\"}");
 }
- TEST(DeleteTest, ApiTests){
-
+ TEST(DeleteDocument, ApiTests){
+    crow::App<crow::CORSHandler> app;
+    auto &cors = app.get_middleware<crow::CORSHandler>();
+    DBEngine DB_engine("../../data");
+    API api;
+    api.setup_routes(app, DB_engine);
+    app.validate();
+    crow::request req;
+    crow::response res;
+    json j;
+    j["db_id"]=dbid;
+    j["coll_id"]=collid;
+    j["doc_id"]=docid;
+    req.url="/deleteDoc";
+    req.method=crow::HTTPMethod::GET;
+    req.body=j.dump();
+    app.handle_full(req,res);
+    EXPECT_EQ(res.code,200);
+    EXPECT_EQ(res.body,"0");
  }
-
+ TEST(DeleteCollection, ApiTests){
+    crow::App<crow::CORSHandler> app;
+    auto &cors = app.get_middleware<crow::CORSHandler>();
+    DBEngine DB_engine("../../data");
+    API api;
+    api.setup_routes(app, DB_engine);
+    app.validate();
+    crow::request req;
+    crow::response res;
+    json j;
+    j["db_id"]=dbid;
+    j["coll_id"]=collid;
+    req.url="/deleteColl";
+    req.method=crow::HTTPMethod::GET;
+    req.body=j.dump();
+    app.handle_full(req,res);
+    EXPECT_EQ(res.code,200);
+    EXPECT_EQ(res.body,"0");
+ }
+ TEST(DeleteDatabase, ApiTests){
+    crow::App<crow::CORSHandler> app;
+    auto &cors = app.get_middleware<crow::CORSHandler>();
+    DBEngine DB_engine("../../data");
+    API api;
+    api.setup_routes(app, DB_engine);
+    app.validate();
+    crow::request req;
+    crow::response res;
+    json j;
+    j["db_id"]=dbid;
+    req.url="/deleteDB";
+    req.method=crow::HTTPMethod::GET;
+    req.body=j.dump();
+    app.handle_full(req,res);
+    EXPECT_EQ(res.code,200);
+    EXPECT_EQ(res.body,"0");
+ }
