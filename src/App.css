@@ -2,6 +2,9 @@
 .App {
   text-align: center;
   color: white;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
 }
 
 .container {
