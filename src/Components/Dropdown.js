@@ -12,7 +12,7 @@ export const Dropdown =()=> {
     }
     return (
         <div className="dropdown">
-            <div classNmae="dropdown-menu" onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
+            <div className="dropdown-menu" onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
                 DataBase:
                 {state ?(<ul className="dropdown-list" onMouseEnter={showDropdown}>
                     <li>

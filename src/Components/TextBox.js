@@ -17,16 +17,13 @@ const TextBox = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    // You can store the user input in a state variable or perform any desired actions here.
     console.log('User input:', userInput);
     setIsOpen(false);
-    axios.post('https://54.177.181.151:4000/createDB', { data: userInput })
+    axios.post('https://54.177.181.151:4000/createDB', { userInput })
     .then(response => {
-      // Handle the response if needed
       console.log(response);
     })
     .catch(error => {
-      // Handle errors if any
       console.error(error);
     });  
   };

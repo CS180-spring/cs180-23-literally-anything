@@ -26,7 +26,7 @@ const ViewDataBase = () => {
 
   return (
       <div className="container">
-          <div class="topbar">
+          <div className="topbar">
               <h1>
                   RestDB+
               </h1>
