@@ -15,7 +15,7 @@ target_link_libraries(db_engine_test
         DatabaseModule
 )
 
-# target_link_libraries(api_test
-#     PRIVATE
-#         ApiModule
-# )
+ target_link_libraries(api_test
+     PRIVATE
+         ApiModule
+)

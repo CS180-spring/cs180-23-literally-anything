@@ -14,4 +14,5 @@ crow.h
 *.cmake
 data/
 node_modules
+CMakeCache.txt
 

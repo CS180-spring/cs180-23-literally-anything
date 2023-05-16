@@ -8,47 +8,65 @@ using json = nlohmann::json;
 int dbid = 0;
 int collid = 0;
 int docid = 0;
+class ApiTest : public ::testing::Test
+{
+protected:
+    void SetUp() override
+    {
+        api.setup_routes(app, DB_engine);
+        app.validate();
+    }
+    crow::App<crow::CORSHandler app;
+    auto &cors = app.get_middleware<crow::CORSHandler>();
+    DBEngine DB_engine("/gtest_data");
+    API api;
+    crow::request req;
+    crow::response res;
+};
+
 TEST(CreateTest, ApiTests)
 {
+
     crow::App<crow::CORSHandler> app;
     auto &cors = app.get_middleware<crow::CORSHandler>();
     DBEngine DB_engine("../../data");
     API api;
     api.setup_routes(app, DB_engine);
     app.validate();
-    {
-        nlohmann::json j;
-        nlohmann::json jj;
-        nlohmann::json jjj;
-        j["name"] = "test123";
-        crow::request req;
-        crow::response res;
-        req.url = "/createDB";
-        req.body = j.dump();
-        req.method = crow::HTTPMethod::POST;
-        app.handle_full(req, res);
-        EXPECT_EQ(res.code, 200);
-        std::cout << res.body << endl;
-        dbid = stoi(res.body);
+    
+    nlohmann::json j;
+    nlohmann::json jj;
+    nlohmann::json jjj;
+    j["name"] = "test123";
+    crow::request req;
+    crow::response res;
+    req.url = "/createDB";
+    req.body = j.dump();
+    cout << "akjlsdasdlaskdlask" << endl;
+    cout << j.dump() << endl;
+    req.method = crow::HTTPMethod::POST;
+    app.handle_full(req, res);
+    EXPECT_EQ(res.code, 200);
+    std::cout << res.body << endl;
+    dbid = stoi(res.body);
 
-        jj["collectionName"] = "test456";
-        jj["db_id"] = dbid;
-        req.body = jj.dump();
-        req.url = "/createCollection";
-        req.method = crow::HTTPMethod::GET;
-        app.handle_full(req, res);
-        EXPECT_EQ(res.code, 200);
-        collid = stoi(res.body);
+    jj["collectionName"] = "test456";
+    jj["db_id"] = dbid;
+    req.body = jj.dump();
+    req.url = "/createCollection";
+    req.method = crow::HTTPMethod::GET;
+    app.handle_full(req, res);
+    EXPECT_EQ(res.code, 200);
+    collid = stoi(res.body);
 
-        jjj["db_id"] = dbid;
-        jjj["coll_id"] = collid;
-        req.body = jjj.dump();
-        req.url = "/createDocument";
-        req.method = crow::HTTPMethod::GET;
-        app.handle_full(req, res);
-        EXPECT_EQ(res.code, 200);
-        docid = stoi(res.body);
-    }
+    jjj["db_id"] = dbid;
+    jjj["coll_id"] = collid;
+    req.body = jjj.dump();
+    req.url = "/createDocument";
+    req.method = crow::HTTPMethod::GET;
+    app.handle_full(req, res);
+    EXPECT_EQ(res.code, 200);
+    docid = stoi(res.body);
 }
 TEST(ListTests, ApiTests)
 {
@@ -112,28 +130,47 @@ TEST(UpdateDocument, ApiTests)
     EXPECT_EQ(res.code, 200);
     EXPECT_EQ(res.body, "0");
 }
-TEST(FetchDocument,ApiTests){
+TEST(FetchDocument, ApiTests)
+{
     crow::App<crow::CORSHandler> app;
     auto &cors = app.get_middleware<crow::CORSHandler>();
     DBEngine DB_engine("../../data");
     API api;
-    api.setup_routes(app,DB_engine);
+    api.setup_routes(app, DB_engine);
     app.validate();
     crow::request req;
     crow::response res;
     nlohmann::json jtest;
-    jtest["db_id"]=dbid;
-    jtest["coll_id"]=collid;
-    jtest["doc_id"]=docid;
+    jtest["db_id"] = dbid;
+    jtest["coll_id"] = collid;
+    jtest["doc_id"] = docid;
     req.body = jtest.dump();
     req.url = "/fetchDocument";
     req.method = crow::HTTPMethod::GET;
-    app.handle_full(req,res);
-    EXPECT_EQ(res.code,200);
+    app.handle_full(req, res);
+    EXPECT_EQ(res.code, 200);
     auto result = nlohmann::json::parse(res.body);
-    string teststring=result.dump();
-    cout<<res.body<<endl;
-    cout<<teststring<<endl;
+    string teststring = result.dump();
+    cout << res.body << endl;
+    cout << teststring << endl;
     // string rstring = result["string"];
-    EXPECT_EQ(res.body,"\"{\"b\":true,\"i\":1234,\"s\":\"teststring\"}\"");
+    EXPECT_EQ(res.body, "{\"b\":true,\"i\":1234,\"s\":\"teststring\"}");
 }
+TEST(SearchTest, ApiTests)
+{
+    crow::App<crow::CORSHandler> app;
+    auto &cors = app.get_middleware<crow::CORSHandler>();
+    DBEngine DB_engine("../../data");
+    API api;
+    api.setup_routes(app, DB_engine);
+    app.validate();
+    crow::request req;
+    crow::response res;
+    req.url="/searchContent";
+    req.method=crow::HTTPMethod::GET;
+    
+}
+ TEST(DeleteTest, ApiTests){
+
+ }
+
