@@ -21,7 +21,16 @@ const ViewDataBase = () => {
   }, []);
   const handleRowClick = (row) => {
     console.log('Clicked row:', row);
+
   };
+
+  const tdStyle = {
+    textAlign: 'right'
+  };
+
+  const thStyle = {
+    textAlign: 'right'
+  }
 
   return (
       <div className="container">
@@ -37,14 +46,26 @@ const ViewDataBase = () => {
               <thead>
                 <tr>
                   <th>DataBase ID</th>
-                  <th>DataBase Name</th>
+                  <th style={thStyle}>DataBase Name</th>
+                  <th style={thStyle}>View Collections or Delete</th>
                 </tr>
               </thead>
               <tbody>
                 {data.map((item) => (
                 <tr key={item.id} onClick={() => {handleRowClick(item)}}>
-                  <td>{item.id}</td>
-                  <td>{item.name} </td>
+                  <td>{item.id}   </td>
+                  <td style={tdStyle}>{item.name}
+                  </td>
+                  <td style={tdStyle}>
+                  {Button && 
+                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall'>
+                      Collections
+                    </Button>}
+                  {Button && 
+                    <Button buttonStyle='btn--outline' buttonSize='btn--small' onClick={handleDelete}> 
+                      DeleteDB
+                    </Button>}
+                  </td>
                 </tr>
                 ))}
               </tbody>
@@ -55,5 +76,18 @@ const ViewDataBase = () => {
       </div>
   )
 }
+
+const handleDelete = async (item) => {
+  try {
+    const response = await axios.delete(`https://54.177.181.151:4000/listDBs/${item}`);
+    console.log(response.data); // Optional: Handle the response data
+
+    // Perform any necessary actions after successful deletion
+
+  } catch (error) {
+    console.error('Error deleting entry:', error);
+    // Handle error case
+  }
+};
 
 export default ViewDataBase;
