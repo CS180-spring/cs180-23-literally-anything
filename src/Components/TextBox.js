@@ -5,10 +5,9 @@ import axios from 'axios';
 const TextBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userInput, setUserInput] = useState('');
-
   const handleButtonClick = () => {
     setIsOpen(true);
-        // Perform the API request here
+    
   };
 
   const handleInputChange = (event) => {
@@ -19,13 +18,17 @@ const TextBox = () => {
     event.preventDefault();
     console.log('User input:', userInput);
     setIsOpen(false);
-    axios.post('https://54.177.181.151:4000/createDB', { userInput })
-    .then(response => {
-      console.log(response);
+    process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+    
+    axios.post('https://54.177.181.151:4000/createDB', {
+      name: userInput
     })
-    .catch(error => {
-      console.error(error);
-    });  
+      .then(function(response) {
+        console.log(response.data);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 
   return (
@@ -37,7 +40,7 @@ const TextBox = () => {
       {isOpen && (
         <form onSubmit={handleFormSubmit}>
           <input type="text" value={userInput} onChange={handleInputChange} />
-          <Button buttonStyle = 'btn--outline' buttonSize='btn--medium'  type="submit" >
+          <Button buttonStyle = 'btn--outline' buttonSize='btn--small'  type="submit" >
             Submit New Database
           </Button>
         </form>
