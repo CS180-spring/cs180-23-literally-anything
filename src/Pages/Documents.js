@@ -42,10 +42,8 @@ const Documents = () => {
           <table>
             <thead>
               <tr>
-                <th>DataBase ID</th>
-                <th style={thStyle}>DataBase Name</th>
-                <th style={thStyle}>View Collections or Delete</th>
-              </tr>
+                <th>Document ID</th>
+                </tr>
             </thead>
           </table>
         </div>
