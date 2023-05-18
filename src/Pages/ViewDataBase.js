@@ -2,7 +2,8 @@ import React, { createContext, useState, useEffect, } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from '../Components/Button';
-import  TextBox  from '../Components/TextBox';
+import TextBox from '../Components/TextBox';
+import TextBoxColl from "../Components/TextBoxColl";
 
 const ViewDataBase = () => {
   const [data, setData] = useState([]);
@@ -39,8 +40,8 @@ const ViewDataBase = () => {
 
   const handleCollections = (item) => {
     handleRowClick(item);
+    const data = item.data;
     navigate('/Collections');
-
   }
 
   const tdStyle = {
@@ -52,6 +53,7 @@ const ViewDataBase = () => {
   }
 
   return (
+      
       <div className="container">
         <div className="left_column">
           <h1>ReactDB+</h1>
@@ -92,6 +94,7 @@ const ViewDataBase = () => {
         </div>
 
       </div>
+
   )
 }
 

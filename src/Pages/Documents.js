@@ -6,9 +6,6 @@ import axios from 'axios';
 import { Button } from '../Components/Button';
 
 
-
-
-
 function Collections() {
     const [data, setData] = useState([]);
     const navigate = useNavigate;
@@ -36,7 +33,7 @@ function Collections() {
       }
 
     return(
-        <div className="Collections">
+        <div className="Documents">
             <div className="container">
                 <div className="left-collumn">
                     <h1>ReactDB+</h1>

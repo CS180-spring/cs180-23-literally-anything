@@ -5,7 +5,7 @@ import axios from 'axios';
 const TextBoxColl = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userInput, setUserInput] = useState('');
-  
+
   const handleButtonClick = () => {
     setIsOpen(true);
     
@@ -19,10 +19,12 @@ const TextBoxColl = () => {
     event.preventDefault();
     console.log('User input:', userInput);
     setIsOpen(false);
+    console.log(userInput);
     process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
     
     axios.post('https://54.177.181.151:4000/createCollection', {
-      collectionName: userInput
+        //db_id: DBdata,
+        collectionName: userInput
     })
       .then(function(response) {
         console.log(response.data);
@@ -46,15 +48,7 @@ const TextBoxColl = () => {
           </Button>
         </form>
       )}
-    </div>
-
-      {/* <button onClick={handleButtonClick}>Open Text Input</button> */}
-      {/* {isOpen && (
-        <form onSubmit={handleFormSubmit}>
-          <input type="text" value={userInput} onChange={handleInputChange} />
-          <button type="submit">Submit</button>
-        </form>
-      )} */}
+      </div>
     </div>
   );
 };

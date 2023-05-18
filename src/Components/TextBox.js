@@ -5,7 +5,7 @@ import axios from 'axios';
 const TextBox = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userInput, setUserInput] = useState('');
-  
+
   const handleButtonClick = () => {
     setIsOpen(true);
     
@@ -47,15 +47,7 @@ const TextBox = () => {
         </form>
       )}
     </div>
-
-      {/* <button onClick={handleButtonClick}>Open Text Input</button> */}
-      {/* {isOpen && (
-        <form onSubmit={handleFormSubmit}>
-          <input type="text" value={userInput} onChange={handleInputChange} />
-          <button type="submit">Submit</button>
-        </form>
-      )} */}
-    </div>
+  </div>
   );
 };
 
