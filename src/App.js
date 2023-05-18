@@ -7,7 +7,6 @@ import Collections from './Pages/Collections';
 
 function App() {
 
-
   return (
     <div className="App">
       <HashRouter>

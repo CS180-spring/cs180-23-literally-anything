@@ -77,3 +77,4 @@ function Collections() {
 }
 
 export default Collections;
+export default Collections;
