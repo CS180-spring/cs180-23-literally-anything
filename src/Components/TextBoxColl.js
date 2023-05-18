@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from './Button';
 import axios from 'axios';
 
-const TextBox = () => {
+const TextBoxColl = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userInput, setUserInput] = useState('');
   
@@ -21,8 +21,8 @@ const TextBox = () => {
     setIsOpen(false);
     process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
     
-    axios.post('https://54.177.181.151:4000/createDB', {
-      name: userInput
+    axios.post('https://54.177.181.151:4000/createCollection', {
+      collectionName: userInput
     })
       .then(function(response) {
         console.log(response.data);
@@ -36,13 +36,13 @@ const TextBox = () => {
     <div>
 
     <div className="button">
-      {Button && <Button buttonStyle='btn--outline' buttonSize='btn--large' onClick={handleButtonClick}> Create Database
+      {Button && <Button buttonStyle='btn--outline' buttonSize='btn--large' onClick={handleButtonClick}> Create Collection
       </Button>}
       {isOpen && (
         <form onSubmit={handleFormSubmit}>
           <input type="text" value={userInput} onChange={handleInputChange} />
           <Button buttonStyle = 'btn--outline' buttonSize='btn--small'  type="submit" >
-            Submit New Database
+            Submit New Collection
           </Button>
         </form>
       )}
@@ -59,4 +59,4 @@ const TextBox = () => {
   );
 };
 
-export default TextBox;
+export default TextBoxColl;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from "react";
+import React, { createContext, useState, useEffect, } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from '../Components/Button';
@@ -7,6 +7,7 @@ import  TextBox  from '../Components/TextBox';
 const ViewDataBase = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+
 
   useEffect(() => {
     axios.get('https://54.177.181.151:4000/listDBs')
@@ -36,8 +37,10 @@ const ViewDataBase = () => {
       });
   };
 
-  const handleCollections = () => {
-    navigate('/Collections.js');
+  const handleCollections = (item) => {
+    handleRowClick(item);
+    navigate('/Collections');
+
   }
 
   const tdStyle = {
@@ -73,7 +76,7 @@ const ViewDataBase = () => {
                   <td style={tdStyle}> {item.name} </td>
                   <td style={tdStyle}>
                   {Button && 
-                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={handleCollections}>
+                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleCollections(item)}}>
                       Collections
                     </Button>}
                   {Button && 
