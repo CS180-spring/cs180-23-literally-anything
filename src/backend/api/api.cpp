@@ -42,7 +42,7 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             return crow::response(200, "text/plain", std::to_string(collId));
         });
 
-    CROW_ROUTE(app, "/listCollection").methods("GET"_method)
+    CROW_ROUTE(app, "/listCollection").methods("GET"_method, "POST"_method)
         ([&DB_engine](const crow::request& req){
 
             std::ostringstream os;
@@ -151,6 +151,31 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             std::cout << x << endl;
             return crow::response(200, "text/plain", to_string(x));
         });
+
+
+/*
+    CROW_ROUTE(app, "/collectionCount").methods("GET"_method)
+        ([&DB_engine](const crow::request& req){
+            
+        });
+
+
+    CROW_ROUTE(app, "/listCollection").methods("GET"_method, "POST"_method)
+        ([&DB_engine](const crow::request& req){
+
+            std::ostringstream os;
+            os << req.url_params.get("db_id");  
+            auto db_id = stoi(os.str());
+
+            json j = DB_engine.list_collections(db_id);
+            std::ostringstream result;
+            result << j;
+            return crow::response(200, "text/plain", result.str());
+        });
+        */
+
+
+    
 
     CROW_CATCHALL_ROUTE(app)
         ([](crow::response& res) {
