@@ -22,6 +22,7 @@ function App() {
       <HashRouter>
         <Routes>
           <Route index element={<ViewDataBase />}/>
+          <Route index element={<Collections />} />
           <Route path="/viewDataBase" element={<ViewDataBase />} />
           <Route path="/Collections" element={<Collections />} />
           <Route path="*" element={<NoPage />} />

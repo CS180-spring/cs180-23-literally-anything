@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNaviagate, Route, useNavigate, Link, Routes } from 'react-router-dom';
+import React, { useState, useEffect, } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from '../Components/Button';
-import { Dropdown } from '../Components/Dropdown';
 import  TextBox  from '../Components/TextBox';
-
-
 
 const ViewDataBase = () => {
   const [data, setData] = useState([]);
@@ -21,8 +18,8 @@ const ViewDataBase = () => {
       });
   }, []);
 
-  const handleRowClick = (row) => {
-    console.log('Clicked row:', row);
+  const handleRowClick = (item) => {
+    console.log('Clicked row:', item);
   };
 
   const handleDelete = (item) => {
