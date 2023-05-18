@@ -189,9 +189,11 @@ TEST(SearchTest, ApiTests)
     j["db_id"]=dbid;
     j["coll_id"]=collid;
     j["doc_id"]=docid;
+    cout<<dbid<<endl<<collid<<endl<<docid<<endl;
     req.url="/deleteDoc";
     req.method=crow::HTTPMethod::GET;
     req.body=j.dump();
+    cout<<req.body<<endl;
     app.handle_full(req,res);
     EXPECT_EQ(res.code,200);
     EXPECT_EQ(res.body,"0");
