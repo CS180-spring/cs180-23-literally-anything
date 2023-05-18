@@ -41,7 +41,7 @@ const ViewDataBase = () => {
   const handleCollections = (item) => {
     handleRowClick(item);
     const data = item.data;
-    navigate('/Collections');
+    navigate('/Collections', {state:{id:item.id}});
   }
 
   const tdStyle = {

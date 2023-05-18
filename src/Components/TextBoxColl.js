@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from './Button';
 import axios from 'axios';
 
-const TextBoxColl = () => {
+const TextBoxColl = (db_id) => {
   const [isOpen, setIsOpen] = useState(false);
   const [userInput, setUserInput] = useState('');
 
@@ -23,7 +23,7 @@ const TextBoxColl = () => {
     process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
     
     axios.post('https://54.177.181.151:4000/createCollection', {
-        //db_id: DBdata,
+        db_id: db_id.db_id,
         collectionName: userInput
     })
       .then(function(response) {

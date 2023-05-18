@@ -9,12 +9,20 @@ import { Button } from '../Components/Button';
 
 
 
+
 function Collections() {
+    
     const [data, setData] = useState([]);
     const navigate = useNavigate;
+    const location = useLocation();
+
 
     useEffect(() => {
-        axios.get('https://54.177.181.151:4000/listCollection')
+        axios.get('https://54.177.181.151:4000/listCollection', {
+            params: {
+                "db_id" : location.state.id
+            }
+        })
             .then(response => {
                 setData(response.data);
             })
@@ -40,7 +48,7 @@ function Collections() {
             <div className="container">
                 <div className="left-collumn">
                     <h1>ReactDB+</h1>
-                        <TextBoxColl/>
+                        <TextBoxColl db_id={location.state.id}/>
                 </div>
                 <div className="main_content">
                     <div className="table_container">
