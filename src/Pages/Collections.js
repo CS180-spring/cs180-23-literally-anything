@@ -5,11 +5,6 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from '../Components/Button';
 
-
-
-
-
-
 function Collections() {
     
     const [data, setData] = useState([]);
@@ -47,7 +42,7 @@ function Collections() {
         <div className="Collections">
             <div className="container">
                 <div className="left-collumn">
-                    <h1>ReactDB+</h1>
+                    <h1>ReactDB</h1>
                         <TextBoxColl db_id={location.state.id}/>
                 </div>
                 <div className="main_content">
