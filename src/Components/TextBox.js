@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from './Button';
 import axios from 'axios';
-
+import './TextBoxColl.css'
 
 const TextBox = () => {
   const [isOpen, setIsOpen] = useState(false);
