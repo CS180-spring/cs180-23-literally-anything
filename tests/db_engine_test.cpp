@@ -141,10 +141,23 @@ int main() {
     // testing delete database
     // db_engine.delete_database(db_id);
     // cout << db_engine.get_database(db_id).get_name() << endl;
-    json search = colll.search_content_json("name", "Niels");     
-    std::cout << "Searching name: Niels, search result:" << search.dump(2) << std::endl;     
-    json search2 = colll.search_content_json("name", "Bob");     
-    std::cout << "Searching name: Bob, search result::" << search2.dump(2) << std::endl;
+    json jtest1 = {{"name", "Niels"}, {"happy", true}};
+    json search = colll.search_content_json(jtest1);
+    json jtest2 = {{"pi", 3.141}};
+    json jtest3 = {{"happy", true}};     
+    std::cout << "Searching name: Niels, and happy: true search result:" << search.dump(2) << std::endl;     
+    json search2 = colll.search_content_json(jtest2);     
+    std::cout << "Searching name: pi 3.141, search result::" << search2.dump(2) << std::endl;
+    json jtest4 = {{"name", "Niels"}, {"happy", false}};
+    json search3 = colll.search_content_json(jtest4);
+    std::cout << "Searching name: Niels, and happy: false search result:" << search3.dump(2) << std::endl;   
+    json jtest5 = {{"name", "Alex"}, {"happy", false}};
+    json search4 = colll.search_content_json(jtest5);
+    std::cout << "Searching name: Alex, and happy: false search result:" << search4.dump(2) << std::endl;   
+
+    // testing count
+    cout << "Num collections: " << db_engine.get_num_collections(19524072) << endl;
+    cout << "Num documents: " << db_engine.get_num_docs(19524072, 20422072) << endl;
    
     return 0;
 }

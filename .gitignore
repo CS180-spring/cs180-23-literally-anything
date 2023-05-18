@@ -14,5 +14,6 @@ crow.h
 *.cmake
 data/
 node_modules
+package-lock.json
 CMakeCache.txt
 Makefile

@@ -69,17 +69,41 @@ unordered_map<int, Document>& Collection::get_documents() {
     return documents;
 }
 
-json Collection::search_content_json(std::string field, std::string value) {
+// j is the query inputted by the user
+json Collection::search_content_json(json j) {
     json data;
     vector<json> docs;
-    for (auto i = documents.begin(); i != documents.end(); i++) {
-        // cout << i->first << " " << i->second.get_content_json() << endl;
-        data = i->second.get_content_json();
+    bool inDoc = false;
+    int numSame = 0;
 
-        if (data[field] == value) {
-            docs.push_back(data);
+    // iterate through every document in a collection
+    for (auto i = documents.begin(); i != documents.end(); i++) {
+
+        numSame = 0;
+        data = i->second.get_content_json();
+        
+        // iterate through the query and compare it's field and values to the ones in the document i
+        for (auto& el : j.items()) {
+            cout << j.size() << endl;
+            if (j.size() > 0 && j.size() == 1) {
+                if (data[el.key()] == el.value()) {
+                    docs.push_back(data);
+                    return docs;
+                }
+            }
+            else {
+                if (data[el.key()] == el.value()) {
+                    numSame++;
+                }
+                else {
+                    return docs;
+                }
+            }
+            if (numSame == j.size()) {
+                docs.push_back(data);
+                return docs;
+            }
         }
     }
     return docs;
 }
-

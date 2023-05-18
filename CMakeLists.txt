@@ -63,7 +63,8 @@ message(STATUS "crow...")
 FetchContent_Declare(crow
   # GIT_REPOSITORY https://github.com/CrowCpp/Crow.git
   # GIT_TAG master
-  URL https://github.com/CrowCpp/Crow/tarball/master
+  # URL https://github.com/CrowCpp/Crow/tarball/master
+  URL https://github.com/CrowCpp/Crow/archive/5f49f9add828fdc6eb0f6192df574522b6713ffb.tar.gz
 )
 set(CROW_FEATURES ssl)
 

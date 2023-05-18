@@ -47,7 +47,9 @@ class DBEngine {
     int delete_database(int id);
     int delete_collection(int db_id, int coll_id);
     int delete_document(int db_id, int coll_id, int doc_id);
-
+    int get_num_collections(int db_id);
+    int get_num_docs(int db_id, int coll_id);
+    
    private:
     std::string root_path;
     std::unordered_map<int, Database> databases;

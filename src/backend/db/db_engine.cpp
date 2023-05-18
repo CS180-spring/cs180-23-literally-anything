@@ -290,7 +290,7 @@ int DBEngine::delete_database(int id) {
 
 int DBEngine::delete_collection(int db_id, int coll_id) {
     std::string path = root_path + "/" + std::to_string(db_id) + "/" + std::to_string(coll_id);
-    unordered_map<int, Collection> collections = databases[db_id].get_collections();
+    unordered_map<int, Collection> &collections = databases[db_id].get_collections();
 
     if (std::filesystem::exists(path)) {
         collections.erase(coll_id);
@@ -304,7 +304,9 @@ int DBEngine::delete_collection(int db_id, int coll_id) {
 
 int DBEngine::delete_document(int db_id, int coll_id, int doc_id) {
     std::string path = root_path + "/" + std::to_string(db_id) + "/" + std::to_string(coll_id) + "/" + std::to_string(doc_id) + ".json";
-    unordered_map<int, Document> documents = databases[db_id].get_collection(coll_id).get_documents();
+    auto x = databases[db_id].get_collection(coll_id);
+    unordered_map<int, Document> &documents = x.get_documents();
+    //unordered_map<int, Document> &documents = databases[db_id].get_collection(coll_id).get_documents();
 
     if (std::filesystem::exists(path)) {
         documents.erase(doc_id);
@@ -314,4 +316,28 @@ int DBEngine::delete_document(int db_id, int coll_id, int doc_id) {
         return -1;
     }
     return 0;
+}
+
+int DBEngine::get_num_collections(int db_id) {
+    int count = 0;
+    unordered_map<int, Collection> &collections = databases[db_id].get_collections();
+
+    for (auto i = collections.begin(); i != collections.end(); i++) {
+        count++;
+    }
+
+    return count;
+}
+
+int DBEngine::get_num_docs(int db_id, int coll_id) {
+    int count = 0;
+    auto x = databases[db_id].get_collection(coll_id);
+    unordered_map<int, Document> &documents = x.get_documents();
+
+    for (auto i = documents.begin(); i != documents.end(); i++) {
+        count++;
+    }
+
+    return count;
+
 }
