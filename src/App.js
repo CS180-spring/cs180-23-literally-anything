@@ -21,12 +21,10 @@ function App() {
     <div className="App">
       <HashRouter>
         <Routes>
-          {/* <Route index element={<Home />} /> */}
           <Route index element={<ViewDataBase />}/>
           <Route path="/viewDataBase" element={<ViewDataBase />} />
-          {/* <Route path="/viewDataBase" element={<ViewDataBase />} /> */}
-          <Route path="*" element={<NoPage />} />
           <Route path="/Collections" element={<Collections />} />
+          <Route path="*" element={<NoPage />} />
         </Routes>
       </HashRouter>
 
