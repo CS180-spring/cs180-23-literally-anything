@@ -15,4 +15,4 @@ crow.h
 data/
 node_modules
 CMakeCache.txt
-
+Makefile
