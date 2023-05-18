@@ -43,13 +43,16 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
         });
 
     CROW_ROUTE(app, "/listCollection").methods("GET"_method)
-        ([&DB_engine](/*int id*/const crow::request& req){
-            json parsed = json::parse(req.body);
+        ([&DB_engine](const crow::request& req){
 
-            json j = DB_engine.list_collections(stoi(parsed.at("db_id").dump()));
             std::ostringstream os;
-            os << j;
-            return crow::response(200, "text/plain", os.str());
+            os << req.url_params.get("db_id");  
+            auto db_id = stoi(os.str());
+
+            json j = DB_engine.list_collections(db_id);
+            std::ostringstream result;
+            result << j;
+            return crow::response(200, "text/plain", result.str());
         });
 
 
@@ -123,9 +126,11 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             
             Collection coll = DB_engine.get_collection(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()));
             //json Collection::search_content_json(std::string field, std::string value)
-            auto field = parsed.at("query_key");
-            auto key = parsed.at("query_val");
-            auto result = coll.search_content_json(field, key);
+            auto key = parsed.at("query_key");
+            auto val = parsed.at("query_val");
+            json j = json::object({ {"key", key}, {"value", val} });
+
+            json result = coll.search_content_json(j);
             string returnObj = result.dump(-1).erase(0, 1);
             returnObj.pop_back();
             return crow::response(200, "json", returnObj);
