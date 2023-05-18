@@ -317,3 +317,27 @@ int DBEngine::delete_document(int db_id, int coll_id, int doc_id) {
     }
     return 0;
 }
+
+int DBEngine::get_num_collections(int db_id) {
+    int count = 0;
+    unordered_map<int, Collection> &collections = databases[db_id].get_collections();
+
+    for (auto i = collections.begin(); i != collections.end(); i++) {
+        count++;
+    }
+
+    return count;
+}
+
+int DBEngine::get_num_docs(int db_id, int coll_id) {
+    int count = 0;
+    auto x = databases[db_id].get_collection(coll_id);
+    unordered_map<int, Document> &documents = x.get_documents();
+
+    for (auto i = documents.begin(); i != documents.end(); i++) {
+        count++;
+    }
+
+    return count;
+
+}
