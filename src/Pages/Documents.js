@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import ViewDataBase from './ViewDataBase';
 import './Documents.css'
 
+
+const db_id1 = 123407178935;
+const coll_id1 = 345;
 const Documents = () => {
   const [databases, setDatabases] = useState([]);
 
