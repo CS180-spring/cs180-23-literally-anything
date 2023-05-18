@@ -154,6 +154,10 @@ int main() {
     json jtest5 = {{"name", "Alex"}, {"happy", false}};
     json search4 = colll.search_content_json(jtest5);
     std::cout << "Searching name: Alex, and happy: false search result:" << search4.dump(2) << std::endl;   
+
+    // testing count
+    cout << "Num collections: " << db_engine.get_num_collections(19524072) << endl;
+    cout << "Num documents: " << db_engine.get_num_docs(19524072, 20422072) << endl;
    
     return 0;
 }

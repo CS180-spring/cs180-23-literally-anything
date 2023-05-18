@@ -107,4 +107,3 @@ json Collection::search_content_json(json j) {
     }
     return docs;
 }
-
