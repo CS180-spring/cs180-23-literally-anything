@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Route, useNavigate, Link, Routes } from "react-router-dom";
+import { useNaviagate, Route, useNavigate, Link, Routes } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from '../Components/Button';
 import { Dropdown } from '../Components/Dropdown';
@@ -9,6 +9,7 @@ import  TextBox  from '../Components/TextBox';
 
 const ViewDataBase = () => {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('https://54.177.181.151:4000/listDBs')
@@ -19,16 +20,35 @@ const ViewDataBase = () => {
         console.log(error);
       });
   }, []);
+
   const handleRowClick = (row) => {
     console.log('Clicked row:', row);
   };
 
+  const handleDelete = (item) => {
+    console.log('Clicked');
+    handleRowClick(item);
+    axios.post('https://54.177.181.151:4000/deleteDB', {
+        db_id: item.id
+    })
+      .then(function(response) {
+        console.log(response.data);
+      })
+      .catch(function(error) {
+        console.log(error.response.data);
+      });
+  };
+
+  const handleCollections = () => {
+    navigate('/Collections.js');
+  }
+
   const tdStyle = {
-    textAlign: 'right'
+    textAlign: 'center'
   };
 
   const thStyle = {
-    textAlign: 'right'
+    textAlign: 'center'
   }
 
   return (
@@ -51,17 +71,16 @@ const ViewDataBase = () => {
               </thead>
               <tbody>
                 {data.map((item) => (
-                <tr key={item.id} onClick={() => {handleRowClick(item)}}>
-                  <td>{item.id}   </td>
-                  <td style={tdStyle}>{item.name}
-                  </td>
+                <tr key={item.id}>
+                  <td> {item.id} </td>
+                  <td style={tdStyle}> {item.name} </td>
                   <td style={tdStyle}>
                   {Button && 
-                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall'>
+                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={handleCollections}>
                       Collections
                     </Button>}
                   {Button && 
-                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={handleDelete}> 
+                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleDelete(item)}}> 
                       DeleteDB
                     </Button>}
                   </td>
@@ -76,16 +95,6 @@ const ViewDataBase = () => {
   )
 }
 
-const handleDelete = async (item) => {
-  try {
-    const response = await axios.delete('https://54.177.181.151:4000/listDBs/listDBs', {
-      name: item.name,
-      id: item.id
-    })
-    console.log(response.data);
-  } catch (error) {
-    console.error('Error deleting entry:', error);
-  }
-};
+
 
 export default ViewDataBase;
