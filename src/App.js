@@ -6,13 +6,7 @@ import NoPage from './Pages/NoPage';
 import axios from 'axios';
 import Collections from './Pages/Collections';
 
-axios.get('https://54.183.24.168:4000/listDBs')
-  .then(response => {
-    console.log(response.data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+
 
 function App() {
 

@@ -2,7 +2,7 @@ import './Collections.css';
 import React from 'react';
 import TextBox from '../Components/TextBox';
 
-function Collection() {
+function Collections() {
 
     return(
         <div className="Collections">
@@ -21,4 +21,4 @@ function Collection() {
 
 }
 
-export default Collection;
+export default Collections;

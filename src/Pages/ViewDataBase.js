@@ -37,7 +37,7 @@ const ViewDataBase = () => {
   };
 
   const handleCollections = () => {
-    navigate('/Collections.js');
+    navigate('/Collections');
   }
 
   const tdStyle = {
