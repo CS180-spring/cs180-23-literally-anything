@@ -21,7 +21,6 @@ const ViewDataBase = () => {
   }, []);
   const handleRowClick = (row) => {
     console.log('Clicked row:', row);
-
   };
 
   const tdStyle = {
@@ -62,7 +61,7 @@ const ViewDataBase = () => {
                       Collections
                     </Button>}
                   {Button && 
-                    <Button buttonStyle='btn--outline' buttonSize='btn--small' onClick={handleDelete}> 
+                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={handleDelete}> 
                       DeleteDB
                     </Button>}
                   </td>
@@ -79,14 +78,13 @@ const ViewDataBase = () => {
 
 const handleDelete = async (item) => {
   try {
-    const response = await axios.delete(`https://54.177.181.151:4000/listDBs/${item}`);
-    console.log(response.data); // Optional: Handle the response data
-
-    // Perform any necessary actions after successful deletion
-
+    const response = await axios.delete('https://54.177.181.151:4000/listDBs/listDBs', {
+      name: item.name,
+      id: item.id
+    })
+    console.log(response.data);
   } catch (error) {
     console.error('Error deleting entry:', error);
-    // Handle error case
   }
 };
 

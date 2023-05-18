@@ -4,6 +4,7 @@ import { Routes, Route, HashRouter } from 'react-router-dom';
 import ViewDataBase from './Pages/ViewDataBase';
 import NoPage from './Pages/NoPage';
 import axios from 'axios';
+import Collections from './Pages/Collections';
 
 axios.get('https://54.183.24.168:4000/listDBs')
   .then(response => {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/viewDataBase" element={<ViewDataBase />} />
           {/* <Route path="/viewDataBase" element={<ViewDataBase />} /> */}
           <Route path="*" element={<NoPage />} />
+          <Route path="/Collections" element={<Collections />} />
         </Routes>
       </HashRouter>
 
