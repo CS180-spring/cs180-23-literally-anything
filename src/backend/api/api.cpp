@@ -34,7 +34,7 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
         });
 
     
-    CROW_ROUTE(app, "/createCollection").methods("GET"_method)
+    CROW_ROUTE(app, "/createCollection").methods("GET"_method, "POST"_method)
         ([&DB_engine](/*int db_id, string collectionName*/const crow::request& req){
             json parsed = json::parse(req.body);
 
@@ -153,26 +153,39 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
         });
 
 
-/*
+//int DBEngine::get_num_collections(int db_id) {
+//int DBEngine::get_num_docs(int db_id, int coll_id) {
+ 
     CROW_ROUTE(app, "/collectionCount").methods("GET"_method)
         ([&DB_engine](const crow::request& req){
-            
-        });
-
-
-    CROW_ROUTE(app, "/listCollection").methods("GET"_method, "POST"_method)
-        ([&DB_engine](const crow::request& req){
-
             std::ostringstream os;
             os << req.url_params.get("db_id");  
-            auto db_id = stoi(os.str());
+            int db_id = stoi(os.str());
 
-            json j = DB_engine.list_collections(db_id);
-            std::ostringstream result;
-            result << j;
-            return crow::response(200, "text/plain", result.str());
+            int x = DB_engine.get_num_collections(db_id);
+
+            return crow::response(200, "txt", to_string(x));
         });
-        */
+
+    CROW_ROUTE(app, "/docCount").methods("GET"_method)
+        ([&DB_engine](const crow::request& req){
+            std::ostringstream os;
+
+            os << req.url_params.get("db_id");  
+            int db_id = stoi(os.str());
+
+            std::ostringstream os2;
+
+            os2 << req.url_params.get("coll_id");
+            int coll_id = stoi(os2.str());
+
+            int x = DB_engine.get_num_docs(db_id, coll_id);
+
+            return crow::response(200, "txt", to_string(x));
+        });
+
+
+
 
 
     
