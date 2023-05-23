@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from '../Components/Button';
 import TextBox from '../Components/TextBox';
-import TextBoxColl from "../Components/TextBoxColl";
+import { Dropdown }  from "../Components/Dropdown";
 
 const ViewDataBase = () => {
   const [data, setData] = useState([]);
@@ -41,7 +41,7 @@ const ViewDataBase = () => {
   const handleCollections = (item) => {
     handleRowClick(item);
     const data = item.data;
-    navigate('/Collections', {state:{id:item.id}});
+    navigate('/Collections');
   }
 
   const tdStyle = {
@@ -58,6 +58,7 @@ const ViewDataBase = () => {
         <div className="left_column">
           <h1>ReactDB+</h1>
           <TextBox/>
+          <Dropdown/>
           
         </div>
 
