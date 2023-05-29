@@ -1,26 +1,33 @@
 import React, { useState, useEffect } from "react";
+import TextBoxColl from '../Components/TextBoxColl';
 import axios from "axios";
 import { Button } from "../Components/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import ViewDataBase from './ViewDataBase';
 import './Documents.css'
 
 
-const db_id1 = 123407178935;
-const coll_id1 = 345;
 const Documents = () => {
-  const [databases, setDatabases] = useState([]);
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+  const location = useLocation();
+  
 
   useEffect(() => {
-    axios
-      .get("https://54.177.181.151:4000/listDBs")
-      .then((response) => {
-        setDatabases(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    axios.get('https://54.177.181.151:4000/listDocuments', {
+        params: {
+            "db_id": location.state.db_id,
+            "coll_id": location.state.coll_id
+        }
+    })
+        .then(response => {
+            setData(response.data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }, []);
+
 
   const tdStyle = {
     textAlign: 'center'
@@ -31,27 +38,44 @@ const Documents = () => {
   };
 
   return (
-    <div className="documents-container">
-      <div className="sidebar" id = "sidebar">
-        <h2>Databases</h2>
-        <ul>
-          {databases.map(database => (
-            <li key={database.id}>{database.name}</li>
-          ))}
-        </ul>
-      </div>
-      <div className="content">
-        <div className="table">
-          <table>
-            <thead>
-              <tr>
-                <th>Document ID</th>
+    <div className="Documents">
+      <div className="container">
+        <div className="left-collumn">
+          <h1>ReactDB</h1>
+            <TextBoxColl db_id={location.state.id}/>
+        </div>
+        <div className="main_content">
+          <div className="table_container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Document ID</th>
+                  <th style={thStyle}>Collection Name</th>
+                  <th style={thStyle}>View Documents or Delete</th>
                 </tr>
-            </thead>
-          </table>
+              </thead>
+              <tbody>
+                {data.map((item) => (
+                  <tr key={item.id}>
+                  <td> {item.id} </td>
+                  <td style={tdStyle}> {item.coll_id} </td>
+                  <td style={tdStyle}>
+                  {Button && 
+                      <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' >
+                          Edit
+                      </Button>}
+                  {Button && 
+                      <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' > 
+                          Delete
+                      </Button>}
+                  </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-      
     </div>
   );
 };
