@@ -86,10 +86,16 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
     CROW_ROUTE(app, "/listDocuments").methods("GET"_method)
         ([&DB_engine](const crow::request& req){
 
-            json parsed = json::parse(req.body);
+            std::ostringstream os;
+            os << req.url_params.get("db_id");  
+            int db_id = stoi(os.str());
+
+            std::ostringstream os1;
+            os1 << req.url_params.get("coll_id");  
+            int coll_id = stoi(os1.str());
 
             std::vector<int> docs;
-            int status = DB_engine.list_documents(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()), docs);
+            int status = DB_engine.list_documents(db_id, coll_id, docs);
             if (status < 0) {
                 return crow::response(400, "txt", to_string(status));
             }
@@ -97,7 +103,7 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             json j = json::array();
 
             for (int id : docs) {
-                j.push_back(id);
+                j.push_back({{"id", id}});
             }
             return crow::response(200, "json", j.dump());
 
