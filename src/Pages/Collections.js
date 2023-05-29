@@ -1,14 +1,13 @@
 //import './Collections.css';
 import TextBoxColl from '../Components/TextBoxColl';
-import React, { createContext, useState, useEffect, } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from '../Components/Button';
 
 function Collections() {
-    
     const [data, setData] = useState([]);
-    const navigate = useNavigate;
+    const navigate = useNavigate();
     const location = useLocation();
 
 
@@ -29,6 +28,12 @@ function Collections() {
     const handleRowClick = (item) => {
         console.log('Clicked row:', item);
     };
+    
+    const handleDocument = (item) => {
+        handleRowClick(item);
+        const data = item.data;
+        navigate('/Documents', {state:{db_id:location.state.id, coll_id:item.id}});
+      }
 
     const tdStyle = {
         textAlign: 'center'
@@ -62,7 +67,7 @@ function Collections() {
                                 <td style={tdStyle}> {item.name} </td>
                                 <td style={tdStyle}>
                                 {Button && 
-                                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' >
+                                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleDocument(item)}}>
                                         Documents
                                     </Button>}
                                 {Button && 
