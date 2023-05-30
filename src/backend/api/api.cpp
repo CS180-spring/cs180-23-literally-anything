@@ -211,7 +211,7 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
 
             j["content"] = content;
 
-            int status = DB_engine.update_document(stoi(db_id), stoi(coll_id), stoi(doc_id), j);
+            int status = DB_engine.update_document(stoi(db_id), stoi(coll_id), stoi(doc_id), j.dump());
             if (status < 0) {
                 return crow::response(400, "txt", to_string(status));
             }
