@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import TextBoxColl from '../Components/TextBoxColl';
+import TextBoxDoc from '../Components/TextBoxDoc';
 import axios from "axios";
 import { Button } from "../Components/Button";
-import { useNavigate, Link, useLocation } from 'react-router-dom';
-import ViewDataBase from './ViewDataBase';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Documents.css'
 
 
@@ -26,7 +25,48 @@ const Documents = () => {
         .catch(error => {
             console.log(error);
         });
-    }, []);
+    }, [location.state]);
+
+    const handleRowClick = (item) => {
+      console.log('Clicked row:', item);
+  };
+
+    const handleEdit = (item) => {
+      handleRowClick(item);
+      navigate('/EditDocument', {state:{db_id:location.state.db_id, coll_id:location.state.coll_id, doc_id:item.id}});
+    }
+    
+    function refresh(){
+      axios.get('https://54.177.181.151:4000/listDocuments', {
+        params: {
+            "db_id": location.state.db_id,
+            "coll_id": location.state.coll_id
+        }
+    })
+        .then(response => {
+            setData(response.data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
+    const handleDelete = (item) => {
+      handleRowClick(item);
+      axios.post('https://54.177.181.151:4000/deleteDoc', {
+            "db_id": location.state.db_id,
+            "coll_id": location.state.coll_id,
+            "doc_id": item.id
+        }
+      )
+        .catch(error => {
+            console.log(error);
+        });
+        refresh();
+        refresh();
+
+    }
+
 
 
   const tdStyle = {
@@ -42,7 +82,7 @@ const Documents = () => {
       <div className="container">
         <div className="left-collumn">
           <h1>ReactDB</h1>
-            <TextBoxColl db_id={location.state.id}/>
+            <TextBoxDoc db_id={location.state.db_id} coll_id={location.state.coll_id} />
         </div>
         <div className="main_content">
           <div className="table_container">
@@ -50,22 +90,23 @@ const Documents = () => {
               <thead>
                 <tr>
                   <th>Document ID</th>
-                  <th style={thStyle}>Collection Name</th>
+                  <th style={thStyle}>Collection ID</th>
                   <th style={thStyle}>View Documents or Delete</th>
                 </tr>
               </thead>
               <tbody>
+
                 {data.map((item) => (
                   <tr key={item.id}>
                   <td> {item.id} </td>
-                  <td style={tdStyle}> {item.coll_id} </td>
+                  <td style={tdStyle}> {location.state.coll_id} </td>
                   <td style={tdStyle}>
                   {Button && 
-                      <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' >
+                      <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleEdit(item)}}>
                           Edit
                       </Button>}
                   {Button && 
-                      <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' > 
+                      <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleDelete(item)}}> 
                           Delete
                       </Button>}
                   </td>

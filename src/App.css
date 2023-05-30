@@ -98,6 +98,24 @@ tr:hover {
   background-color: #21104D;
 }
 
+pre {
+  background-color: #f8f8f8;
+  padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap;
+}
+.TextBoxDoc {
+  padding: 0;
+  height: 30px;
+  position: relative;
+  left: 0;
+  outline: #A85AA4;
+  border: 1px solid #cdcdcd;
+  border-color: #A85AA4;
+  background-color: #2F1087;
+  font-size: 16px;
+}
+
 
 /* .main-content {
   margin-top: 80px;

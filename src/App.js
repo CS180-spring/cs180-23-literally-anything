@@ -4,6 +4,7 @@ import ViewDataBase from './Pages/ViewDataBase';
 import Documents from './Pages/Documents';
 import NoPage from './Pages/NoPage';
 import Collections from './Pages/Collections';
+import EditDocument from './Pages/EditDocument';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/viewDataBase" element={<ViewDataBase />} />
           <Route path="/Collections" element={<Collections />} />
           <Route path="/Documents" element={<Documents />} />
+          <Route path="/EditDocument" element={<EditDocument />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
       </HashRouter>
