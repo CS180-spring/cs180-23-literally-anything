@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import TextBoxColl from '../Components/TextBoxColl';
+import TextBoxDoc from '../Components/TextBoxDoc';
 import axios from "axios";
 import { Button } from "../Components/Button";
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -82,7 +82,7 @@ const Documents = () => {
       <div className="container">
         <div className="left-collumn">
           <h1>ReactDB</h1>
-            <TextBoxColl db_id={location.state.id}/>
+            <TextBoxDoc db_id={location.state.db_id} coll_id={location.state.coll_id} />
         </div>
         <div className="main_content">
           <div className="table_container">
