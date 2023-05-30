@@ -38,6 +38,10 @@ const ViewDataBase = () => {
       });
   };
 
+  const handlePageRefresh = () => {
+    window.location.reload();
+  }
+
   const handleCollections = (item) => {
     handleRowClick(item);
     const data = item.data;
@@ -83,7 +87,7 @@ const ViewDataBase = () => {
                       Collections
                     </Button>}
                   {Button && 
-                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleDelete(item)}}> 
+                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleDelete(item); handlePageRefresh();}}> 
                       DeleteDB
                     </Button>}
                   </td>
