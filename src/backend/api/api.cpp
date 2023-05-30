@@ -82,8 +82,7 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             return crow::response(200, "txt", std::to_string(docId));
         });
 
-    
-    CROW_ROUTE(app, "/listDocuments").methods("GET"_method)
+  CROW_ROUTE(app, "/listDocuments").methods("GET"_method)
         ([&DB_engine](const crow::request& req){
 
             std::ostringstream os;
@@ -107,28 +106,39 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             }
             return crow::response(200, "json", j.dump());
 
-        });
+        }); 
 
-
-//Document& DBEngine::get_document(int database_id, int collection_id, int document_id) {
+  
+ //Document& DBEngine::get_document(int database_id, int collection_id, int document_id) {
     CROW_ROUTE(app, "/fetchDocument").methods("GET"_method)
         ([&DB_engine](const crow::request& req){
-            json parsed = json::parse(req.body);
 
+            std::ostringstream os;
 
-            int database_id = stoi(parsed.at("db_id").dump());
-            int collection_id = stoi(parsed.at("coll_id").dump());
-            int document_id = stoi(parsed.at("doc_id").dump());
+            os << req.url_params.get("db_id");
+            int db_id = stoi(os.str());
+
+            std::ostringstream os2;
+
+            os2 << req.url_params.get("coll_id");
+            int coll_id = stoi(os2.str());
+
+            std::ostringstream os3;
+
+            os3 << req.url_params.get("doc_id");
+            int doc_id = stoi(os3.str());
+
             string body;
-            int status = DB_engine.get_document_body(database_id, collection_id, document_id, body);
+            int status = DB_engine.get_document_body(db_id, coll_id, doc_id, body);
             if (status < 0) {
                 return crow::response(400, "txt", to_string(status));
             }
             // Might error if body is empty
             return crow::response(200, "json", body);
         });
-    
-    CROW_ROUTE(app, "/deleteDB").methods("GET"_method)
+
+
+    CROW_ROUTE(app, "/deleteDB").methods("POST"_method)
         ([&DB_engine](const crow::request& req){
             json parsed = json::parse(req.body);
             int db_id = stoi(parsed.at("db_id").dump());
@@ -185,14 +195,41 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             return crow::response(200, "json", returnObj);
         });
 
-
-//int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {
-    CROW_ROUTE(app, "/updateDoctument/<int>/<int>/<int>")
+    //int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {
+    CROW_ROUTE(app, "/updateDoctument")
         .methods("POST"_method)
-        ([&DB_engine](const crow::request& req, int database_id, int collection_id, int document_id){
-            json parsed = json::parse(req.body);
+        ([&DB_engine](const crow::request& req){
+            //json parsed = json::parse(req.body);
 
-            int status = DB_engine.update_document(database_id, collection_id, document_id, parsed.dump());
+            //std::ostringstream os;
+
+            //os << req.url_params.get("db_id");
+            auto db_id = atoi(req.url_params.get("db_id"));
+            auto coll_id = atoi(req.url_params.get("coll_id"));
+            auto doc_id = atoi(req.url_params.get("doc_id"));
+            //int db = stoi(db_id);
+
+            // std::ostringstream os2;
+
+            // os2 << req.url_params.get("coll_id");
+            // int coll_id = stoi(os2.str());
+
+            // std::ostringstream os3;
+
+            // os3 << req.url_params.get("doc_id");
+            // int doc_id = stoi(os3.str());
+
+            std::ostringstream os4;
+
+            os4 << req.url_params.get("content");
+
+            auto text = os4.str();
+
+            json j;
+
+            j["content"] = text;
+
+            int status = DB_engine.update_document(db_id, coll_id, doc_id, j);
             if (status < 0) {
                 return crow::response(400, "txt", to_string(status));
             }
