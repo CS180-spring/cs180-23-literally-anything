@@ -9,12 +9,15 @@ const TextBox = () => {
 
   const handleButtonClick = () => {
     setIsOpen(true);
-    
   };
 
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
   };
+
+  const handlePageRefresh = () => {
+    window.location.reload();
+  }
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -42,7 +45,7 @@ const TextBox = () => {
       {isOpen && (
         <form onSubmit={handleFormSubmit}>
           <input type="text" value={userInput} onChange={handleInputChange} />
-          <Button buttonStyle = 'btn--outline' buttonSize='btn--small'  type="submit" >
+          <Button buttonStyle = 'btn--outline' buttonSize='btn--small'  type="submit" onClick={handlePageRefresh}>
             Submit New Database
           </Button>
         </form>

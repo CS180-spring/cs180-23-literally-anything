@@ -13,6 +13,7 @@ export const Dropdown =()=> {
     }
 const [data, setData] = useState([]);
 
+
     useEffect(() => {
         axios.get('https://54.177.181.151:4000/listDBs')
           .then(response => {
@@ -24,36 +25,39 @@ const [data, setData] = useState([]);
       }, []);
 
     return (
-        <div className="dropdown">
-            <div className="dropdown-menu" onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
-                DataBase:
-                {state ?(<ul className="dropdown-list" onMouseEnter={showDropdown}>
-                    <li>
-                        <div className="button">
-                            {Button && <Button buttonStyle='btn--outline' buttonSize='btn--small'> Collection 1
-                            </Button>}
-                        </div>
-                    </li>
-                    <li>
-                        <div className="button">
-                            {Button && <Button buttonStyle='btn--outline' buttonSize='btn--small'> Collection 2
-                            </Button>}
-                        </div>
-                    </li>
-                    <li>
-                        <div className="button">
-                            {Button && <Button buttonStyle='btn--outline' buttonSize='btn--small'> Collection 3
-                            </Button>}
-                        </div>
-                    </li>
-                    <li>
-                        <div className="button">
-                            {Button && <Button buttonStyle='btn--outline' buttonSize='btn--small'> Collection 4
-                            </Button>}
-                        </div>
-                    </li>
-                </ul>):
-                null}
+        <div className="button">
+            {Button && <Button buttonStyle='btn--outline' buttonSize='btn--large'> Create Collection </Button>}
+            <div className="dropdown">
+                <div className="dropdown-menu" onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
+                    DataBase:
+                    {state ?(<ul className="dropdown-list" onMouseEnter={showDropdown}>
+                        <li>
+                            <div className="button">
+                                {Button && <Button buttonStyle='btn--outline' buttonSize='btn--small'> Collection 1
+                                </Button>}
+                            </div>
+                        </li>
+                        <li>
+                            <div className="button">
+                                {Button && <Button buttonStyle='btn--outline' buttonSize='btn--small'> Collection 2
+                                </Button>}
+                            </div>
+                        </li>
+                        <li>
+                            <div className="button">
+                                {Button && <Button buttonStyle='btn--outline' buttonSize='btn--small'> Collection 3
+                                </Button>}
+                            </div>
+                        </li>
+                        <li>
+                            <div className="button">
+                                {Button && <Button buttonStyle='btn--outline' buttonSize='btn--small'> Collection 4
+                                </Button>}
+                            </div>
+                        </li>
+                    </ul>):
+                    null}
+                </div>
             </div>
         </div>
     )
