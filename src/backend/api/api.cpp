@@ -199,37 +199,19 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
     CROW_ROUTE(app, "/updateDoctument")
         .methods("POST"_method)
         ([&DB_engine](const crow::request& req){
-            //json parsed = json::parse(req.body);
+            json parsed = json::parse(req.body);
 
-            //std::ostringstream os;
-
-            //os << req.url_params.get("db_id");
-            auto db_id = atoi(req.url_params.get("db_id"));
-            auto coll_id = atoi(req.url_params.get("coll_id"));
-            auto doc_id = atoi(req.url_params.get("doc_id"));
-            //int db = stoi(db_id);
-
-            // std::ostringstream os2;
-
-            // os2 << req.url_params.get("coll_id");
-            // int coll_id = stoi(os2.str());
-
-            // std::ostringstream os3;
-
-            // os3 << req.url_params.get("doc_id");
-            // int doc_id = stoi(os3.str());
-
-            std::ostringstream os4;
-
-            os4 << req.url_params.get("content");
-
-            auto text = os4.str();
+            auto db_id = parsed.at("db_id").dump();
+            auto coll_id = parsed.at("coll_id").dump();
+            auto doc_id = parsed.at("doc_id").dump();
+            auto content = parsed.at("content").dump();
+            
 
             json j;
 
-            j["content"] = text;
+            j["content"] = content;
 
-            int status = DB_engine.update_document(db_id, coll_id, doc_id, j);
+            int status = DB_engine.update_document(stoi(db_id), stoi(coll_id), stoi(doc_id), j);
             if (status < 0) {
                 return crow::response(400, "txt", to_string(status));
             }
