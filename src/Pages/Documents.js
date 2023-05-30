@@ -28,6 +28,16 @@ const Documents = () => {
         });
     }, []);
 
+    const handleRowClick = (item) => {
+      console.log('Clicked row:', item);
+  };
+
+    const handleEdit = (item) => {
+      handleRowClick(item);
+      const data = item.data;
+      navigate('/EditDocument', {state:{db_id:location.state.db_id, coll_id:location.state.coll_id, doc_id:item.id}});
+    }
+
 
   const tdStyle = {
     textAlign: 'center'
@@ -50,18 +60,19 @@ const Documents = () => {
               <thead>
                 <tr>
                   <th>Document ID</th>
-                  <th style={thStyle}>Collection Name</th>
+                  <th style={thStyle}>Collection ID</th>
                   <th style={thStyle}>View Documents or Delete</th>
                 </tr>
               </thead>
               <tbody>
+
                 {data.map((item) => (
                   <tr key={item.id}>
                   <td> {item.id} </td>
-                  <td style={tdStyle}> {item.coll_id} </td>
+                  <td style={tdStyle}> {location.state.coll_id} </td>
                   <td style={tdStyle}>
                   {Button && 
-                      <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' >
+                      <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleEdit(item)}}>
                           Edit
                       </Button>}
                   {Button && 

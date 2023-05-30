@@ -98,6 +98,13 @@ tr:hover {
   background-color: #21104D;
 }
 
+pre {
+  background-color: #f8f8f8;
+  padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap;
+}
+
 
 /* .main-content {
   margin-top: 80px;
