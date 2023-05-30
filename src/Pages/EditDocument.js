@@ -48,6 +48,7 @@ const EditDocument = ({ object }) => {
       });
     } catch (error) {
       console.error('Invalid JSON format');
+      alert('Invalid JSON format');
     }
   };
 
