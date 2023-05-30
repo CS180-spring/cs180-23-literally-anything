@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import TextBoxColl from '../Components/TextBoxColl';
 import axios from "axios";
 import { Button } from "../Components/Button";
-import { useNavigate, Link, useLocation } from 'react-router-dom';
-import ViewDataBase from './ViewDataBase';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Documents.css'
 
 
@@ -26,7 +25,7 @@ const Documents = () => {
         .catch(error => {
             console.log(error);
         });
-    }, []);
+    }, [location.state]);
 
     const handleRowClick = (item) => {
       console.log('Clicked row:', item);
@@ -34,9 +33,40 @@ const Documents = () => {
 
     const handleEdit = (item) => {
       handleRowClick(item);
-      const data = item.data;
       navigate('/EditDocument', {state:{db_id:location.state.db_id, coll_id:location.state.coll_id, doc_id:item.id}});
     }
+    
+    function refresh(){
+      axios.get('https://54.177.181.151:4000/listDocuments', {
+        params: {
+            "db_id": location.state.db_id,
+            "coll_id": location.state.coll_id
+        }
+    })
+        .then(response => {
+            setData(response.data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
+    const handleDelete = (item) => {
+      handleRowClick(item);
+      axios.post('https://54.177.181.151:4000/deleteDoc', {
+            "db_id": location.state.db_id,
+            "coll_id": location.state.coll_id,
+            "doc_id": item.id
+        }
+      )
+        .catch(error => {
+            console.log(error);
+        });
+        refresh();
+        refresh();
+
+    }
+
 
 
   const tdStyle = {
@@ -76,7 +106,7 @@ const Documents = () => {
                           Edit
                       </Button>}
                   {Button && 
-                      <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' > 
+                      <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleDelete(item)}}> 
                           Delete
                       </Button>}
                   </td>

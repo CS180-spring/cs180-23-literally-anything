@@ -60,7 +60,6 @@ const EditDocument = ({ object }) => {
         </div>
 
         <div className='main_content'>
-
             <textarea value={text} onChange={handleChange} rows={10} cols={50} />
             <button onClick={handleSave}>Save</button>
         </div>
