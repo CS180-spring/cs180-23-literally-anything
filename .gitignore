@@ -5,3 +5,13 @@ build/*
 *.o
 *.out
 /tests/test_data/*
+build/
+.github
+.vscode
+*.o
+a.out
+tests/test_data/
+data/
+node_modules
+package-lock.json
+httpscert

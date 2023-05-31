@@ -1,70 +1,106 @@
-# Getting Started with Create React App
+[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10831999&assignment_repo_type=AssignmentRepo)
+# Project-CS180
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Build Instructions
 
-## Available Scripts
+## Windows
+### CMake
+Download and Run [CMake Installer](https://cmake.org/download/), make sure to select add to path for all users.
 
-In the project directory, you can run:
+### C++ Tools
+*MSYS/MINGW are not supported as of now*
 
-### `npm start`
+Download and Run [Build Tools for Visual Studio Installer](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022), make sure to select Desktop development with C++ Workload.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Linux
+### CMake
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+sudo apt install cmake
+```
+### C++ Tools
+```bash
+sudo apt install build-essential
+```
+## Mac
+### CMake
+```bash
+brew install cmake
+```
 
-### `npm test`
+## Build
+```cmd
+git clone https://github.com/CS180-spring/cs180-23-literally-anything/
+cd cs180-23-literally-anything
+cd build
+cmake ..
+cmake --build .
+cd bin
+```
+Built executables can be found in cs180-23-literally-anything/build/bin
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Deploy Website to Github Pages
 
-### `npm run build`
+```bash
+cd [project-directory]
+npm run deploy
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Go to the [Deployments page](https://github.com/CS180-spring/cs180-23-literally-anything/deployments/) for your github repo.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+You can access the website at https://cs180-spring.github.io/cs180-23-literally-anything/.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+<!-- 
+# cs180-project-API-endpoints
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**/createDB POST method**
+-database name in body
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Untitled](cs180-project-API-endpoints%204e21289435f34ef2a6f88fad8519279f/Untitled.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+-returns db id
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Untitled](cs180-project-API-endpoints%204e21289435f34ef2a6f88fad8519279f/Untitled%201.png)
 
-## Learn More
+**/listDBs GET method**
+-returns string with list of database IDs, string in json form
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Untitled](cs180-project-API-endpoints%204e21289435f34ef2a6f88fad8519279f/Untitled%202.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**/createCollection GET method**
+-body contains db_id and collectionName (names important)
+-returns collectionID
 
-### Code Splitting
+![Untitled](cs180-project-API-endpoints%204e21289435f34ef2a6f88fad8519279f/Untitled%203.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**/listCollection GET method**
+-body with db_id
+-returns collections in that DB, string in json form
 
-### Analyzing the Bundle Size
+![Untitled](cs180-project-API-endpoints%204e21289435f34ef2a6f88fad8519279f/Untitled%204.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**/createDocument GET method**
+-body with db_id and coll_id
+-returns doc_id
 
-### Making a Progressive Web App
+![Untitled](cs180-project-API-endpoints%204e21289435f34ef2a6f88fad8519279f/Untitled%205.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**/listDocuments GET method**
+-body with db_id and coll_id
+-returns string with list of document IDs
 
-### Advanced Configuration
+![Untitled](cs180-project-API-endpoints%204e21289435f34ef2a6f88fad8519279f/Untitled%206.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**/updateDoctument/<int>/<int>/<int> POST method**
+-call with db_id, coll_id, doc_id in URL, in that order
+-json object in request body
+-returns response of function(should just be 0)
 
-### Deployment
+![Untitled](cs180-project-API-endpoints%204e21289435f34ef2a6f88fad8519279f/Untitled%207.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**/fetchDocument GET method**
+-body with db_id, coll_id, doc_id 
+-returns document contents, string in json form
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Untitled](cs180-project-API-endpoints%204e21289435f34ef2a6f88fad8519279f/Untitled%208.png) -->
