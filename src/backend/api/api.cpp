@@ -71,7 +71,7 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
 
 
     CROW_ROUTE(app, "/createDocument").methods("POST"_method)
-        ([&DB_engine](const crow::request& req){
+        ([&DB_engine](/*int db_id, int collection_id*/const crow::request& req){
             json parsed = json::parse(req.body);
 
             int docId = DB_engine.create_document(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()));
@@ -175,10 +175,54 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             return crow::response(200, "txt", to_string(status));
         });
 
+
+    /*
     CROW_ROUTE(app, "/searchContent").methods("GET"_method)
         ([&DB_engine](const crow::request& req){
+
+            std::ostringstream os;
+            os.clear();
+            os << req.url_params.get("db_id");
+            auto db_id = stoi(os.str());
+
+            std::ostringstream os1;
+            os1.clear();
+            os1 << req.url_params.get("coll_id");
+            auto coll_id = stoi(os1.str());
+
+
+            std::ostringstream os2;
+            os2.clear();
+            os2 << req.url_params.get("query_key");
+            auto query_key = os2.str();
+
+
+            std::ostringstream os3;
+            os3.clear();
+            os3 << req.url_params.get("query_val");
+            auto query_val = os3.str();
+
+
+            int status;
+            Collection& coll = DB_engine.get_collection(db_id, coll_id, status);
+            if (status < 0) {
+                return crow::response(400);
+            }
+            //json Collection::search_content_json(std::string field, std::string value)
+
+            json j = json::object({ {"key", query_key}, {"value", query_val} });
+
+            json result = coll.search_content_json(j);
+            string returnObj = result.dump(-1).erase(0, 1);
+            returnObj.pop_back();
+	    cout << "return " << returnObj;
+            return crow::response(200, "json", returnObj);
+	});
+*/
+    CROW_ROUTE(app, "/searchContent").methods("POST"_method)
+        ([&DB_engine](const crow::request& req){
             json parsed = json::parse(req.body);
-        
+
             int status;
             Collection& coll = DB_engine.get_collection(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()), status);
             if (status < 0) {
@@ -188,13 +232,17 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             auto key = parsed.at("query_key");
             auto val = parsed.at("query_val");
             json j = json::object({ {"key", key}, {"value", val} });
-
+	    cout << "db: " << stoi(parsed.at("db_id").dump()) <<  " coll: " <<  stoi(parsed.at("coll_id").dump()) << endl;
+	    cout << "key: " << key << " val: " << val << endl;
+	    
             json result = coll.search_content_json(j);
+	    cout << "result " << result.dump() << endl;
             string returnObj = result.dump(-1).erase(0, 1);
             returnObj.pop_back();
             return crow::response(200, "json", returnObj);
         });
 
+    
     //int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {
     CROW_ROUTE(app, "/updateDoctument")
         .methods("POST"_method)
@@ -205,13 +253,13 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             auto coll_id = parsed.at("coll_id").dump();
             auto doc_id = parsed.at("doc_id").dump();
             auto content = parsed.at("content").dump();
-            
+
 
             json j;
 
             j["content"] = content;
 
-            int status = DB_engine.update_document(stoi(db_id), stoi(coll_id), stoi(doc_id), j.dump);
+            int status = DB_engine.update_document(stoi(db_id), stoi(coll_id), stoi(doc_id), j.dump());
             if (status < 0) {
                 return crow::response(400, "txt", to_string(status));
             }
@@ -269,6 +317,3 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             res.end();
         });
 }
-
-
-
