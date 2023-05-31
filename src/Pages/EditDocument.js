@@ -54,15 +54,17 @@ const EditDocument = ({ object }) => {
 
   return (
     <div className='EditDocument'>
-        <div className='contained'>
+        <div className='container'>
 
         <div className="left-collumn">
             <h1>ReactDB</h1>
         </div>
 
         <div className='main_content'>
-            <textarea value={text} onChange={handleChange} rows={10} cols={50} />
-            <button onClick={handleSave}>Save</button>
+          <div className="edit_container">
+            <textarea value={text} onChange={handleChange} rows={40} cols={100} />
+            <button className="save_button" onClick={handleSave}>Save</button>
+          </div>
         </div>
         
         </div>

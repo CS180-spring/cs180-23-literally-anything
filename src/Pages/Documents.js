@@ -83,6 +83,7 @@ const Documents = () => {
         <div className="left-collumn">
           <h1>ReactDB</h1>
             <TextBoxDoc db_id={location.state.db_id} coll_id={location.state.coll_id} />
+            
         </div>
         <div className="main_content">
           <div className="table_container">

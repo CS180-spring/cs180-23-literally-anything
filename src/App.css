@@ -40,6 +40,20 @@
 
 }
 
+.edit_container {
+  margin-left: 1%;
+}
+
+.save_button {
+	background-color:#ffffff;
+	border-radius:6px;
+	color:#666666;
+	font-family:Arial;
+	font-size:22px;
+	font-weight:bold;
+  padding:27px 23px;
+}
+
 /* table content */ 
 table {
   width: 90%;
