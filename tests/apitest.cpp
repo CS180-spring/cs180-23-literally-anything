@@ -151,8 +151,8 @@ TEST(SearchTest, ApiTests)
     json j;
     j["db_id"] = dbid;
     j["coll_id"]=collid;
-    j["query_key"]="i";
-    j["query_val"] =1234;
+    j["query_key"]="s";
+    j["query_val"] ="teststring";
     req.body=j.dump();
     req.url="/searchContent";
     req.method=crow::HTTPMethod::GET;
