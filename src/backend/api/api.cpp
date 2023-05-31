@@ -71,7 +71,7 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
 
 
     CROW_ROUTE(app, "/createDocument").methods("POST"_method)
-        ([&DB_engine](/*int db_id, int collection_id*/const crow::request& req){
+        ([&DB_engine](const crow::request& req){
             json parsed = json::parse(req.body);
 
             int docId = DB_engine.create_document(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()));
@@ -161,7 +161,7 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             return crow::response(200, "txt", to_string(status));
         });
 
-    CROW_ROUTE(app, "/deleteDoc").methods("GET"_method)
+    CROW_ROUTE(app, "/deleteDoc").methods("POST"_method)
         ([&DB_engine](const crow::request& req){
             json parsed = json::parse(req.body);
             int db_id = stoi(parsed.at("db_id").dump());
@@ -211,7 +211,7 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
 
             j["content"] = content;
 
-            int status = DB_engine.update_document(stoi(db_id), stoi(coll_id), stoi(doc_id), j.dump());
+            int status = DB_engine.update_document(stoi(db_id), stoi(coll_id), stoi(doc_id), j.dump);
             if (status < 0) {
                 return crow::response(400, "txt", to_string(status));
             }
