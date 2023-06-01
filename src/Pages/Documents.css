@@ -4,6 +4,11 @@ body{
     font-family: Arial;
     text-align: center;
 }
+
+#dino-img {
+    width: 70%;
+    height: 75%;
+  }
   
 .documents-container{
     text-align: left;
