@@ -32,6 +32,7 @@ const TextBoxColl = (db_id) => {
       .catch(function(error) {
         console.log(error);
       });
+      window.location.reload();
   };
 
   return (

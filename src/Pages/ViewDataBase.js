@@ -36,6 +36,7 @@ const ViewDataBase = () => {
       .catch(function(error) {
         console.log(error.response.data);
       });
+      window.location.reload()
   };
 
   const handleCollections = (item) => {
@@ -56,7 +57,7 @@ const ViewDataBase = () => {
       
       <div className="container">
         <div className="left_column">
-          <h1>ReactDB+</h1>
+          <h1>DinoDB</h1>
           <TextBox/>
           
         </div>

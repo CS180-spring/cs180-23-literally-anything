@@ -17,9 +17,8 @@ const TextBox = () => {
   };
 
   const handleFormSubmit = (event) => {
-    event.preventDefault();
+    //event.preventDefault();
     console.log('User input:', userInput);
-    setIsOpen(false);
     process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
     
     axios.post('https://54.177.181.151:4000/createDB', {
@@ -31,6 +30,8 @@ const TextBox = () => {
       .catch(function(error) {
         console.log(error);
       });
+      setIsOpen(false);
+      window.location.reload();
   };
 
   return (
@@ -42,7 +43,7 @@ const TextBox = () => {
       {isOpen && (
         <form onSubmit={handleFormSubmit}>
           <input type="text" value={userInput} onChange={handleInputChange} />
-          <Button buttonStyle = 'btn--outline' buttonSize='btn--small'  type="submit" >
+          <Button buttonStyle = 'btn--outline' buttonSize='btn--small'  type="submit" onClick={handleFormSubmit}>
             Submit New Database
           </Button>
         </form>

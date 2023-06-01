@@ -23,9 +23,24 @@ function Collections() {
             .catch(error => {
                 console.log(error);
             });
-        }, []);
+        }, [location.state]);
 
-    const handleRowClick = (item) => {
+        const handleDelete = (item) => {
+            console.log('Clicked');
+            handleRowClick(item);
+            axios.post('https://54.177.181.151:4000/deleteColl', {
+                "db_id" : location.state.db_id,
+                "coll_id" : item.id
+            })
+              .then(function(response) {
+                console.log(response.data);
+              })
+              .catch(function(error) {
+                console.log(error.response.data);
+              });
+              window.location.reload()
+        };
+        const handleRowClick = (item) => {
         console.log('Clicked row:', item);
     };
     
@@ -50,7 +65,7 @@ function Collections() {
         <div className="Collections">
             <div className="container">
                 <div className="left-collumn">
-                    <h1>ReactDB</h1>
+                    <h1>DinoDB</h1>
                         <TextBoxColl db_id={location.state.id}/>
                 </div>
                 <div className="main_content">
@@ -74,8 +89,8 @@ function Collections() {
                                         Documents
                                     </Button>}
                                 {Button && 
-                                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' > 
-                                        Delete Collection
+                                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleDelete(item)}}> 
+                                        Delete
                                     </Button>}
                                 </td>
                                 </tr>
