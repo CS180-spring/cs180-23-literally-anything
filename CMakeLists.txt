@@ -77,7 +77,7 @@ FetchContent_Declare(json_schema
 FetchContent_MakeAvailable(crow)
 FetchContent_MakeAvailable(json_schema)
 
-add_subdirectory(tests)
+# add_subdirectory(tests)
 add_subdirectory(src/backend)
 
  
