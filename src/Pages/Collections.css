@@ -15,6 +15,11 @@
     flex-direction: flex-start;
     border-right: 3px solid white;
   }
+
+  #dino-img {
+    width: 300px;
+    height: 350px;
+  }
   
   .main_content {
     width: 85%;

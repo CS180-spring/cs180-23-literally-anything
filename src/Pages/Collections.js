@@ -4,6 +4,7 @@ import React, { createContext, useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from '../Components/Button';
+import Dinosaur from "../assets/Dinosaur.png";
 
 function Collections() {
     const [data, setData] = useState([]);
@@ -65,6 +66,7 @@ function Collections() {
         <div className="Collections">
             <div className="container">
                 <div className="left-collumn">
+                <img src={Dinosaur} id="dino-img" alt="dinosaur-logo"/>
                     <h1>DinoDB</h1>
                         <TextBoxColl db_id={location.state.id}/>
                 </div>
@@ -73,7 +75,7 @@ function Collections() {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Collction ID</th>
+                                    <th>Collection ID</th>
                                     <th style={thStyle}>Collection Name</th>
                                     <th style={thStyle}>View Documents or Delete</th>
                                 </tr>
