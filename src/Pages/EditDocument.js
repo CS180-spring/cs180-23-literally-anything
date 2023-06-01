@@ -17,7 +17,7 @@ const EditDocument = ({ object }) => {
         }
     })
         .then(response => {
-            setText(response.data.content);
+          setText(JSON.stringify(response.data));
         })
         .catch(error => {
             console.log(error);
@@ -34,18 +34,26 @@ const EditDocument = ({ object }) => {
       const updatedObject = JSON.parse(text);
       // Do something with the updated object, like saving it to a backend API
       console.log(updatedObject);
-      axios.post('https://54.177.181.151:4000/updateDoctument', {
+      axios.post('https://54.177.181.151:4000/updateDoctument',updatedObject,
+        {
+          params: {
             db_id: location.state.db_id,
             coll_id: location.state.coll_id,
             doc_id: location.state.doc_id,
-            content: updatedObject
-      })
+          }
+        }
+      )
       .then(function(response) {
         console.log(response.data);
+        console.log(location.state.db_id);
+
+          console.log(location.state.coll_id);
+            console.log(location.state.doc_id);
       })
       .catch(function(error) {
         console.log(error.response.data);
       });
+
     } catch (error) {
       console.error('Invalid JSON format');
       alert('Invalid JSON format');
