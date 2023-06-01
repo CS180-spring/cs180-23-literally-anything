@@ -194,6 +194,7 @@ TEST(SearchTest, ApiTests)
     req.url="/searchContent";
     req.method=crow::HTTPMethod::GET;
     app.handle_full(req,res);
+    std::cout<<res.body<<endl;
     EXPECT_EQ(res.code,200);
     EXPECT_EQ(res.body,"{\"b\":true,\"i\":1234,\"s\":\"teststring\"}");
 }
