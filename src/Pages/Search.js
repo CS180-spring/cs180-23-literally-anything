@@ -19,7 +19,7 @@ const Search = ({ object }) => {
             <div className='container'>
     
             <div className="left-collumn">
-                <h1>ReactDB</h1>
+                <h1>DinoDB</h1>
             </div>
     
             <div className='main_content'>
