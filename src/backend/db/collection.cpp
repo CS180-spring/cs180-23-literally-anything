@@ -70,7 +70,7 @@ unordered_map<int, Document>& Collection::get_documents() {
 }
 
 // j is the query inputted by the user
-json Collection::search_content_json(json j) {
+vector<json> Collection::search_content_json(json j) {
     json data;
     vector<json> docs;
     bool inDoc = false;
@@ -88,7 +88,7 @@ json Collection::search_content_json(json j) {
             if (j.size() > 0 && j.size() == 1) {
                 if (data[el.key()] == el.value()) {
                     docs.push_back(data);
-                    return docs;
+                    // return docs;
                 }
             }
             else {
@@ -96,12 +96,13 @@ json Collection::search_content_json(json j) {
                     numSame++;
                 }
                 else {
-                    return docs;
+                    break;
+                    // return docs;
                 }
             }
             if (numSame == j.size()) {
                 docs.push_back(data);
-                return docs;
+                // return docs;
             }
         }
     }
