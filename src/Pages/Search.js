@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link, useLocation } from 'react-router-dom';
+import TextBoxSearch from '../Components/TextBoxSearch';
+import { type } from "@testing-library/user-event/dist/type";
+
 
 const Search = ({ object }) => {
     const [text, setText] = useState(JSON.stringify(object, null, 2));
     const navigate = useNavigate();
     const location = useLocation();
+    const [searchResults, setsearchResults] = useState();
+
+    //console.log();
+  
 
     return (
         <div className='Search'>
@@ -17,8 +24,11 @@ const Search = ({ object }) => {
     
             <div className='main_content'>
               <div className="edit_container">
-                <textarea value={text} onChange={handleChange} rows={10} cols={50} />
-                <button onClick={handleSave}>Save</button>
+              <div className="search_container">
+                
+              </div>
+              
+             
               </div>
             </div>
         
@@ -26,3 +36,5 @@ const Search = ({ object }) => {
         </div>
       );
 }
+
+export default Search;

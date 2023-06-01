@@ -5,6 +5,8 @@ import Documents from './Pages/Documents';
 import NoPage from './Pages/NoPage';
 import Collections from './Pages/Collections';
 import EditDocument from './Pages/EditDocument';
+import Search from './Pages/Search';
+
 
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
           <Route path="/Collections" element={<Collections />} />
           <Route path="/Documents" element={<Documents />} />
           <Route path="/EditDocument" element={<EditDocument />} />
+          <Route path="/Search" element={<Search />} />
+          
           <Route path="*" element={<NoPage />} />
         </Routes>
       </HashRouter>

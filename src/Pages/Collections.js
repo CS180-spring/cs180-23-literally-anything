@@ -35,6 +35,9 @@ function Collections() {
         navigate('/Documents', {state:{db_id:location.state.id, coll_id:item.id}});
       }
 
+      
+
+
     const tdStyle = {
         textAlign: 'center'
       };

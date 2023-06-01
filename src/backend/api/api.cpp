@@ -179,16 +179,17 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             json parsed = json::parse(req.body);
 
             int status;
+            cout << "test" << endl;
             Collection& coll = DB_engine.get_collection(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()), status);
+            cout << "test1" << endl;
             if (status < 0) {
                 return crow::response(400);
             }
-            //json Collection::search_content_json(std::string field, std::string value)
 
 
-            auto key = parsed.at("query_key");
-            auto val = parsed.at("query_val");
-            json j = {{key, val}};
+            auto query = parsed.at("query");
+            cout << query << endl;
+            json j = query;
             json result = coll.search_content_json(j);
             string returnThis = result.dump(2);
 

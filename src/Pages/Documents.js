@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TextBoxDoc from '../Components/TextBoxDoc';
+import TextBoxSearch from '../Components/TextBoxSearch';
+
 import axios from "axios";
 import { Button } from "../Components/Button";
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -67,6 +69,9 @@ const Documents = () => {
 
     }
 
+    const handleSearch = () => {
+      navigate('/Search', {state:{db_id:location.state.db_id, coll_id:location.state.coll_id}});
+    }
 
 
   const tdStyle = {
@@ -83,7 +88,11 @@ const Documents = () => {
         <div className="left-collumn">
           <h1>ReactDB</h1>
             <TextBoxDoc db_id={location.state.db_id} coll_id={location.state.coll_id} />
-            
+            <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleSearch()}}>
+              Search
+            </Button>
+            <TextBoxSearch db_id={location.state.db_id} coll_id={location.state.coll_id} />
+
         </div>
         <div className="main_content">
           <div className="table_container">
