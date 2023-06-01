@@ -15,6 +15,7 @@ const TextBoxDoc = (db_id, coll_id) => {
       .catch(function(error) {
         console.log(error);
       });
+      window.location.reload()
   };
 
 

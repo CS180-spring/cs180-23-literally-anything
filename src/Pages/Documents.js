@@ -64,6 +64,7 @@ const Documents = () => {
         });
         refresh();
         refresh();
+        window.location.reload();
 
     }
 
