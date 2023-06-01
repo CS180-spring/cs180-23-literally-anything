@@ -66,7 +66,7 @@ function Collections() {
     return(
         <div className="Collections">
             <div className="container">
-                <div className="left-collumn">
+                <div className="left_column">
                 <img src={Dinosaur} id="dino-img" alt="dinosaur-logo"/>
                     <h1>DinoDB</h1>
                         <TextBoxColl db_id={location.state.id}/>

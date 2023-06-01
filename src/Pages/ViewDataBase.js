@@ -55,47 +55,49 @@ const ViewDataBase = () => {
   }
 
   return (
-      
-      <div className="container">
-        <div className="left_column">
-          <img src={Dinosaur} id="dino-img" alt="dinosaur-logo"/>
-          <h1>DinoDB</h1>
-          <TextBox/>
-          
-        </div>
 
-        <div className="main_content">
-          <div className="table_container">
-            <table>
-              <thead>
-                <tr>
-                  <th>DataBase ID</th>
-                  <th style={thStyle}>DataBase Name</th>
-                  <th style={thStyle}>View Collections or Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item) => (
-                <tr key={item.id}>
-                  <td> {item.id} </td>
-                  <td style={tdStyle}> {item.name} </td>
-                  <td style={tdStyle}>
-                  {Button && 
-                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleCollections(item)}}>
-                      Collections
-                    </Button>}
-                  {Button && 
-                    <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleDelete(item)}}> 
-                      DeleteDB
-                    </Button>}
-                  </td>
-                </tr>
-                ))}
-              </tbody>
-            </table>
+      <div className="Databases">
+        <div className="container">
+          <div className="left_column">
+            <img src={Dinosaur} id="dino-img" alt="dinosaur-logo"/>
+            <h1>DinoDB</h1>
+            <TextBox/>
+            
           </div>
-        </div>
 
+          <div className="main_content">
+            <div className="table_container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>DataBase ID</th>
+                    <th style={thStyle}>DataBase Name</th>
+                    <th style={thStyle}>View Collections or Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((item) => (
+                  <tr key={item.id}>
+                    <td> {item.id} </td>
+                    <td style={tdStyle}> {item.name} </td>
+                    <td style={tdStyle}>
+                    {Button && 
+                      <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleCollections(item)}}>
+                        Collections
+                      </Button>}
+                    {Button && 
+                      <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleDelete(item)}}> 
+                        DeleteDB
+                      </Button>}
+                    </td>
+                  </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
       </div>
 
   )

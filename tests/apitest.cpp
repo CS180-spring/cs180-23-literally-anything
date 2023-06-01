@@ -98,10 +98,25 @@ TEST(CollectionCount, ApiTests){
     req.url = "/collectionCount";
     req.method = crow::HTTPMethod::GET;
     req.url_params = crow::query_string("/collectionCount?db_id="+to_string(dbid));
-    
+    app.handle_full(req,res);
+    EXPECT_EQ(res.code,200);
+    EXPECT_EQ(res.body,"1");
 }
 TEST(DocumentCount, ApiTests){
-
+    crow::App<crow::CORSHandler> app;
+    auto &cors = app.get_middleware<crow::CORSHandler>();
+    DBEngine DB_engine("../../data");
+    API api;
+    api.setup_routes(app, DB_engine);
+    app.validate();
+    crow::request req;
+    crow::response res;
+    req.url = "/docCount";
+    req.method = crow::HTTPMethod::GET;
+    req.url_params = crow::query_string("/docCount?db_id="+to_string(dbid)+"&coll_id="+to_string(collid));
+    app.handle_full(req,res);
+    EXPECT_EQ(res.code,200);
+    EXPECT_EQ(res.body,"1");
 }
 TEST(UpdateDocument, ApiTests)
 {
@@ -151,7 +166,6 @@ TEST(FetchDocument, ApiTests)
     string teststring = result.dump();
     cout << res.body << endl;
     cout << teststring << endl;
-    // string rstring = result["string"];
     EXPECT_EQ(res.body, "{\"b\":true,\"i\":1234,\"s\":\"teststring\"}");
 }
 TEST(SearchTest, ApiTests)
