@@ -106,6 +106,7 @@ TEST(CollectionCount, ApiTests){
     req.method = crow::HTTPMethod::GET;
     req.url_params = crow::query_string("/collectionCount?db_id="+to_string(dbid));
     app.handle_full(req,res);
+    std::cout<<res.body<<endl;
     EXPECT_EQ(res.code,200);
     EXPECT_EQ(res.body,"1");
 }
@@ -122,6 +123,7 @@ TEST(DocumentCount, ApiTests){
     req.method = crow::HTTPMethod::GET;
     req.url_params = crow::query_string("/docCount?db_id="+to_string(dbid)+"&coll_id="+to_string(collid));
     app.handle_full(req,res);
+    std::cout<<res.body<<endl;
     EXPECT_EQ(res.code,200);
     EXPECT_EQ(res.body,"1");
 }
@@ -255,6 +257,7 @@ TEST(SearchTest, ApiTests)
     req.method=crow::HTTPMethod::GET;
     req.body=j.dump();
     app.handle_full(req,res);
+    std::cout<<res.body<<endl;
     EXPECT_EQ(res.code,200);
     EXPECT_EQ(res.body,"0");
  }
