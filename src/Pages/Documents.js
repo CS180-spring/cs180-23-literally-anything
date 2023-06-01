@@ -39,20 +39,7 @@ const Documents = () => {
       navigate('/EditDocument', {state:{db_id:location.state.db_id, coll_id:location.state.coll_id, doc_id:item.id}});
     }
     
-    function refresh(){
-      axios.get('https://54.177.181.151:4000/listDocuments', {
-        params: {
-            "db_id": location.state.db_id,
-            "coll_id": location.state.coll_id
-        }
-    })
-        .then(response => {
-            setData(response.data);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-    }
+    
 
     const handleDelete = (item) => {
       handleRowClick(item);
@@ -68,8 +55,7 @@ const Documents = () => {
         .catch(error => {
             console.log(error);
         });
-        refresh();
-        refresh();
+
     };
 
     const handleSearch = () => {
@@ -93,7 +79,7 @@ const Documents = () => {
           <h1>DinoDB</h1>
             <TextBoxDoc db_id={location.state.db_id} coll_id={location.state.coll_id} />
             <TextBoxSearch db_id={location.state.db_id} coll_id={location.state.coll_id} />
-
+            
         </div>
         <div className="main_content">
           <div className="table_container">
