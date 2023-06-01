@@ -55,7 +55,8 @@ TEST(CreateTest, ApiTests)
     req.url = "/createDocument";
     req.method = crow::HTTPMethod::GET;
     app.handle_full(req, res);
-    //EXPECT_EQ(res.code, 200);
+    std::cout<<res.body<<endl;
+    EXPECT_EQ(res.code, 200);
     docid = std::stoi(res.body);
 }
 TEST(ListTests, ApiTests)
