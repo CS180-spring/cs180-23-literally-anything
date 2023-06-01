@@ -88,7 +88,7 @@ const Documents = () => {
               <thead>
                 <tr>
                   <th>Document ID</th>
-                  <th style={thStyle}>Document Data</th>
+                  <th style={thStyle}>Collection ID</th>
                   <th style={thStyle}>Edit Documents or Delete</th>
                 </tr>
               </thead>
@@ -97,7 +97,7 @@ const Documents = () => {
                 {data.map((item) => (
                   <tr key={item.id}>
                   <td> {item.id} </td>
-                  <td style={tdStyle}> {handleDocData(item.id)} </td>
+                  <td style={tdStyle}> {location.state.coll_id} </td>
                   <td style={tdStyle}>
                   {Button && 
                       <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleEdit(item)}}>
