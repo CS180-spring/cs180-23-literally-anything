@@ -47,7 +47,7 @@ function Collections() {
         <div className="Collections">
             <div className="container">
                 <div className="left-collumn">
-                    <h1>ReactDB</h1>
+                    <h1>DinoDB</h1>
                         <TextBoxColl db_id={location.state.id}/>
                 </div>
                 <div className="main_content">
