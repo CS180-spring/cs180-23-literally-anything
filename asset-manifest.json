@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/cs180-23-literally-anything/static/css/main.909b8c4d.css",
-    "main.js": "/cs180-23-literally-anything/static/js/main.ae651d01.js",
+    "main.css": "/cs180-23-literally-anything/static/css/main.7d1c69bc.css",
+    "main.js": "/cs180-23-literally-anything/static/js/main.9441fe56.js",
+    "static/media/Dinosaur.png": "/cs180-23-literally-anything/static/media/Dinosaur.f9b8022b7d231ffaed17.png",
     "index.html": "/cs180-23-literally-anything/index.html",
-    "main.909b8c4d.css.map": "/cs180-23-literally-anything/static/css/main.909b8c4d.css.map",
-    "main.ae651d01.js.map": "/cs180-23-literally-anything/static/js/main.ae651d01.js.map"
+    "main.7d1c69bc.css.map": "/cs180-23-literally-anything/static/css/main.7d1c69bc.css.map",
+    "main.9441fe56.js.map": "/cs180-23-literally-anything/static/js/main.9441fe56.js.map"
   },
   "entrypoints": [
-    "static/css/main.909b8c4d.css",
-    "static/js/main.ae651d01.js"
+    "static/css/main.7d1c69bc.css",
+    "static/js/main.9441fe56.js"
   ]
 }
