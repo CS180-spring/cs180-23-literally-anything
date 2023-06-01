@@ -71,7 +71,6 @@ TEST(ListTests, ApiTests)
 
     req.url = "/listCollection";
     req.url_params=crow::query_string("/listCollection?db_id="+to_string(dbid)); 
-    //cout<<req.url<<endl<<req.url_params<<endl;
     req.method = crow::HTTPMethod::GET;
     app.handle_full(req, res);
     cout << res.body << endl;
@@ -86,6 +85,23 @@ TEST(ListTests, ApiTests)
     app.handle_full(req, res);
     cout << res.body << endl;
     EXPECT_EQ(res.code, 200);
+}
+TEST(CollectionCount, ApiTests){
+    crow::App<crow::CORSHandler> app;
+    auto &cors = app.get_middleware<crow::CORSHandler>();
+    DBEngine DB_engine("../../data");
+    API api;
+    api.setup_routes(app, DB_engine);
+    app.validate();
+    crow::request req;
+    crow::response res;
+    req.url = "/collectionCount";
+    req.method = crow::HTTPMethod::GET;
+    req.url_params = crow::query_string("/collectionCount?db_id="+to_string(dbid));
+    
+}
+TEST(DocumentCount, ApiTests){
+
 }
 TEST(UpdateDocument, ApiTests)
 {
@@ -103,7 +119,7 @@ TEST(UpdateDocument, ApiTests)
     testjson["i"] = 1234;
     testjson["b"] = true;
     cout << testjson.dump() << endl;
-    testurl = "/updateDoctument/" + to_string(dbid) + "/" + to_string(collid) + "/" + to_string(docid);
+    testurl = "/updateDocument/" + to_string(dbid) + "/" + to_string(collid) + "/" + to_string(docid);
     cout << testurl << endl;
     req.method = crow::HTTPMethod::POST;
     req.url = testurl;

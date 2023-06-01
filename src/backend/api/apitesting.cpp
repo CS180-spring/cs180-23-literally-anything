@@ -96,7 +96,7 @@ void routes(crow::SimpleApp &app, DBEngine &DB_engine){
 
 
 //int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {
-    CROW_ROUTE(app, "/updateDoctument/<int>/<int>/<int>")
+    CROW_ROUTE(app, "/updateDocument/<int>/<int>/<int>")
         .methods("POST"_method)
         ([&DB_engine](const crow::request& req, int database_id, int collection_id, int document_id){
             auto x = crow::json::load(req.body);

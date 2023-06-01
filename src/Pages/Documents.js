@@ -92,9 +92,6 @@ const Documents = () => {
         <img src={Dinosaur} id="dino-img" alt="dinosaur-logo"/>
           <h1>DinoDB</h1>
             <TextBoxDoc db_id={location.state.db_id} coll_id={location.state.coll_id} />
-            <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleSearch()}}>
-              Search
-            </Button>
             <TextBoxSearch db_id={location.state.db_id} coll_id={location.state.coll_id} />
 
         </div>
