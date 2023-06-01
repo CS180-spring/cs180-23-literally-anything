@@ -92,7 +92,7 @@ You can access the website at https://cs180-spring.github.io/cs180-23-literally-
 
 ![Untitled](cs180-project-API-endpoints%204e21289435f34ef2a6f88fad8519279f/Untitled%206.png)
 
-**/updateDoctument/<int>/<int>/<int> POST method**
+**/updateDocument/<int>/<int>/<int> POST method**
 -call with db_id, coll_id, doc_id in URL, in that order
 -json object in request body
 -returns response of function(should just be 0)

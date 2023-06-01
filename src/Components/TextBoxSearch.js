@@ -65,7 +65,7 @@ const TextBoxSearch = (db_id) => {
       </Button>}
       {isOpen && (
         <form onSubmit={handleFormSubmit}>
-          <input type="text" value={userInput} onChange={handleInputChange} />
+          <input type="text" value={userInput} style={{textAlign: 'center', width: 170}} placeholder="Type a query: {field: value}" onChange={handleInputChange} />
           <Button buttonStyle = 'btn--outline' buttonSize='btn--small'  type="submit" >
             Search
           </Button>
