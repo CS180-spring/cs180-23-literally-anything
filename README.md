@@ -51,7 +51,7 @@ Go to the [Deployments page](https://github.com/CS180-spring/cs180-23-literally-
 You can access the website at https://cs180-spring.github.io/cs180-23-literally-anything/.
 
 
-
+<!-- 
 # cs180-project-API-endpoints
 
 **/createDB POST method**
@@ -103,4 +103,4 @@ You can access the website at https://cs180-spring.github.io/cs180-23-literally-
 -body with db_id, coll_id, doc_id 
 -returns document contents, string in json form
 
-![Untitled](cs180-project-API-endpoints%204e21289435f34ef2a6f88fad8519279f/Untitled%208.png)
+![Untitled](cs180-project-API-endpoints%204e21289435f34ef2a6f88fad8519279f/Untitled%208.png) -->

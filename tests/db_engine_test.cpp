@@ -74,7 +74,8 @@ int main() {
     int coll_id4 = db_engine.create_collection(db_id2, "Example Collection");
     int coll_id5 = db_engine.create_collection(db_id2, "Example Collection");
 
-    Collection& colll = db_engine.get_collection(db_id, coll_id);
+    int status;
+    Collection& colll = db_engine.get_collection(db_id, coll_id, status);
     std::cout << "colll: " << colll.get_name() << std::endl;
     std::cout << "coll id: " << colll.get_id() << std::endl;
 
@@ -134,7 +135,8 @@ int main() {
 
     int valid_doc = db_engine.update_document(db_id, coll_id, doc_id, j2.dump());
     std::cout << "Valid Document? " << valid_doc << std::endl;
-    std::string bodyy = db_engine.get_document_body(db_id, coll_id, doc_id);
+    std::string bodyy; 
+    status = db_engine.get_document_body(db_id, coll_id, doc_id, bodyy);
     std::cout << "body:\n"
               << json::parse(bodyy).dump(2) << std::endl;
 

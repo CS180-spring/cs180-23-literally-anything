@@ -78,15 +78,18 @@ DBEngine::DBEngine(std::string root_path) {
     }
 }
 
+// not used
 std::unordered_map<int, Database> DBEngine::get_databases() {
     return databases;
 }
 
+// not used
 std::unordered_map<int, Collection> DBEngine::get_collections(int database_id) {
     Database db = databases[database_id];
     return db.get_collections();
 }
 
+// not used
 std::unordered_map<int, Document> DBEngine::get_documents(int database_id, int collection_id) {
     Database db = databases[database_id];
     Collection& coll = db.get_collection(collection_id);
@@ -94,17 +97,30 @@ std::unordered_map<int, Document> DBEngine::get_documents(int database_id, int c
     return coll.get_documents();
 }
 
+// not used
 Database& DBEngine::get_database(int database_id) {
     // add logic if database_id does note exist
     return databases[database_id];
 }
 
-Collection& DBEngine::get_collection(int database_id, int collection_id) {
+Collection& DBEngine::get_collection(int database_id, int collection_id, int& valid) {
+    if (databases.find(database_id) == databases.end()) {
+        // Database does not exist
+        valid = -1;
+    }
+    unordered_map<int, Collection> &collections = databases[database_id].get_collections();
+
+    if (collections.find(collection_id) == collections.end()) {
+        // Collection does not exist
+        valid = -2;
+    }
     Database& db = databases[database_id];
     Collection& coll = db.get_collection(collection_id);
+    valid = 0;
     return coll;
 }
 
+// not used
 Document& DBEngine::get_document(int database_id, int collection_id, int document_id) {
     Database& db = databases[database_id];
     Collection& coll = db.get_collection(collection_id);
@@ -112,15 +128,53 @@ Document& DBEngine::get_document(int database_id, int collection_id, int documen
     return doc;
 }
 
-std::string DBEngine::get_document_body(int database_id, int collection_id, int document_id) {
+int DBEngine::get_document_body(int database_id, int collection_id, int document_id, string& body) {
+    if (databases.find(database_id) == databases.end()) {
+        // Database does not exist
+        return -1;
+    }
     Database& db = databases[database_id];
+    unordered_map<int, Collection> &collections = db.get_collections();
+
+    if (collections.find(collection_id) == collections.end()) {
+        // Collection does not exist
+        return -2;
+    }
     Collection& coll = db.get_collection(collection_id);
+    unordered_map<int, Document> &documents = coll.get_documents();
+
+    if (documents.find(document_id) == documents.end()) {
+        // Document does not exist
+        return -3;
+    }
+
     Document& doc = coll.get_document(document_id);
     std::string content = doc.get_content();
-    return content;
+
+    body = content;
+    return 0;
 }
 
 int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {
+    if (databases.find(database_id) == databases.end()) {
+        // Database does not exist
+        return -4;
+    }
+    Database& db = databases[database_id];
+    unordered_map<int, Collection> &collections = db.get_collections();
+
+    if (collections.find(collection_id) == collections.end()) {
+        // Collection does not exist
+        return -5;
+    }
+    Collection& coll = db.get_collection(collection_id);
+    unordered_map<int, Document> &documents = coll.get_documents();
+
+    if (documents.find(document_id) == documents.end()) {
+        // Document does not exist
+        return -6;
+    }
+
     json j = json::parse(body, nullptr, false);
 
     // Not valid json
@@ -128,8 +182,6 @@ int DBEngine::update_document(int database_id, int collection_id, int document_i
         return -1;
     }
 
-    Database& db = databases[database_id];
-    Collection& coll = db.get_collection(collection_id);
     Document& doc = coll.get_document(document_id);
 
     
@@ -175,6 +227,10 @@ int DBEngine::create_database(std::string name) {
 }
 
 int DBEngine::create_collection(int database_id, std::string name) {
+    if (databases.find(database_id) == databases.end()) {
+        // Database does not exist
+        return -1;
+    }
     int id = duration_cast<nanoseconds>(
                  system_clock::now().time_since_epoch())
                  .count() &
@@ -197,20 +253,22 @@ int DBEngine::create_collection(int database_id, std::string name) {
 }
 
 int DBEngine::create_document(int database_id, int collection_id) {
+    if (databases.find(database_id) == databases.end()) {
+        // Database does not exist
+        return -1;
+    }
+    unordered_map<int, Collection> &collections = databases[database_id].get_collections();
+
+    if (collections.find(collection_id) == collections.end()) {
+        // Collection does not exist
+        return -2;
+    }
+
     int id = duration_cast<nanoseconds>(
                  system_clock::now().time_since_epoch())
                  .count() &
              INT_MAX;
-    // int better_id = duration_cast<nanoseconds>(
-    //                     system_clock::now().time_since_epoch())
-    //                     .count() &
-    //                 INT_MAX;
-    // int64_t raw_id = duration_cast<nanoseconds>(
-    //                      system_clock::now().time_since_epoch())
-    //                      .count();
 
-    // Testing collisions
-    // std::cout << "Create Doc Raw ID: " << raw_id << " MS ID: " << id << " NS ID: " << better_id << std::endl;
     Database& db = databases[database_id];
     Collection& coll = db.get_collection(collection_id);
     coll.create_document(id);
@@ -222,6 +280,17 @@ int DBEngine::create_document(int database_id, int collection_id) {
 }
 
 int DBEngine::set_collection_schema(int database_id, int collection_id, std::string schema) {
+    if (databases.find(database_id) == databases.end()) {
+        // Database does not exist
+        return -2;
+    }
+    unordered_map<int, Collection> &collections = databases[database_id].get_collections();
+
+    if (collections.find(collection_id) == collections.end()) {
+        // Collection does not exist
+        return -3;
+    }
+
     Database& db = databases[database_id];
     Collection& coll = db.get_collection(collection_id);
 
@@ -232,11 +301,23 @@ int DBEngine::set_collection_schema(int database_id, int collection_id, std::str
     return 0;
 }
 
-string DBEngine::get_collection_schema(int database_id, int collection_id) {
+int DBEngine::get_collection_schema(int database_id, int collection_id, string& schema) {
+    if (databases.find(database_id) == databases.end()) {
+        // Database does not exist
+        return -1;
+    }
+    unordered_map<int, Collection> &collections = databases[database_id].get_collections();
+
+    if (collections.find(collection_id) == collections.end()) {
+        // Collection does not exist
+        return -2;
+    }
+
     Database& db = databases[database_id];
     Collection& coll = db.get_collection(collection_id);
 
-    return coll.get_schema();
+    schema = coll.get_schema();
+    return 0;
 }
 
 std::unordered_map<int, std::string> DBEngine::list_databases() {
@@ -249,8 +330,12 @@ std::unordered_map<int, std::string> DBEngine::list_databases() {
     return db_names;
 }
 
-std::unordered_map<int, std::string> DBEngine::list_collections(int database_id) {
-    std::unordered_map<int, std::string> coll_names;
+int DBEngine::list_collections(int database_id, std::unordered_map<int, std::string>& coll_names) {
+    if (databases.find(database_id) == databases.end()) {
+        // Database does not exist
+        return -1;
+    }
+    // std::unordered_map<int, std::string> coll_names;
     Database& db = databases[database_id];
 
     unordered_map<int, Collection>& collections = db.get_collections();
@@ -259,12 +344,24 @@ std::unordered_map<int, std::string> DBEngine::list_collections(int database_id)
         coll_names.insert({coll.get_id(), coll.get_name()});
     }
 
-    return coll_names;
+    // return coll_names;
+    return 0;
 }
 
 // returns vector of document ids
-std::vector<int> DBEngine::list_documents(int database_id, int collection_id) {
-    std::vector<int> doc_names;
+int DBEngine::list_documents(int database_id, int collection_id, std::vector<int>& doc_names) {
+    if (databases.find(database_id) == databases.end()) {
+        // Database does not exist
+        return -1;
+    }
+    unordered_map<int, Collection> &collections = databases[database_id].get_collections();
+
+    if (collections.find(collection_id) == collections.end()) {
+        // Collection does not exist
+        return -2;
+    }
+
+    // std::vector<int> doc_names;
     Database& db = databases[database_id];
     Collection& coll = db.get_collection(collection_id);
 
@@ -274,47 +371,79 @@ std::vector<int> DBEngine::list_documents(int database_id, int collection_id) {
         doc_names.push_back(doc.get_id());
     }
 
-    return doc_names;
+    // return doc_names;
+    return 0;
 }
 
+// Success: 0
+// Invalid DB id: -2
 int DBEngine::delete_database(int id) {
+    if (databases.find(id) == databases.end()) {
+        // Database does not exist
+        return -1;
+    }
+
     std::string path = root_path + "/" + std::to_string(id);
     if (std::filesystem::exists(path)) {
         databases.erase(id);
         std::filesystem::remove_all(path);
     }
     else {
-        return -1;
+        return -2;
     }
     return 0;
 }
 
 int DBEngine::delete_collection(int db_id, int coll_id) {
-    std::string path = root_path + "/" + std::to_string(db_id) + "/" + std::to_string(coll_id);
+    if (databases.find(db_id) == databases.end()) {
+        // Database does not exist
+        return -1;
+    }
     unordered_map<int, Collection> &collections = databases[db_id].get_collections();
 
+    if (collections.find(coll_id) == collections.end()) {
+        // Collection does not exist
+        return -2;
+    }
+
+    std::string path = root_path + "/" + std::to_string(db_id) + "/" + std::to_string(coll_id);
     if (std::filesystem::exists(path)) {
         collections.erase(coll_id);
         std::filesystem::remove_all(path);
     }
     else {
-        return -1;
+        return -3;
     }
     return 0;
 }
 
 int DBEngine::delete_document(int db_id, int coll_id, int doc_id) {
+    if (databases.find(db_id) == databases.end()) {
+        // Database does not exist
+        return -1;
+    }
+    unordered_map<int, Collection> &collections = databases[db_id].get_collections();
+
+    if (collections.find(coll_id) == collections.end()) {
+        // Collection does not exist
+        return -2;
+    }
+    Collection& coll = collections[coll_id];
+    unordered_map<int, Document> &documents = coll.get_documents();
+
+    if (documents.find(doc_id) == documents.end()) {
+        // Document does not exist
+        return -3;
+    }
+    documents.erase(doc_id);
+
     std::string path = root_path + "/" + std::to_string(db_id) + "/" + std::to_string(coll_id) + "/" + std::to_string(doc_id) + ".json";
-    auto x = databases[db_id].get_collection(coll_id);
-    unordered_map<int, Document> &documents = x.get_documents();
-    //unordered_map<int, Document> &documents = databases[db_id].get_collection(coll_id).get_documents();
 
     if (std::filesystem::exists(path)) {
-        documents.erase(doc_id);
         std::filesystem::remove_all(path);
     }
     else {
-        return -1;
+        return -4;
     }
     return 0;
 }

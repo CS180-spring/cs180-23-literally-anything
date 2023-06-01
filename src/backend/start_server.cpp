@@ -13,13 +13,7 @@ int main()
 
     // clang-format off
     cors
-      .global()
-        .headers("X-Custom-Header", "Access-Control-Allow-Origin")
-        .methods("POST"_method, "GET"_method)
-      .prefix("/cors")
-        .origin("example.com")
-      .prefix("/nocors")
-        .ignore();
+      .global();
     // clang-format on
 
     app.ssl_file("../../httpscert/host.cert", "../../httpscert/host.key");

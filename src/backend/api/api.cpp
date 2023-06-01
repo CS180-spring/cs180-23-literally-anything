@@ -14,6 +14,7 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             
             string returnObj = name.erase(0, 1);
             returnObj.pop_back();
+            
 
             return crow::response(200, "txt", std::to_string(DB_engine.create_database(returnObj)));
         });
@@ -22,7 +23,7 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
     CROW_ROUTE(app, "/listDBs").methods("GET"_method)
         ([&DB_engine]() {
             std::unordered_map<int, std::string> db_map = DB_engine.list_databases();
-            json j;
+            json j = json::array();
 
             for (const auto& pair : db_map) {
                 j.push_back({{"id", pair.first}, {"name", pair.second}});
@@ -34,72 +35,116 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
         });
 
     
-    CROW_ROUTE(app, "/createCollection").methods("GET"_method)
+    CROW_ROUTE(app, "/createCollection").methods("POST"_method)
         ([&DB_engine](/*int db_id, string collectionName*/const crow::request& req){
             json parsed = json::parse(req.body);
 
-            int collId = DB_engine.create_collection(stoi(parsed.at("db_id").dump()), parsed.at("collectionName").dump());
+            int collId = DB_engine.create_collection(stoi(parsed.at("db_id").dump()), parsed.at("collectionName").get<string>());
+            if (collId < 0) {
+                return crow::response(400, "txt", to_string(collId));
+            }
+
             return crow::response(200, "txt", std::to_string(collId));
         });
 
-    CROW_ROUTE(app, "/listCollection").methods("GET"_method)
+    CROW_ROUTE(app, "/listCollection").methods("GET"_method, "POST"_method)
         ([&DB_engine](const crow::request& req){
 
             std::ostringstream os;
             os << req.url_params.get("db_id");  
             auto db_id = stoi(os.str());
 
-            json j = DB_engine.list_collections(db_id);
-            std::ostringstream result;
-            result << j;
-            return crow::response(200, "txt", result.str());
+            std::unordered_map<int, std::string> coll_map;
+            int status = DB_engine.list_collections(db_id, coll_map);
+            if (status < 0) {
+                return crow::response(400, "txt", to_string(status));
+            }
+
+            json j = json::array();
+
+            for (const auto& pair : coll_map) {
+                j.push_back({{"id", pair.first}, {"name", pair.second}});
+            }
+
+            return crow::response(200, "json", j.dump());
         });
 
 
-    CROW_ROUTE(app, "/createDocument").methods("GET"_method)
+    CROW_ROUTE(app, "/createDocument").methods("POST"_method)
         ([&DB_engine](/*int db_id, int collection_id*/const crow::request& req){
             json parsed = json::parse(req.body);
 
             int docId = DB_engine.create_document(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()));
+            if (docId < 0) {
+                return crow::response(400, "txt", std::to_string(docId));
+            }
             //int docId = DB_engine.create_document(db_id, collection_id);
             return crow::response(200, "txt", std::to_string(docId));
         });
 
-    
-    CROW_ROUTE(app, "/listDocuments").methods("GET"_method)
+  CROW_ROUTE(app, "/listDocuments").methods("GET"_method)
         ([&DB_engine](const crow::request& req){
 
-            json parsed = json::parse(req.body);
-
-            json j = DB_engine.list_documents(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()));
-
-
-            //json j = DB_engine.list_documents(db_id, collection_id);
             std::ostringstream os;
-            os << j;
-            return crow::response(200, "txt", os.str());
+            os << req.url_params.get("db_id");  
+            int db_id = stoi(os.str());
 
-        });
+            std::ostringstream os1;
+            os1 << req.url_params.get("coll_id");  
+            int coll_id = stoi(os1.str());
 
+            std::vector<int> docs;
+            int status = DB_engine.list_documents(db_id, coll_id, docs);
+            if (status < 0) {
+                return crow::response(400, "txt", to_string(status));
+            }
 
-//Document& DBEngine::get_document(int database_id, int collection_id, int document_id) {
+            json j = json::array();
+
+            for (int id : docs) {
+                j.push_back({{"id", id}});
+            }
+            return crow::response(200, "json", j.dump());
+
+        }); 
+
+  
+ //Document& DBEngine::get_document(int database_id, int collection_id, int document_id) {
     CROW_ROUTE(app, "/fetchDocument").methods("GET"_method)
         ([&DB_engine](const crow::request& req){
-            json parsed = json::parse(req.body);
+
+            std::ostringstream os;
+            os << req.url_params.get("db_id");  
+            auto db_id = stoi(os.str());
+
+            std::ostringstream os2;
+            os2 << req.url_params.get("coll_id");  
+            auto coll_id = stoi(os2.str());
+
+            std::ostringstream os3;
+            os3 << req.url_params.get("doc_id");  
+            auto doc_id = stoi(os3.str());
 
 
-            int database_id = stoi(parsed.at("db_id").dump());
-            int collection_id = stoi(parsed.at("coll_id").dump());
-            int document_id = stoi(parsed.at("doc_id").dump());
-            string returnObj = DB_engine.get_document_body(database_id, collection_id, document_id);
-            return crow::response(200, "txt", returnObj);
+            string body;
+            int status = DB_engine.get_document_body(db_id, coll_id, doc_id, body);
+            if (status < 0) {
+                return crow::response(400, "txt", to_string(status));
+            }
+            // Might error if body is empty
+            return crow::response(200, "json", body);
         });
-    
-    CROW_ROUTE(app, "/deleteDB").methods("GET"_method)
+
+
+    CROW_ROUTE(app, "/deleteDB").methods("POST"_method)
         ([&DB_engine](const crow::request& req){
             json parsed = json::parse(req.body);
             int db_id = stoi(parsed.at("db_id").dump());
-            return crow::response(200, "txt", to_string(DB_engine.delete_database(db_id)));
+            int status = DB_engine.delete_database(db_id);
+            if (status < 0) { 
+                return crow::response(400, "txt", to_string(status));
+            }
+            return crow::response(200, "txt", to_string(status));
         });
 
     CROW_ROUTE(app, "/deleteColl").methods("GET"_method)
@@ -107,50 +152,117 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             json parsed = json::parse(req.body);
             int db_id = stoi(parsed.at("db_id").dump());
             int coll_id = stoi(parsed.at("coll_id").dump());
-            return crow::response(200, "txt", to_string(DB_engine.delete_collection(db_id, coll_id)));
+            int status = DB_engine.delete_collection(db_id, coll_id);
+            if (status < 0) {
+                return crow::response(400, "txt", to_string(status));
+            }
+            return crow::response(200, "txt", to_string(status));
         });
 
-    CROW_ROUTE(app, "/deleteDoc").methods("GET"_method)
+    CROW_ROUTE(app, "/deleteDoc").methods("POST"_method)
         ([&DB_engine](const crow::request& req){
             json parsed = json::parse(req.body);
             int db_id = stoi(parsed.at("db_id").dump());
             int coll_id = stoi(parsed.at("coll_id").dump());
             int doc_id = stoi(parsed.at("doc_id").dump());
-            return crow::response(200, "txt", to_string(DB_engine.delete_document(db_id, coll_id, doc_id)));
+
+            int status = DB_engine.delete_document(db_id, coll_id, doc_id);
+            if (status < 0) {
+                return crow::response(400, "txt", to_string(status));
+            }            
+            return crow::response(200, "txt", to_string(status));
         });
 
-    CROW_ROUTE(app, "/searchContent").methods("GET"_method)
+
+    CROW_ROUTE(app, "/searchContent").methods("POST"_method)
         ([&DB_engine](const crow::request& req){
             json parsed = json::parse(req.body);
-        
-            
-            Collection coll = DB_engine.get_collection(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()));
-            //json Collection::search_content_json(std::string field, std::string value)
-            auto key = parsed.at("query_key");
-            auto val = parsed.at("query_val");
-            json j = json::object({ {"key", key}, {"value", val} });
 
+            int status;
+            cout << "test" << endl;
+            Collection& coll = DB_engine.get_collection(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()), status);
+            cout << "test1" << endl;
+            if (status < 0) {
+                return crow::response(400);
+            }
+
+
+            auto query = parsed.at("query");
+            cout << query << endl;
+            json j = query;
             json result = coll.search_content_json(j);
-            string returnObj = result.dump(-1).erase(0, 1);
+            string returnThis = result.dump(2);
+
+            string returnObj = result.dump(2).erase(0, 1);
             returnObj.pop_back();
-            return crow::response(200, "json", returnObj);
+            return crow::response(200, "json", returnThis);
+        });
+
+    
+    //int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {
+    CROW_ROUTE(app, "/updateDoctument")
+        .methods("POST"_method)
+        ([&DB_engine](const crow::request& req){
+            json parsed = json::parse(req.body);
+
+            std::ostringstream os;
+            os << req.url_params.get("db_id");  
+            auto db_id = os.str();
+
+            std::ostringstream os1;
+            os1 << req.url_params.get("coll_id");  
+            auto coll_id = os1.str();
+
+            std::ostringstream os2;
+            os2 << req.url_params.get("doc_id");  
+            auto doc_id = os2.str();
+
+            auto content = parsed.dump();
+
+            int status = DB_engine.update_document(stoi(db_id), stoi(coll_id), stoi(doc_id), content);
+            if (status < 0) {
+                return crow::response(400, "txt", to_string(status));
+            }
+            return crow::response(200, "txt", to_string(status));
         });
 
 
-//int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {
-    CROW_ROUTE(app, "/updateDoctument/<int>/<int>/<int>")
-        .methods("POST"_method)
-        ([&DB_engine](const crow::request& req, int database_id, int collection_id, int document_id){
-            json parsed = json::parse(req.body);
-            // auto x = crow::json::load(req.body);
-            // if (!x)
-            //     return crow::response(400);
-            // std::ostringstream sos;
-            // os << x;
-            int x = DB_engine.update_document(database_id, collection_id, document_id, parsed.dump());
-            std::cout << x << endl;
+//int DBEngine::get_num_collections(int db_id) {
+//int DBEngine::get_num_docs(int db_id, int coll_id) {
+ 
+    CROW_ROUTE(app, "/collectionCount").methods("GET"_method)
+        ([&DB_engine](const crow::request& req){
+            std::ostringstream os;
+            os << req.url_params.get("db_id");  
+            int db_id = stoi(os.str());
+
+            int x = DB_engine.get_num_collections(db_id);
+
             return crow::response(200, "txt", to_string(x));
         });
+
+    CROW_ROUTE(app, "/docCount").methods("GET"_method)
+        ([&DB_engine](const crow::request& req){
+            std::ostringstream os;
+
+            os << req.url_params.get("db_id");  
+            int db_id = stoi(os.str());
+
+            std::ostringstream os2;
+
+            os2 << req.url_params.get("coll_id");
+            int coll_id = stoi(os2.str());
+
+            int x = DB_engine.get_num_docs(db_id, coll_id);
+
+            return crow::response(200, "txt", to_string(x));
+        });
+
+
+
+
+
+    
 
     CROW_CATCHALL_ROUTE(app)
         ([](crow::response& res) {
@@ -165,6 +277,3 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             res.end();
         });
 }
-
-
-
