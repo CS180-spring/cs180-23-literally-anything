@@ -4,14 +4,21 @@ project(restdb LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
+cmake_policy(SET CMP0135 NEW)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin)
-
+set(OPENSSL_ROOT_DIR )
 include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+enable_testing()
 
 message(STATUS "nlohmann/json...")
 set(JSON_Install ON CACHE INTERNAL "")
@@ -56,8 +63,8 @@ message(STATUS "crow...")
 FetchContent_Declare(crow
   # GIT_REPOSITORY https://github.com/CrowCpp/Crow.git
   # GIT_TAG master
-  # URL https://github.com/CrowCpp/Crow/tarball/master
-  URL https://github.com/CrowCpp/Crow/archive/5f49f9add828fdc6eb0f6192df574522b6713ffb.tar.gz
+  URL https://github.com/CrowCpp/Crow/tarball/master
+  #URL https://github.com/CrowCpp/Crow/archive/5f49f9add828fdc6eb0f6192df574522b6713ffb.tar.gz
 )
 set(CROW_FEATURES ssl)
 
@@ -74,3 +81,4 @@ FetchContent_MakeAvailable(json_schema)
 add_subdirectory(tests)
 add_subdirectory(src/backend)
 
+ 
