@@ -31,12 +31,12 @@ const ViewDataBase = () => {
         db_id: item.id
     })
       .then(function(response) {
+        window.location.reload();
         console.log(response.data);
       })
       .catch(function(error) {
         console.log(error.response.data);
       });
-      window.location.reload()
   };
 
   const handleCollections = (item) => {

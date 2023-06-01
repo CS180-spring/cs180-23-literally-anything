@@ -10,12 +10,13 @@ const TextBoxDoc = (db_id, coll_id) => {
         coll_id: db_id.coll_id
     })
       .then(function(response) {
+        window.location.reload();
         console.log(response.data);
       })
       .catch(function(error) {
         console.log(error);
       });
-      window.location.reload()
+
   };
 
 

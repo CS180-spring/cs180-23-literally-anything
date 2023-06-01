@@ -27,12 +27,12 @@ const TextBoxColl = (db_id) => {
         collectionName: userInput
     })
       .then(function(response) {
+        window.location.reload();
         console.log(response.data);
       })
       .catch(function(error) {
         console.log(error);
       });
-      window.location.reload();
   };
 
   return (

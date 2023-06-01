@@ -57,16 +57,17 @@ const Documents = () => {
             "db_id": location.state.db_id,
             "coll_id": location.state.coll_id,
             "doc_id": item.id
-        }
-      )
+        })
+        .then(function(response) {
+          window.location.reload();
+          console.log(response.data)
+        })
         .catch(error => {
             console.log(error);
         });
         refresh();
         refresh();
-        window.location.reload();
-
-    }
+    };
 
 
 

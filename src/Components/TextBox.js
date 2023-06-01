@@ -25,13 +25,16 @@ const TextBox = () => {
       name: userInput
     })
       .then(function(response) {
+        window.location.reload();
         console.log(response.data);
       })
       .catch(function(error) {
         console.log(error);
       });
       setIsOpen(false);
-      window.location.reload();
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1000);
   };
 
   return (

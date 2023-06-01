@@ -19,26 +19,27 @@ function Collections() {
         })
             .then(response => {
                 setData(response.data);
+                console.log(response.data)
             })
             .catch(error => {
                 console.log(error);
             });
         }, [location.state]);
 
-        const handleDelete = (item) => {
+    const handleDelete = (item) => {
             console.log('Clicked');
             handleRowClick(item);
             axios.post('https://54.177.181.151:4000/deleteColl', {
-                "db_id" : location.state.db_id,
+                "db_id" : location.state.id,
                 "coll_id" : item.id
             })
               .then(function(response) {
+                window.location.reload();
                 console.log(response.data);
               })
               .catch(function(error) {
                 console.log(error.response.data);
               });
-              window.location.reload()
         };
         const handleRowClick = (item) => {
         console.log('Clicked row:', item);
