@@ -10,12 +10,12 @@ target_link_libraries(start_api
         ApiModule
 )
 
-target_link_libraries(db_engine_test
-    PRIVATE
-        DatabaseModule
-)
+# target_link_libraries(db_engine_test
+#     PRIVATE
+#         DatabaseModule
+# )
 
- target_link_libraries(api_test
-     PRIVATE
-         ApiModule
-)
+#  target_link_libraries(api_test
+#      PRIVATE
+#          ApiModule
+# )
