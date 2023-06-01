@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import TextBoxDoc from '../Components/TextBoxDoc';
 import TextBoxSearch from '../Components/TextBoxSearch';
-
 import axios from "axios";
 import { Button } from "../Components/Button";
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Documents.css';
 import Dinosaur from "../assets/Dinosaur.png";
-
 
 const Documents = () => {
   const [data, setData] = useState([]);

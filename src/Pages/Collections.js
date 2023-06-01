@@ -1,6 +1,6 @@
 import TextBoxColl from '../Components/TextBoxColl';
-import React, { createContext, useState, useEffect } from "react";
-import { useNavigate, Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from '../Components/Button';
 import Dinosaur from "../assets/Dinosaur.png";
@@ -50,9 +50,6 @@ function Collections() {
         const data = item.data;
         navigate('/Documents', {state:{db_id:location.state.id, coll_id:item.id}});
       }
-
-      
-
 
     const tdStyle = {
         textAlign: 'center'
@@ -104,8 +101,6 @@ function Collections() {
             </div>
         </div>
     )
-                                
-
 }
 
 export default Collections;

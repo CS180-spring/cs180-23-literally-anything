@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from "../Components/Button";
 import Dinosaur from "../assets/Dinosaur.png";
 import './Documents.css';
-
 
 const Search = ({ object }) => {
     const [text, setText] = useState(JSON.stringify(object, null, 2));
     const navigate = useNavigate();
     const location = useLocation();
     const [searchResults, setsearchResults] = useState();
-
-    //console.log();
 
     const handleRowClick = (item) => {
       console.log('Clicked row:', item);
@@ -22,7 +19,6 @@ const Search = ({ object }) => {
       handleRowClick(item);
       navigate('/EditDocument', {state:{db_id:location.state.db_id, coll_id:location.state.coll_id, doc_id:item.id}});
     }    
-    
 
     const handleDelete = (item) => {
       handleRowClick(item);
@@ -40,7 +36,6 @@ const Search = ({ object }) => {
         });
 
     };
-  
 
     return (
         <div className='Search'>
@@ -71,7 +66,6 @@ const Search = ({ object }) => {
                         <tbody>
 
                           {location.state.res.map((item) => (
-                            //<tr key={item}>
                             <tr>
                               <td> {item.id} </td>
                             <td> {JSON.stringify(item.body)} </td>
@@ -85,20 +79,16 @@ const Search = ({ object }) => {
                                     Delete
                                 </Button>}
                        </td>
-                            
                             </tr>
                           ))}
                         </tbody>
                       </table>
                     </div>
                   </div>
-                  
-                
               </div>
               </div>
               </div>
             </div>
-        
             </div>
         </div>
       );
