@@ -200,7 +200,7 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
 
     
     //int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {
-    CROW_ROUTE(app, "/updateDoctument")
+    CROW_ROUTE(app, "/updateDocument")
         .methods("POST"_method)
         ([&DB_engine](const crow::request& req){
             json parsed = json::parse(req.body);
