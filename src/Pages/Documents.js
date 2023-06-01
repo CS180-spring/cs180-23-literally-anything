@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import TextBoxDoc from '../Components/TextBoxDoc';
 import TextBoxSearch from '../Components/TextBoxSearch';
-
 import axios from "axios";
 import { Button } from "../Components/Button";
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Documents.css';
 import Dinosaur from "../assets/Dinosaur.png";
-
 
 const Documents = () => {
   const [data, setData] = useState([]);
@@ -76,7 +74,7 @@ const Documents = () => {
       <div className="container">
         <div className="left_column">
         <img src={Dinosaur} id="dino-img" alt="dinosaur-logo"/>
-          <h1>DinoDB</h1>
+          <h1>DinoDB+</h1>
             <TextBoxDoc db_id={location.state.db_id} coll_id={location.state.coll_id} />
             <TextBoxSearch db_id={location.state.db_id} coll_id={location.state.coll_id} />
             

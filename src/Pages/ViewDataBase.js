@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from '../Components/Button';
 import TextBox from '../Components/TextBox';
-import TextBoxColl from "../Components/TextBoxColl";
 import Dinosaur from "../assets/Dinosaur.png";
 
 const ViewDataBase = () => {
@@ -12,9 +11,9 @@ const ViewDataBase = () => {
 
 
   useEffect(() => {
-    axios.get('https://54.177.181.151:4000/listDBs')
+    axios.get('https://54.177.181.151:4000/listDBs') //calls axios to receive list of Databases
       .then(response => {
-        setData(response.data);
+        setData(response.data); //fills information of db into array that'll be used later for a table
       })
       .catch(error => {
         console.log(error);
@@ -22,13 +21,13 @@ const ViewDataBase = () => {
   }, []);
 
   const handleRowClick = (item) => {
-    console.log('Clicked row:', item);
+    console.log('Clicked row:', item); //used to track what row is clicked when interacting with table
   };
 
   const handleDelete = (item) => {
     console.log('Clicked');
     handleRowClick(item);
-    axios.post('https://54.177.181.151:4000/deleteDB', {
+    axios.post('https://54.177.181.151:4000/deleteDB', { //used to delete database from table/server
         db_id: item.id
     })
       .then(function(response) {
@@ -43,10 +42,10 @@ const ViewDataBase = () => {
   const handleCollections = (item) => {
     handleRowClick(item);
     const data = item.data;
-    navigate('/Collections', {state:{id:item.id}});
+    navigate('/Collections', {state:{id:item.id}}); //navigate to collections page
   }
 
-  const tdStyle = {
+  const tdStyle = { //in line styling
     textAlign: 'center'
   };
 
@@ -60,7 +59,7 @@ const ViewDataBase = () => {
         <div className="container">
           <div className="left_column">
             <img src={Dinosaur} id="dino-img" alt="dinosaur-logo"/>
-            <h1>DinoDB</h1>
+            <h1>DinoDB+</h1>
             <TextBox/>
             
           </div>
@@ -69,23 +68,23 @@ const ViewDataBase = () => {
             <div className="table_container">
               <table>
                 <thead>
-                  <tr>
+                  <tr> 
                     <th>DataBase ID</th>
                     <th style={thStyle}>DataBase Name</th>
                     <th style={thStyle}>View Collections or Delete</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item) => (
+                  {data.map((item) => ( //inputting data from array into table
                   <tr key={item.id}>
                     <td> {item.id} </td>
                     <td style={tdStyle}> {item.name} </td>
                     <td style={tdStyle}>
-                    {Button && 
+                    {Button && //collections navigation button
                       <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleCollections(item)}}>
                         Collections
                       </Button>}
-                    {Button && 
+                    {Button && //delete db button
                       <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleDelete(item)}}> 
                         DeleteDB
                       </Button>}
@@ -96,13 +95,9 @@ const ViewDataBase = () => {
               </table>
             </div>
           </div>
-
         </div>
       </div>
-
   )
 }
-
-
 
 export default ViewDataBase;
