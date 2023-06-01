@@ -13,7 +13,7 @@
     width: 20%;
     height: 97vh;
     flex-direction: flex-start;
-    border-right: 3px solid white;
+    /* border-right: 3px solid white; */
   }
  
   .main_content {
