@@ -4,28 +4,27 @@
   color: white;
 }
 
+
 .container {
   display: flex;
   flex-direction: row;
 }
 
+
 .left_column {
   width: 20%;
   height: 97vh;
   flex-direction: flex-start;
-  /* border-right: 3px solid white; */
+  border-right: 3px solid white;
 }
 
-#dino-img {
-  width: 70%;
-  height: 75%;
-}
 
 .main_content {
   width: 85%;
-  height: 10000%;
+  height: 100%;
   flex-direction: flex-end;
 }
+
 
 .main_content::before {
   content: "";
@@ -38,28 +37,15 @@
   z-index: -1;
 }
 
+
 .table_container {
   display: flex;
   flex-direction: wrap;
   margin-left: 1%;
 
-}
 
-.edit_container {
-  margin-left: 1%;
 }
-
-.save_button {
-	background-color:#ffffff;
-	border-radius:6px;
-	color:#666666;
-	font-family:Arial;
-	font-size:22px;
-	font-weight:bold;
-  padding:27px 23px;
-}
-
-/* table content */ 
+/* table content */
 table {
   width: 90%;
   border-collapse: collapse;
@@ -71,9 +57,11 @@ table {
   border-radius: 40px;
 }
 
+
 thead {
   background-color: #21104D;
 }
+
 
 th {
   padding: 8px;
@@ -81,11 +69,13 @@ th {
   color: #ffffff;
 }
 
+
 td {
   padding: 8px;
   text-align: left;
   color: #ffffff;
 }
+
 
 th:first-child {
   text-align: center;
@@ -93,47 +83,37 @@ th:first-child {
   border-top-right-radius: 0px;
 }
 
+
 th:last-child {
   text-align: center;
   border-top-left-radius: 0px;
   border-top-right-radius: 40px;
 }
 
+
 td:first-child {
   text-align: center;
+
 
   border-top-left-radius: 40px;
   border-bottom-left-radius: 40px;
 }
 
+
 td:last-child {
   text-align: center;
+
 
   border-top-right-radius: 40px;
   border-bottom-right-radius: 40px;
 }
 
+
 tr:hover {
   background-color: #21104D;
 }
 
-pre {
-  background-color: #f8f8f8;
-  padding: 10px;
-  font-family: 'Courier New', Courier, monospace;
-  white-space: pre-wrap;
-}
-.TextBoxDoc {
-  padding: 0;
-  height: 30px;
-  position: relative;
-  left: 0;
-  outline: #A85AA4;
-  border: 1px solid #cdcdcd;
-  border-color: #A85AA4;
-  background-color: #2F1087;
-  font-size: 16px;
-}
+
 
 
 /* .main-content {
@@ -145,15 +125,18 @@ pre {
   background-color: #fff;
 }
 
+
 .body {
   background-color: #21104D;
   color: #21104D;
 }
 
+
 .container {
   display: flex;
   flex-direction: row;
 }
+
 
 .topbar {
   position: fixed;
@@ -167,10 +150,12 @@ pre {
   border: 4px solid #2F1087
 }
 
+
 .bottombar {
   height: 90%;
   padding: 20px;
 }
+
 
 .sidebar {
   position: fixed;
