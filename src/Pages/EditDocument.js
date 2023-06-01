@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link, useLocation } from 'react-router-dom';
+import Dinosaur from "../assets/Dinosaur.png";
+
 const EditDocument = ({ object }) => {
 
   const [text, setText] = useState(JSON.stringify(object, null, 2));
@@ -65,6 +67,7 @@ const EditDocument = ({ object }) => {
         <div className='container'>
 
         <div className="left-collumn">
+            <img src={Dinosaur} id="dino-img" alt="dinosaur-logo"/>
             <h1>DinoDB</h1>
         </div>
 
