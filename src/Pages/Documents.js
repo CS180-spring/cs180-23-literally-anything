@@ -105,7 +105,7 @@ const Documents = () => {
                 <tr>
                   <th>Document ID</th>
                   <th style={thStyle}>Collection ID</th>
-                  <th style={thStyle}>View Documents or Delete</th>
+                  <th style={thStyle}>Edit Documents or Delete</th>
                 </tr>
               </thead>
               <tbody>
