@@ -1,7 +1,5 @@
 #include "api.h"
 
-//#include "../include/crowcpp/crow_all.h"
-
 #include "../../../include/nlohmann/json.hpp"
 using json = nlohmann::json;
 
@@ -23,7 +21,7 @@ int main()
 
 
     req.url = "/createDB";
-    // req.body = "{ \"name\": \"API TEST\"}";
+    req.body = "{ \"name\": \"API TEST\"}";
     json j;
     j["name"] = "API TEST";
     req.body = j.dump();
