@@ -36,7 +36,7 @@ TEST(CreateTest, ApiTests)
     req.method = crow::HTTPMethod::POST;
     app.handle_full(req, res);
     std::cout <<"aaa" <<res.body <<"aaa"<< endl;
-    //EXPECT_EQ(res.code, 200);
+    EXPECT_EQ(res.code, 200);
     int db = std::stoi(res.body);
     dbid=db;
 
@@ -58,6 +58,28 @@ TEST(CreateTest, ApiTests)
     std::cout<<res.body<<endl;
     EXPECT_EQ(res.code, 200);
     docid = std::stoi(res.body);
+}
+TEST(CreateFive,ApiTests){
+    crow::App<crow::CORSHandler> app;
+    auto &cors = app.get_middleware<crow::CORSHandler>();
+    DBEngine DB_engine("../../data");
+    API api;
+    api.setup_routes(app, DB_engine);
+    app.validate();
+    json j;
+    json jj;
+    json jjj;
+    json jjjj;
+    json jjjjj;
+    j["name"]="test1";
+    crow::request req;
+    crow::response res;
+    req.url = "/createDB";
+    req.body = j.dump();
+    cout << j.dump() << endl;
+    req.method = crow::HTTPMethod::POST;
+    app.handle_full(req, res);
+    EXPECT_EQ(res.code,200);
 }
 TEST(ListTests, ApiTests)
 {
