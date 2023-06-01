@@ -88,7 +88,7 @@ const Documents = () => {
   return (
     <div className="Documents">
       <div className="container">
-        <div className="left-collumn">
+        <div className="left_column">
         <img src={Dinosaur} id="dino-img" alt="dinosaur-logo"/>
           <h1>DinoDB</h1>
             <TextBoxDoc db_id={location.state.db_id} coll_id={location.state.coll_id} />
