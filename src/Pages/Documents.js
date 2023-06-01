@@ -39,20 +39,6 @@ const Documents = () => {
       navigate('/EditDocument', {state:{db_id:location.state.db_id, coll_id:location.state.coll_id, doc_id:item.id}});
     }
     
-    function refresh(){
-      axios.get('https://54.177.181.151:4000/listDocuments', {
-        params: {
-            "db_id": location.state.db_id,
-            "coll_id": location.state.coll_id
-        }
-    })
-        .then(response => {
-            setData(response.data);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-    }
 
     const handleDelete = (item) => {
       handleRowClick(item);
@@ -68,8 +54,6 @@ const Documents = () => {
         .catch(error => {
             console.log(error);
         });
-        refresh();
-        refresh();
     };
 
     const handleSearch = () => {
@@ -101,7 +85,7 @@ const Documents = () => {
               <thead>
                 <tr>
                   <th>Document ID</th>
-                  <th style={thStyle}>Collection ID</th>
+                  <th style={thStyle}>Document Data</th>
                   <th style={thStyle}>Edit Documents or Delete</th>
                 </tr>
               </thead>
