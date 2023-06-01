@@ -147,7 +147,7 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             return crow::response(200, "txt", to_string(status));
         });
 
-    CROW_ROUTE(app, "/deleteColl").methods("GET"_method)
+    CROW_ROUTE(app, "/deleteColl").methods("POST"_method)
         ([&DB_engine](const crow::request& req){
             json parsed = json::parse(req.body);
             int db_id = stoi(parsed.at("db_id").dump());
