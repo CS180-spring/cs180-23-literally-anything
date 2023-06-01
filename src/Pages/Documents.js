@@ -11,6 +11,7 @@ import Dinosaur from "../assets/Dinosaur.png";
 
 const Documents = () => {
   const [data, setData] = useState([]);
+  //const [data2] 
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -28,6 +29,7 @@ const Documents = () => {
         .catch(error => {
             console.log(error);
         });
+    
     }, [location.state]);
 
     const handleRowClick = (item) => {
@@ -39,6 +41,22 @@ const Documents = () => {
       navigate('/EditDocument', {state:{db_id:location.state.db_id, coll_id:location.state.coll_id, doc_id:item.id}});
     }
     
+
+    const handleDocData = (item) => {
+      axios.get('https://54.177.181.151:4000/fetchDocument', {
+          params: {
+              "db_id": location.state.db_id,
+              "coll_id": location.state.coll_id,
+              "doc_id": item.id
+          }
+      })
+          .then(response => {
+              return(response.data)
+          })
+          .catch(error => {
+              console.log(error);
+          })
+    }
 
     const handleDelete = (item) => {
       handleRowClick(item);
@@ -94,7 +112,7 @@ const Documents = () => {
                 {data.map((item) => (
                   <tr key={item.id}>
                   <td> {item.id} </td>
-                  <td style={tdStyle}> {location.state.coll_id} </td>
+                  <td style={tdStyle}> {handleDocData(item.id)} </td>
                   <td style={tdStyle}>
                   {Button && 
                       <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleEdit(item)}}>
