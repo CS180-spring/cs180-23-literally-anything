@@ -13,9 +13,9 @@ int main()
 
     DBEngine DB_engine("../../data");
 
-    //API api;
+    API api;
 
-    //api.setup_routes(app, DB_engine);
+    api.setup_routes(app, DB_engine);
 
     CROW_ROUTE(app, "/listDBs").methods("GET"_method)
         ([&DB_engine](){
@@ -24,7 +24,6 @@ int main()
             std::ostringstream os;
             os << j;
             return os.str();
-            //return os.str();
         });
 
 
