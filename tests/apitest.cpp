@@ -217,6 +217,7 @@ TEST(SearchTest, ApiTests)
     req.body=j.dump();
     std::cout<<req.body<<endl;
     app.handle_full(req,res);
+    std::cout<<res.body<<endl;
     EXPECT_EQ(res.code,200);
     EXPECT_EQ(res.body,"0");
  }
