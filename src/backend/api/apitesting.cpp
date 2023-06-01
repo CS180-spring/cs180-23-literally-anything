@@ -27,7 +27,6 @@ void routes(crow::SimpleApp &app, DBEngine &DB_engine){
             std::ostringstream os;
             os << j;
             return os.str();
-            //return os.str();
         });
 
     
@@ -85,10 +84,6 @@ Document& DBEngine::get_document(int database_id, int collection_id, int documen
             json j = DB_engine.get_document_body(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()), stoi(parsed.at("doc_id").dump()));
 
             j.dump(0);
-            //json j = DB_engine.get_document(database_id, collection_id, document_id).get_content();
-            //std::ostringstream os;
-            //os << j;
-            //return os.str();
             std::ostringstream os;
             os << j;
             return os.str();
