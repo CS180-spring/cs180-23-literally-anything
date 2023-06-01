@@ -77,22 +77,22 @@ void routes(crow::SimpleApp &app, DBEngine &DB_engine){
         });
 
 
-//Document& DBEngine::get_document(int database_id, int collection_id, int document_id) {
-    // CROW_ROUTE(app, "/fetchDocument").methods("GET"_method)
-    //     ([&DB_engine](const crow::request& req){
-    //         json parsed = json::parse(req.body);
+Document& DBEngine::get_document(int database_id, int collection_id, int document_id) {
+    CROW_ROUTE(app, "/fetchDocument").methods("GET"_method)
+        ([&DB_engine](const crow::request& req){
+            json parsed = json::parse(req.body);
 
-    //         json j = DB_engine.get_document_body(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()), stoi(parsed.at("doc_id").dump()));
+            json j = DB_engine.get_document_body(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()), stoi(parsed.at("doc_id").dump()));
 
-    //         j.dump(0);
-    //         //json j = DB_engine.get_document(database_id, collection_id, document_id).get_content();
-    //         //std::ostringstream os;
-    //         //os << j;
-    //         //return os.str();
-    //         std::ostringstream os;
-    //         os << j;
-    //         return os.str();
-    //     });
+            j.dump(0);
+            //json j = DB_engine.get_document(database_id, collection_id, document_id).get_content();
+            //std::ostringstream os;
+            //os << j;
+            //return os.str();
+            std::ostringstream os;
+            os << j;
+            return os.str();
+        });
 
 
 //int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {
