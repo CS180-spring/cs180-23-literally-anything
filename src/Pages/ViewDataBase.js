@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from '../Components/Button';
 import TextBox from '../Components/TextBox';
-import TextBoxColl from "../Components/TextBoxColl";
 import Dinosaur from "../assets/Dinosaur.png";
 
 const ViewDataBase = () => {
@@ -60,7 +59,7 @@ const ViewDataBase = () => {
         <div className="container">
           <div className="left_column">
             <img src={Dinosaur} id="dino-img" alt="dinosaur-logo"/>
-            <h1>DinoDB</h1>
+            <h1>DinoDB+</h1>
             <TextBox/>
             
           </div>

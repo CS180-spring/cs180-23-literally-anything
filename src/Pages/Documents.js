@@ -76,7 +76,7 @@ const Documents = () => {
       <div className="container">
         <div className="left_column">
         <img src={Dinosaur} id="dino-img" alt="dinosaur-logo"/>
-          <h1>DinoDB</h1>
+          <h1>DinoDB+</h1>
             <TextBoxDoc db_id={location.state.db_id} coll_id={location.state.coll_id} />
             <TextBoxSearch db_id={location.state.db_id} coll_id={location.state.coll_id} />
             

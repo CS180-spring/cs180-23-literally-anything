@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Button } from "../Components/Button";
-import TextBoxSearch from '../Components/TextBoxSearch';
-import { type } from "@testing-library/user-event/dist/type";
 import Dinosaur from "../assets/Dinosaur.png";
 import './Documents.css';
 
@@ -50,7 +48,7 @@ const Search = ({ object }) => {
     
             <div className="left-collumn">
             <img src={Dinosaur} id="dino-img" alt="dinosaur-logo"/>
-                <h1>DinoDB</h1>
+                <h1>DinoDB+</h1>
             </div>
     
             <div className='main_content'>
