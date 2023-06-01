@@ -83,7 +83,7 @@ vector<json> Collection::search_content_json(json j) {
         numSame = 0;
         docId = i->second.get_id();
         data = i->second.get_content_json();
-        json docObj = {{"id", docId}, {"body", data}}
+        json docObj = {{"id", docId}, {"body", data}};
         // iterate through the query and compare it's field and values to the ones in the document i
         for (auto& el : j.items()) {
             cout << j.size() << endl;
