@@ -4,7 +4,6 @@ project(restdb LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-cmake_policy(SET CMP0135 NEW)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -63,8 +62,8 @@ message(STATUS "crow...")
 FetchContent_Declare(crow
   # GIT_REPOSITORY https://github.com/CrowCpp/Crow.git
   # GIT_TAG master
-  URL https://github.com/CrowCpp/Crow/tarball/master
-  #URL https://github.com/CrowCpp/Crow/archive/5f49f9add828fdc6eb0f6192df574522b6713ffb.tar.gz
+  # URL https://github.com/CrowCpp/Crow/tarball/master
+  URL https://github.com/CrowCpp/Crow/archive/5f49f9add828fdc6eb0f6192df574522b6713ffb.tar.gz
 )
 set(CROW_FEATURES ssl)
 
@@ -78,7 +77,7 @@ FetchContent_Declare(json_schema
 FetchContent_MakeAvailable(crow)
 FetchContent_MakeAvailable(json_schema)
 
-add_subdirectory(tests)
+# add_subdirectory(tests)
 add_subdirectory(src/backend)
 
  

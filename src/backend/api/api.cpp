@@ -147,7 +147,7 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             return crow::response(200, "txt", to_string(status));
         });
 
-    CROW_ROUTE(app, "/deleteColl").methods("GET"_method)
+    CROW_ROUTE(app, "/deleteColl").methods("POST"_method)
         ([&DB_engine](const crow::request& req){
             json parsed = json::parse(req.body);
             int db_id = stoi(parsed.at("db_id").dump());
@@ -190,11 +190,16 @@ void API::setup_routes(crow::App<crow::CORSHandler> &app, DBEngine &DB_engine){
             auto query = parsed.at("query");
             cout << query << endl;
             json j = query;
-            json result = coll.search_content_json(j);
-            string returnThis = result.dump(2);
+            vector<json> result = coll.search_content_json(j);
+            json j2 = json::array();
 
-            string returnObj = result.dump(2).erase(0, 1);
-            returnObj.pop_back();
+            for (json j3 : result) {
+                j2.push_back(j3);
+            }
+            string returnThis = j2.dump(2);
+
+            // string returnObj = result.dump(2).erase(0, 1);
+            // returnObj.pop_back();
             return crow::response(200, "json", returnThis);
         });
 

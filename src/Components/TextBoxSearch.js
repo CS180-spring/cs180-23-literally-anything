@@ -43,7 +43,7 @@ const TextBoxSearch = (db_id) => {
       )
       .then(function(response) {
         console.log(response.data);
-        navigate('/Search', {state:{db_id:db_id.db_id, coll_id:db_id.coll_id, res:response.data}});
+        navigate('/Search', {state:{db_id:db_id.db_id, coll_id:db_id.coll_id, res:response.data, query:updatedObject}});
       })
       .catch(function(error) {
         console.log(error.response.data);
@@ -65,8 +65,7 @@ const TextBoxSearch = (db_id) => {
       </Button>}
       {isOpen && (
         <form onSubmit={handleFormSubmit}>
-          <input type="text" value={userInput} style={{textAlign: 'center', width: 170}} placeholder="Type a query: {field: value}" onChange={handleInputChange} />
-          <Button buttonStyle = 'btn--outline' buttonSize='btn--small'  type="submit" >
+<input type="text" value={userInput} style={{textAlign: 'center', width: 170}} placeholder="Type a query: {field: value}" onChange={handleInputChange} />          <Button buttonStyle = 'btn--outline' buttonSize='btn--small'  type="submit" >
             Search
           </Button>
         </form>
