@@ -11,10 +11,11 @@ using json = nlohmann::json;
 using namespace std;
 
 void routes(crow::SimpleApp &app, DBEngine &DB_engine){
+    //int DBEngine::create_database(std::string name)
     CROW_ROUTE(app, "/createDB").methods("POST"_method)
         ([&DB_engine](const crow::request& req){
 
-            //int DBEngine::create_database(std::string name) {
+            
             json parsed = json::parse(req.body);
             string name = parsed.at("name").dump();
             return std::to_string(DB_engine.create_database(name));
@@ -27,7 +28,6 @@ void routes(crow::SimpleApp &app, DBEngine &DB_engine){
             std::ostringstream os;
             os << j;
             return os.str();
-            //return os.str();
         });
 
     
@@ -57,7 +57,7 @@ void routes(crow::SimpleApp &app, DBEngine &DB_engine){
 
             int docId = DB_engine.create_document(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()));
 
-            //int docId = DB_engine.create_document(db_id, collection_id);
+            
             return std::to_string(docId);
         });
 
@@ -70,29 +70,25 @@ void routes(crow::SimpleApp &app, DBEngine &DB_engine){
             json j = DB_engine.list_documents(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()));
 
 
-            //json j = DB_engine.list_documents(db_id, collection_id);
+            
             std::ostringstream os;
             os << j;
             return crow::response(os.str());                                                //try with and without crow::response
         });
 
 
-//Document& DBEngine::get_document(int database_id, int collection_id, int document_id) {
-    // CROW_ROUTE(app, "/fetchDocument").methods("GET"_method)
-    //     ([&DB_engine](const crow::request& req){
-    //         json parsed = json::parse(req.body);
+Document& DBEngine::get_document(int database_id, int collection_id, int document_id) {
+    CROW_ROUTE(app, "/fetchDocument").methods("GET"_method)
+        ([&DB_engine](const crow::request& req){
+            json parsed = json::parse(req.body);
 
-    //         json j = DB_engine.get_document_body(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()), stoi(parsed.at("doc_id").dump()));
+            json j = DB_engine.get_document_body(stoi(parsed.at("db_id").dump()), stoi(parsed.at("coll_id").dump()), stoi(parsed.at("doc_id").dump()));
 
-    //         j.dump(0);
-    //         //json j = DB_engine.get_document(database_id, collection_id, document_id).get_content();
-    //         //std::ostringstream os;
-    //         //os << j;
-    //         //return os.str();
-    //         std::ostringstream os;
-    //         os << j;
-    //         return os.str();
-    //     });
+            j.dump(0);
+            std::ostringstream os;
+            os << j;
+            return os.str();
+        });
 
 
 //int DBEngine::update_document(int database_id, int collection_id, int document_id, std::string body) {

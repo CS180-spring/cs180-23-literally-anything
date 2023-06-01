@@ -36,7 +36,7 @@ TEST(CreateTest, ApiTests)
     req.method = crow::HTTPMethod::POST;
     app.handle_full(req, res);
     std::cout <<"aaa" <<res.body <<"aaa"<< endl;
-    //EXPECT_EQ(res.code, 200);
+    EXPECT_EQ(res.code, 200);
     int db = std::stoi(res.body);
     dbid=db;
 
@@ -55,8 +55,31 @@ TEST(CreateTest, ApiTests)
     req.url = "/createDocument";
     req.method = crow::HTTPMethod::GET;
     app.handle_full(req, res);
-    //EXPECT_EQ(res.code, 200);
+    std::cout<<res.body<<endl;
+    EXPECT_EQ(res.code, 200);
     docid = std::stoi(res.body);
+}
+TEST(CreateFive,ApiTests){
+    crow::App<crow::CORSHandler> app;
+    auto &cors = app.get_middleware<crow::CORSHandler>();
+    DBEngine DB_engine("../../data");
+    API api;
+    api.setup_routes(app, DB_engine);
+    app.validate();
+    json j;
+    json jj;
+    json jjj;
+    json jjjj;
+    json jjjjj;
+    j["name"]="test1";
+    crow::request req;
+    crow::response res;
+    req.url = "/createDB";
+    req.body = j.dump();
+    cout << j.dump() << endl;
+    req.method = crow::HTTPMethod::POST;
+    app.handle_full(req, res);
+    EXPECT_EQ(res.code,200);
 }
 TEST(ListTests, ApiTests)
 {
@@ -106,6 +129,7 @@ TEST(CollectionCount, ApiTests){
     req.method = crow::HTTPMethod::GET;
     req.url_params = crow::query_string("/collectionCount?db_id="+to_string(dbid));
     app.handle_full(req,res);
+    std::cout<<res.body<<endl;
     EXPECT_EQ(res.code,200);
     EXPECT_EQ(res.body,"1");
 }
@@ -122,6 +146,7 @@ TEST(DocumentCount, ApiTests){
     req.method = crow::HTTPMethod::GET;
     req.url_params = crow::query_string("/docCount?db_id="+to_string(dbid)+"&coll_id="+to_string(collid));
     app.handle_full(req,res);
+    std::cout<<res.body<<endl;
     EXPECT_EQ(res.code,200);
     EXPECT_EQ(res.body,"1");
 }
@@ -194,6 +219,7 @@ TEST(SearchTest, ApiTests)
     req.url="/searchContent";
     req.method=crow::HTTPMethod::GET;
     app.handle_full(req,res);
+    std::cout<<res.body<<endl;
     EXPECT_EQ(res.code,200);
     EXPECT_EQ(res.body,"{\"b\":true,\"i\":1234,\"s\":\"teststring\"}");
 }
@@ -216,6 +242,7 @@ TEST(SearchTest, ApiTests)
     req.body=j.dump();
     std::cout<<req.body<<endl;
     app.handle_full(req,res);
+    std::cout<<res.body<<endl;
     EXPECT_EQ(res.code,200);
     EXPECT_EQ(res.body,"0");
  }
@@ -253,6 +280,7 @@ TEST(SearchTest, ApiTests)
     req.method=crow::HTTPMethod::GET;
     req.body=j.dump();
     app.handle_full(req,res);
+    std::cout<<res.body<<endl;
     EXPECT_EQ(res.code,200);
     EXPECT_EQ(res.body,"0");
  }
