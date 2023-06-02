@@ -3,13 +3,9 @@
 #include <bits/stdc++.h>
 #include <fstream>
 using namespace std;
- 
-// encdec class with encrypt() and
-// decrypt() member functions
-class encdec {
+
+class secDB {
     int key;
- 
-    // File name to be encrypt
     string file = "geeksforgeeks.txt";
     char c;
  
@@ -18,7 +14,7 @@ public:
     void decrypt();
 };
 
-void encdec::encrypt()
+void secDB::encrypt()
 {
     cout << "key: ";
     cin >> key;
@@ -36,7 +32,7 @@ void encdec::encrypt()
     fout.close();
 }
  
-void encdec::decrypt()
+void secDB::decrypt()
 {
     cout << "key: ";
     cin >> key;
@@ -57,7 +53,7 @@ void encdec::decrypt()
 // Driver Code
 // int main()
 // {
-//     encdec enc;
+//     secDB enc;
 //     char c;
 //     cout << "\n";
 //     cout << "Enter Your Choice : -> \n";
