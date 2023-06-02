@@ -13,7 +13,7 @@ using namespace std;
 class Collection {
    public:
     Collection();
-    Collection(int id, string name);  // database id
+    Collection(int id, string name);
     string get_name();
     void set_name(string new_name);
     int get_id();

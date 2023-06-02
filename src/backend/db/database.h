@@ -9,8 +9,8 @@
 class Database {
    public:
     Database();
-    Database(int id, string name);                // database id
-    bool create_collection(int id, string name);  //  collection id
+    Database(int id, string name);
+    bool create_collection(int id, string name);
     Collection& get_collection(int id);
     unordered_map<int, Collection>& get_collections();
     string get_name();
