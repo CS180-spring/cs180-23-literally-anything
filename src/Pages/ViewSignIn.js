@@ -45,14 +45,6 @@ const ViewSignIn = () => {
     navigate('/Collections', {state:{id:item.id}}); //navigate to collections page
   }
 
-  const tdStyle = { //in line styling
-    textAlign: 'center'
-  };
-
-  const thStyle = {
-    textAlign: 'center'
-  }
-
   return (
 
       <div className="Databases">
@@ -63,7 +55,7 @@ const ViewSignIn = () => {
           </div>
 
           <div className="main_content">
-            
+
           </div>
         </div>
       </div>
