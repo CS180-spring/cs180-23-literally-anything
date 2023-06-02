@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect, } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Button } from '../Components/Button';
 import Dinosaur from "../assets/Dinosaur.png";
 
 const ViewSignIn = () => {
