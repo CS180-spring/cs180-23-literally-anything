@@ -49,27 +49,3 @@ void secDB::decrypt()
     fin.close();
     fout.close();
 }
- 
-// Driver Code
-// int main()
-// {
-//     secDB enc;
-//     char c;
-//     cout << "\n";
-//     cout << "Enter Your Choice : -> \n";
-//     cout << "1. encrypt \n";
-//     cout << "2. decrypt \n";
-//     cin >> c;
-//     cin.ignore();
- 
-//     switch (c) {
-//     case '1': {
-//         enc.encrypt();
-//         break;
-//     }
-//     case '2': {
-//         enc.decrypt();
-//         break;
-//     }
-//     }
-// }
