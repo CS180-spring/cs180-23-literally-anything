@@ -60,8 +60,6 @@ const ViewSignIn = () => {
           <div className="left_column">
             <img src={Dinosaur} id="dino-img" alt="dinosaur-logo"/>
             <h1>DinoDB+</h1>
-            <TextBox/>
-            
           </div>
 
           <div className="main_content">
