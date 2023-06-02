@@ -36,7 +36,6 @@ void encdec::encrypt()
     fout.close();
 }
  
-// Definition of decryption function
 void encdec::decrypt()
 {
     cout << "key: ";
@@ -47,9 +46,6 @@ void encdec::decrypt()
     fout.open("decrypt.txt", fstream::out);
  
     while (fin >> noskipws >> c) {
- 
-        // Remove the key from the
-        // character
         int temp = (c - key);
         fout << (char)temp;
     }
