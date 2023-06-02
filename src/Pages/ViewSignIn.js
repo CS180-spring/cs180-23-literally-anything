@@ -66,18 +66,7 @@ const ViewSignIn = () => {
 
           <div className="main_content">
             <div className="table_container">
-              <table>
-                <thead>
-                  <tr> 
-                    <th>DataBase ID</th>
-                    <th style={thStyle}>DataBase Name</th>
-                    <th style={thStyle}>View Collections or Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                </tbody>
-              </table>
+
             </div>
           </div>
         </div>
