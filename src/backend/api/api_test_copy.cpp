@@ -35,7 +35,7 @@ int main()
 
     req.body = "";
 
-    app.handle(req, res); //res will contain a code of 200, and a response body of "hi"
+    app.handle(req, res);
     
     std::cout << "List DBs endpoint body: " << std::endl;
     std::cout << res.body << std::endl;
@@ -44,7 +44,7 @@ int main()
 
     req.url = "/listCollection";
 
-    app.handle(req, res); //res will contain a code of 200, and a response body of "hi"
+    app.handle(req, res);
     
     std::cout << "List collection endpoint body: " << std::endl;
     std::cout << res.body << std::endl;

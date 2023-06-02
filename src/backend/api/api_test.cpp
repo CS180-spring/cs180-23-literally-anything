@@ -33,7 +33,7 @@ int main()
 
     req.url = "/listDBs";
 
-    app.handle(req, res); //res will contain a code of 200, and a response body of "hi"
+    app.handle(req, res); 
     
     std::cout << res.code;
 
