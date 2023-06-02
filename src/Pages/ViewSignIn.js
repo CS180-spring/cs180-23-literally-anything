@@ -63,9 +63,7 @@ const ViewSignIn = () => {
           </div>
 
           <div className="main_content">
-            <div className="table_container">
-
-            </div>
+            
           </div>
         </div>
       </div>
