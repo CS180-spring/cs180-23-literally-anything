@@ -72,25 +72,25 @@ void encdec::decrypt()
 }
  
 // Driver Code
-int main()
-{
-    encdec enc;
-    char c;
-    cout << "\n";
-    cout << "Enter Your Choice : -> \n";
-    cout << "1. encrypt \n";
-    cout << "2. decrypt \n";
-    cin >> c;
-    cin.ignore();
+// int main()
+// {
+//     encdec enc;
+//     char c;
+//     cout << "\n";
+//     cout << "Enter Your Choice : -> \n";
+//     cout << "1. encrypt \n";
+//     cout << "2. decrypt \n";
+//     cin >> c;
+//     cin.ignore();
  
-    switch (c) {
-    case '1': {
-        enc.encrypt();
-        break;
-    }
-    case '2': {
-        enc.decrypt();
-        break;
-    }
-    }
-}
+//     switch (c) {
+//     case '1': {
+//         enc.encrypt();
+//         break;
+//     }
+//     case '2': {
+//         enc.decrypt();
+//         break;
+//     }
+//     }
+// }
