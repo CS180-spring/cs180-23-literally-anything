@@ -13,7 +13,7 @@ const ViewSignIn = () => {
   useEffect(() => {
     axios.get('https://54.177.181.151:4000/listDBs')
       .then(response => {
-        setData(response.data); //fills information of db into array that'll be used later for a table
+        setData(response.data);
       })
       .catch(error => {
         console.log(error);
