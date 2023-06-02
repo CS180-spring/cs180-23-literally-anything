@@ -9,6 +9,7 @@ import Dinosaur from "../assets/Dinosaur.png";
 
 const Documents = () => {
   const [data, setData] = useState([]);
+  //const [data2] 
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -26,6 +27,7 @@ const Documents = () => {
         .catch(error => {
             console.log(error);
         });
+    
     }, [location.state]);
 
     const handleRowClick = (item) => {
@@ -53,7 +55,6 @@ const Documents = () => {
         .catch(error => {
             console.log(error);
         });
-
     };
 
     const handleSearch = () => {
