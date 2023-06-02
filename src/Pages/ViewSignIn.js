@@ -75,22 +75,7 @@ const ViewSignIn = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item) => ( //inputting data from array into table
-                  <tr key={item.id}>
-                    <td> {item.id} </td>
-                    <td style={tdStyle}> {item.name} </td>
-                    <td style={tdStyle}>
-                    {Button && //collections navigation button
-                      <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleCollections(item)}}>
-                        Collections
-                      </Button>}
-                    {Button && //delete db button
-                      <Button buttonStyle='btn--outline' buttonSize='btn--xtrasmall' onClick={() => {handleDelete(item)}}> 
-                        DeleteDB
-                      </Button>}
-                    </td>
-                  </tr>
-                  ))}
+                  
                 </tbody>
               </table>
             </div>
