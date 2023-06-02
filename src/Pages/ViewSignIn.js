@@ -3,21 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Dinosaur from "../assets/Dinosaur.png";
 
-const ViewSignIn = () => {
-  const [data, setData] = useState([]);
-  const navigate = useNavigate();
-
-
-  useEffect(() => {
-    axios.get('https://54.177.181.151:4000/listDBs')
-      .then(response => {
-        setData(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
-
   const handleRowClick = (item) => {
     console.log('Clicked row:', item); //used to track what row is clicked when interacting with table
   };
